@@ -48,6 +48,10 @@
             this.FolderBrowserParts = new System.Windows.Forms.FolderBrowserDialog();
             this.ErrorProviderMain = new System.Windows.Forms.ErrorProvider(this.components);
             this.ToolTipMain = new System.Windows.Forms.ToolTip(this.components);
+            this.BtnAddProfile = new System.Windows.Forms.Button();
+            this.CntxtMenuParts = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.restartPartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pauseUploadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TblLayoutMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SplitOuter)).BeginInit();
             this.SplitOuter.Panel1.SuspendLayout();
@@ -60,38 +64,42 @@
             this.PnlTop.SuspendLayout();
             this.PnlBottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderMain)).BeginInit();
+            this.CntxtMenuParts.SuspendLayout();
             this.SuspendLayout();
             // 
             // LblProfile
             // 
             this.LblProfile.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.LblProfile.AutoSize = true;
-            this.LblProfile.Location = new System.Drawing.Point(35, 12);
+            this.LblProfile.Location = new System.Drawing.Point(50, 12);
             this.LblProfile.Name = "LblProfile";
             this.LblProfile.Size = new System.Drawing.Size(36, 13);
             this.LblProfile.TabIndex = 0;
             this.LblProfile.Text = "Profile";
+            this.ToolTipMain.SetToolTip(this.LblProfile, "Choose one of the AWS credentials profile already stored on this machine.");
             // 
             // LblBucket
             // 
             this.LblBucket.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.LblBucket.AutoSize = true;
             this.LblBucket.Enabled = false;
-            this.LblBucket.Location = new System.Drawing.Point(30, 39);
+            this.LblBucket.Location = new System.Drawing.Point(45, 39);
             this.LblBucket.Name = "LblBucket";
             this.LblBucket.Size = new System.Drawing.Size(41, 13);
             this.LblBucket.TabIndex = 1;
             this.LblBucket.Text = "Bucket";
+            this.ToolTipMain.SetToolTip(this.LblBucket, "Choose one of the buckets available to the chosen AWS profile.");
             // 
             // LblKey
             // 
             this.LblKey.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.LblKey.AutoSize = true;
-            this.LblKey.Location = new System.Drawing.Point(46, 66);
+            this.LblKey.Location = new System.Drawing.Point(61, 66);
             this.LblKey.Name = "LblKey";
             this.LblKey.Size = new System.Drawing.Size(25, 13);
             this.LblKey.TabIndex = 2;
             this.LblKey.Text = "Key";
+            this.ToolTipMain.SetToolTip(this.LblKey, "The unique key where this object will be stored in the S3 bucket.");
             // 
             // TblLayoutMain
             // 
@@ -112,9 +120,9 @@
             // 
             // SplitOuter
             // 
-            this.SplitOuter.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.SplitOuter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SplitOuter.Location = new System.Drawing.Point(3, 163);
+            this.SplitOuter.Location = new System.Drawing.Point(3, 160);
+            this.SplitOuter.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.SplitOuter.Name = "SplitOuter";
             this.SplitOuter.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -128,8 +136,8 @@
             // SplitOuter.Panel2
             // 
             this.SplitOuter.Panel2.Controls.Add(this.SplitInner);
-            this.SplitOuter.Size = new System.Drawing.Size(403, 380);
-            this.SplitOuter.SplitterDistance = 146;
+            this.SplitOuter.Size = new System.Drawing.Size(403, 386);
+            this.SplitOuter.SplitterDistance = 149;
             this.SplitOuter.TabIndex = 13;
             // 
             // LblOptions
@@ -140,6 +148,7 @@
             this.LblOptions.Size = new System.Drawing.Size(121, 13);
             this.LblOptions.TabIndex = 17;
             this.LblOptions.Text = "Additional AWS options:";
+            this.ToolTipMain.SetToolTip(this.LblOptions, "Additional options to pass to the AWS S3 CreateMultipartUpload() function.");
             // 
             // ChkAsynchronous
             // 
@@ -151,25 +160,26 @@
             this.ChkAsynchronous.Size = new System.Drawing.Size(137, 17);
             this.ChkAsynchronous.TabIndex = 15;
             this.ChkAsynchronous.Text = "Upload Asynchronously";
+            this.ToolTipMain.SetToolTip(this.ChkAsynchronous, "If selected, then object parts will be uploaded in parallel.  Otherwise, parts wi" +
+        "ll be uploaded one at a time.");
             this.ChkAsynchronous.UseVisualStyleBackColor = true;
             // 
             // TxtOptions
             // 
-            this.TxtOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TxtOptions.Location = new System.Drawing.Point(0, 49);
+            this.TxtOptions.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.TxtOptions.Location = new System.Drawing.Point(0, 57);
             this.TxtOptions.Multiline = true;
             this.TxtOptions.Name = "TxtOptions";
             this.TxtOptions.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.TxtOptions.Size = new System.Drawing.Size(399, 92);
+            this.TxtOptions.Size = new System.Drawing.Size(403, 92);
             this.TxtOptions.TabIndex = 16;
+            this.ToolTipMain.SetToolTip(this.TxtOptions, "Additional options to pass to the AWS S3 CreateMultipartUpload() function.");
             // 
             // SplitInner
             // 
-            this.SplitInner.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.SplitInner.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SplitInner.Location = new System.Drawing.Point(0, 0);
+            this.SplitInner.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.SplitInner.Name = "SplitInner";
             this.SplitInner.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -180,29 +190,26 @@
             // SplitInner.Panel2
             // 
             this.SplitInner.Panel2.Controls.Add(this.ListLog);
-            this.SplitInner.Size = new System.Drawing.Size(403, 380);
-            this.SplitInner.SplitterDistance = 163;
+            this.SplitInner.Size = new System.Drawing.Size(403, 386);
+            this.SplitInner.SplitterDistance = 166;
             this.SplitInner.TabIndex = 15;
             // 
             // ListParts
             // 
-            this.ListParts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ListParts.ContextMenuStrip = this.CntxtMenuParts;
+            this.ListParts.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ListParts.Enabled = false;
             this.ListParts.FormattingEnabled = true;
             this.ListParts.Location = new System.Drawing.Point(0, 0);
             this.ListParts.Name = "ListParts";
             this.ListParts.ScrollAlwaysVisible = true;
-            this.ListParts.Size = new System.Drawing.Size(399, 139);
+            this.ListParts.Size = new System.Drawing.Size(403, 166);
             this.ListParts.TabIndex = 0;
             this.ListParts.ThreeDCheckBoxes = true;
             // 
             // ListLog
             // 
-            this.ListLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ListLog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ListLog.FormattingEnabled = true;
             this.ListLog.Items.AddRange(new object[] {
             "Welcome to the S3 Multipart Uploader!",
@@ -210,11 +217,12 @@
             this.ListLog.Location = new System.Drawing.Point(0, 0);
             this.ListLog.Name = "ListLog";
             this.ListLog.ScrollAlwaysVisible = true;
-            this.ListLog.Size = new System.Drawing.Size(399, 199);
+            this.ListLog.Size = new System.Drawing.Size(403, 216);
             this.ListLog.TabIndex = 0;
             // 
             // PnlTop
             // 
+            this.PnlTop.Controls.Add(this.BtnAddProfile);
             this.PnlTop.Controls.Add(this.BtnOptions);
             this.PnlTop.Controls.Add(this.LblChooseDir);
             this.PnlTop.Controls.Add(this.ComboProfile);
@@ -229,17 +237,18 @@
             this.PnlTop.MinimumSize = new System.Drawing.Size(400, 150);
             this.PnlTop.Name = "PnlTop";
             this.PnlTop.Size = new System.Drawing.Size(403, 154);
-            this.PnlTop.TabIndex = 14;
+            this.PnlTop.TabIndex = 0;
             // 
             // BtnOptions
             // 
             this.BtnOptions.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.BtnOptions.AutoSize = true;
-            this.BtnOptions.Location = new System.Drawing.Point(77, 118);
+            this.BtnOptions.Location = new System.Drawing.Point(92, 118);
             this.BtnOptions.Name = "BtnOptions";
             this.BtnOptions.Size = new System.Drawing.Size(75, 23);
-            this.BtnOptions.TabIndex = 13;
+            this.BtnOptions.TabIndex = 5;
             this.BtnOptions.Text = "Advanced...";
+            this.ToolTipMain.SetToolTip(this.BtnOptions, "Advanced options.");
             this.BtnOptions.UseVisualStyleBackColor = true;
             this.BtnOptions.Click += new System.EventHandler(this.BtnOptions_Click);
             // 
@@ -247,7 +256,7 @@
             // 
             this.LblChooseDir.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.LblChooseDir.AutoSize = true;
-            this.LblChooseDir.Location = new System.Drawing.Point(128, 94);
+            this.LblChooseDir.Location = new System.Drawing.Point(143, 94);
             this.LblChooseDir.Name = "LblChooseDir";
             this.LblChooseDir.Size = new System.Drawing.Size(107, 13);
             this.LblChooseDir.TabIndex = 0;
@@ -256,11 +265,13 @@
             // ComboProfile
             // 
             this.ComboProfile.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.ComboProfile.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboProfile.FormattingEnabled = true;
-            this.ComboProfile.Location = new System.Drawing.Point(77, 9);
+            this.ComboProfile.Location = new System.Drawing.Point(92, 9);
             this.ComboProfile.Name = "ComboProfile";
-            this.ComboProfile.Size = new System.Drawing.Size(266, 21);
-            this.ComboProfile.TabIndex = 7;
+            this.ComboProfile.Size = new System.Drawing.Size(210, 21);
+            this.ComboProfile.TabIndex = 0;
+            this.ToolTipMain.SetToolTip(this.ComboProfile, "Choose one of the AWS credentials profile already stored on this machine.");
             // 
             // ComboBucket
             // 
@@ -268,30 +279,33 @@
             this.ComboBucket.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboBucket.Enabled = false;
             this.ComboBucket.FormattingEnabled = true;
-            this.ComboBucket.Location = new System.Drawing.Point(77, 36);
+            this.ComboBucket.Location = new System.Drawing.Point(92, 36);
             this.ComboBucket.Name = "ComboBucket";
-            this.ComboBucket.Size = new System.Drawing.Size(266, 21);
-            this.ComboBucket.TabIndex = 9;
+            this.ComboBucket.Size = new System.Drawing.Size(210, 21);
+            this.ComboBucket.TabIndex = 2;
+            this.ToolTipMain.SetToolTip(this.ComboBucket, "Choose one of the buckets available to the chosen AWS profile.");
             // 
             // BtnChooseDir
             // 
             this.BtnChooseDir.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.BtnChooseDir.AutoSize = true;
-            this.BtnChooseDir.Location = new System.Drawing.Point(77, 89);
+            this.BtnChooseDir.Location = new System.Drawing.Point(92, 89);
             this.BtnChooseDir.Name = "BtnChooseDir";
             this.BtnChooseDir.Size = new System.Drawing.Size(45, 23);
-            this.BtnChooseDir.TabIndex = 1;
+            this.BtnChooseDir.TabIndex = 4;
             this.BtnChooseDir.Text = "...";
+            this.ToolTipMain.SetToolTip(this.BtnChooseDir, "Select the directory containing this object\'s parts.");
             this.BtnChooseDir.UseVisualStyleBackColor = true;
             this.BtnChooseDir.Click += new System.EventHandler(this.BtnChooseDir_Click);
             // 
             // TxtKey
             // 
             this.TxtKey.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.TxtKey.Location = new System.Drawing.Point(77, 63);
+            this.TxtKey.Location = new System.Drawing.Point(92, 63);
             this.TxtKey.Name = "TxtKey";
-            this.TxtKey.Size = new System.Drawing.Size(266, 20);
-            this.TxtKey.TabIndex = 10;
+            this.TxtKey.Size = new System.Drawing.Size(210, 20);
+            this.TxtKey.TabIndex = 3;
+            this.ToolTipMain.SetToolTip(this.TxtKey, "The unique key where this object will be stored in the S3 bucket.");
             // 
             // PnlBottom
             // 
@@ -311,7 +325,8 @@
             this.ProgressMain.Location = new System.Drawing.Point(3, 3);
             this.ProgressMain.Name = "ProgressMain";
             this.ProgressMain.Size = new System.Drawing.Size(316, 23);
-            this.ProgressMain.TabIndex = 1;
+            this.ProgressMain.TabIndex = 0;
+            this.ToolTipMain.SetToolTip(this.ProgressMain, "Upload has not started yet.");
             // 
             // BtnStartStop
             // 
@@ -321,8 +336,9 @@
             this.BtnStartStop.Location = new System.Drawing.Point(325, 3);
             this.BtnStartStop.Name = "BtnStartStop";
             this.BtnStartStop.Size = new System.Drawing.Size(75, 23);
-            this.BtnStartStop.TabIndex = 0;
+            this.BtnStartStop.TabIndex = 1;
             this.BtnStartStop.Text = "Start";
+            this.ToolTipMain.SetToolTip(this.BtnStartStop, "Begin uploading object parts!");
             this.BtnStartStop.UseVisualStyleBackColor = true;
             // 
             // FolderBrowserParts
@@ -333,6 +349,38 @@
             // ErrorProviderMain
             // 
             this.ErrorProviderMain.ContainerControl = this;
+            // 
+            // BtnAddProfile
+            // 
+            this.BtnAddProfile.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.BtnAddProfile.AutoSize = true;
+            this.BtnAddProfile.Location = new System.Drawing.Point(308, 7);
+            this.BtnAddProfile.Name = "BtnAddProfile";
+            this.BtnAddProfile.Size = new System.Drawing.Size(49, 23);
+            this.BtnAddProfile.TabIndex = 1;
+            this.BtnAddProfile.Text = "Add";
+            this.ToolTipMain.SetToolTip(this.BtnAddProfile, "Add a new AWS credentials profile.");
+            this.BtnAddProfile.UseVisualStyleBackColor = true;
+            // 
+            // CntxtMenuParts
+            // 
+            this.CntxtMenuParts.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.restartPartToolStripMenuItem,
+            this.pauseUploadToolStripMenuItem});
+            this.CntxtMenuParts.Name = "CntxtMenuParts";
+            this.CntxtMenuParts.Size = new System.Drawing.Size(155, 48);
+            // 
+            // restartPartToolStripMenuItem
+            // 
+            this.restartPartToolStripMenuItem.Name = "restartPartToolStripMenuItem";
+            this.restartPartToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.restartPartToolStripMenuItem.Text = "Restart Upload ";
+            // 
+            // pauseUploadToolStripMenuItem
+            // 
+            this.pauseUploadToolStripMenuItem.Name = "pauseUploadToolStripMenuItem";
+            this.pauseUploadToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.pauseUploadToolStripMenuItem.Text = "Pause Upload";
             // 
             // MainForm
             // 
@@ -358,6 +406,7 @@
             this.PnlBottom.ResumeLayout(false);
             this.PnlBottom.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderMain)).EndInit();
+            this.CntxtMenuParts.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -388,6 +437,10 @@
         private System.Windows.Forms.Panel PnlBottom;
         private System.Windows.Forms.ProgressBar ProgressMain;
         private System.Windows.Forms.Button BtnStartStop;
+        private System.Windows.Forms.Button BtnAddProfile;
+        private System.Windows.Forms.ContextMenuStrip CntxtMenuParts;
+        private System.Windows.Forms.ToolStripMenuItem restartPartToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pauseUploadToolStripMenuItem;
     }
 }
 
