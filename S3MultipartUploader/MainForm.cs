@@ -24,7 +24,8 @@ namespace S3MultipartUploader {
 
         // EVENT HANDLERS
         private void BtnOptions_Click(object sender, EventArgs e) {
-            toggleAdvancedOptions();
+            AdvancedOptionsForm f = new AdvancedOptionsForm();
+            f.ShowDialog();
         }
         private void BtnChooseDir_Click(object sender, EventArgs e) {
             // Let the user select a Directory of object parts
@@ -41,6 +42,10 @@ namespace S3MultipartUploader {
                 getPartsInDirectory(new DirectoryInfo(path));
             }
         }
+        private void BtnAddProfile_Click(object sender, EventArgs e) {
+            AddProfileForm f = new AddProfileForm();
+            f.ShowDialog();
+        }
 
         // HELPERS
         private void logMessages(params string[] messages) {
@@ -50,9 +55,6 @@ namespace S3MultipartUploader {
             string tabs = new string(' ', 4 * (int)numTabs);
             foreach (string msg in messages)
                 ListLog.Items.Add(tabs + msg);
-        }
-        private void toggleAdvancedOptions() {
-            SplitOuter.Panel1Collapsed = !SplitOuter.Panel1Collapsed;
         }
         private void resetParts() {
             ListParts.Items.Clear();

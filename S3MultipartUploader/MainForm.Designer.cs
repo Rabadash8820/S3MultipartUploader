@@ -29,11 +29,6 @@
             this.LblKey = new System.Windows.Forms.Label();
             this.TblLayoutMain = new System.Windows.Forms.TableLayoutPanel();
             this.SplitOuter = new System.Windows.Forms.SplitContainer();
-            this.LblOptions = new System.Windows.Forms.Label();
-            this.ChkAsynchronous = new System.Windows.Forms.CheckBox();
-            this.TxtOptions = new System.Windows.Forms.TextBox();
-            this.SplitInner = new System.Windows.Forms.SplitContainer();
-            this.ListParts = new System.Windows.Forms.CheckedListBox();
             this.ListLog = new System.Windows.Forms.ListBox();
             this.PnlTop = new System.Windows.Forms.Panel();
             this.BtnOptions = new System.Windows.Forms.Button();
@@ -52,15 +47,12 @@
             this.CntxtMenuParts = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.restartPartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pauseUploadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ListParts = new System.Windows.Forms.CheckedListBox();
             this.TblLayoutMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SplitOuter)).BeginInit();
             this.SplitOuter.Panel1.SuspendLayout();
             this.SplitOuter.Panel2.SuspendLayout();
             this.SplitOuter.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.SplitInner)).BeginInit();
-            this.SplitInner.Panel1.SuspendLayout();
-            this.SplitInner.Panel2.SuspendLayout();
-            this.SplitInner.SuspendLayout();
             this.PnlTop.SuspendLayout();
             this.PnlBottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderMain)).BeginInit();
@@ -128,84 +120,14 @@
             // 
             // SplitOuter.Panel1
             // 
-            this.SplitOuter.Panel1.Controls.Add(this.LblOptions);
-            this.SplitOuter.Panel1.Controls.Add(this.ChkAsynchronous);
-            this.SplitOuter.Panel1.Controls.Add(this.TxtOptions);
-            this.SplitOuter.Panel1Collapsed = true;
+            this.SplitOuter.Panel1.Controls.Add(this.ListParts);
             // 
             // SplitOuter.Panel2
             // 
-            this.SplitOuter.Panel2.Controls.Add(this.SplitInner);
+            this.SplitOuter.Panel2.Controls.Add(this.ListLog);
             this.SplitOuter.Size = new System.Drawing.Size(403, 386);
-            this.SplitOuter.SplitterDistance = 149;
+            this.SplitOuter.SplitterDistance = 168;
             this.SplitOuter.TabIndex = 13;
-            // 
-            // LblOptions
-            // 
-            this.LblOptions.AutoSize = true;
-            this.LblOptions.Location = new System.Drawing.Point(3, 33);
-            this.LblOptions.Name = "LblOptions";
-            this.LblOptions.Size = new System.Drawing.Size(121, 13);
-            this.LblOptions.TabIndex = 17;
-            this.LblOptions.Text = "Additional AWS options:";
-            this.ToolTipMain.SetToolTip(this.LblOptions, "Additional options to pass to the AWS S3 CreateMultipartUpload() function.");
-            // 
-            // ChkAsynchronous
-            // 
-            this.ChkAsynchronous.AutoSize = true;
-            this.ChkAsynchronous.Checked = true;
-            this.ChkAsynchronous.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ChkAsynchronous.Location = new System.Drawing.Point(3, 3);
-            this.ChkAsynchronous.Name = "ChkAsynchronous";
-            this.ChkAsynchronous.Size = new System.Drawing.Size(137, 17);
-            this.ChkAsynchronous.TabIndex = 15;
-            this.ChkAsynchronous.Text = "Upload Asynchronously";
-            this.ToolTipMain.SetToolTip(this.ChkAsynchronous, "If selected, then object parts will be uploaded in parallel.  Otherwise, parts wi" +
-        "ll be uploaded one at a time.");
-            this.ChkAsynchronous.UseVisualStyleBackColor = true;
-            // 
-            // TxtOptions
-            // 
-            this.TxtOptions.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.TxtOptions.Location = new System.Drawing.Point(0, 57);
-            this.TxtOptions.Multiline = true;
-            this.TxtOptions.Name = "TxtOptions";
-            this.TxtOptions.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.TxtOptions.Size = new System.Drawing.Size(403, 92);
-            this.TxtOptions.TabIndex = 16;
-            this.ToolTipMain.SetToolTip(this.TxtOptions, "Additional options to pass to the AWS S3 CreateMultipartUpload() function.");
-            // 
-            // SplitInner
-            // 
-            this.SplitInner.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SplitInner.Location = new System.Drawing.Point(0, 0);
-            this.SplitInner.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.SplitInner.Name = "SplitInner";
-            this.SplitInner.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // SplitInner.Panel1
-            // 
-            this.SplitInner.Panel1.Controls.Add(this.ListParts);
-            // 
-            // SplitInner.Panel2
-            // 
-            this.SplitInner.Panel2.Controls.Add(this.ListLog);
-            this.SplitInner.Size = new System.Drawing.Size(403, 386);
-            this.SplitInner.SplitterDistance = 166;
-            this.SplitInner.TabIndex = 15;
-            // 
-            // ListParts
-            // 
-            this.ListParts.ContextMenuStrip = this.CntxtMenuParts;
-            this.ListParts.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ListParts.Enabled = false;
-            this.ListParts.FormattingEnabled = true;
-            this.ListParts.Location = new System.Drawing.Point(0, 0);
-            this.ListParts.Name = "ListParts";
-            this.ListParts.ScrollAlwaysVisible = true;
-            this.ListParts.Size = new System.Drawing.Size(403, 166);
-            this.ListParts.TabIndex = 0;
-            this.ListParts.ThreeDCheckBoxes = true;
             // 
             // ListLog
             // 
@@ -217,7 +139,7 @@
             this.ListLog.Location = new System.Drawing.Point(0, 0);
             this.ListLog.Name = "ListLog";
             this.ListLog.ScrollAlwaysVisible = true;
-            this.ListLog.Size = new System.Drawing.Size(403, 216);
+            this.ListLog.Size = new System.Drawing.Size(403, 214);
             this.ListLog.TabIndex = 0;
             // 
             // PnlTop
@@ -361,6 +283,7 @@
             this.BtnAddProfile.Text = "Add";
             this.ToolTipMain.SetToolTip(this.BtnAddProfile, "Add a new AWS credentials profile.");
             this.BtnAddProfile.UseVisualStyleBackColor = true;
+            this.BtnAddProfile.Click += new System.EventHandler(this.BtnAddProfile_Click);
             // 
             // CntxtMenuParts
             // 
@@ -382,25 +305,34 @@
             this.pauseUploadToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.pauseUploadToolStripMenuItem.Text = "Pause Upload";
             // 
+            // ListParts
+            // 
+            this.ListParts.ContextMenuStrip = this.CntxtMenuParts;
+            this.ListParts.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ListParts.Enabled = false;
+            this.ListParts.FormattingEnabled = true;
+            this.ListParts.Location = new System.Drawing.Point(0, 0);
+            this.ListParts.Name = "ListParts";
+            this.ListParts.ScrollAlwaysVisible = true;
+            this.ListParts.Size = new System.Drawing.Size(403, 168);
+            this.ListParts.TabIndex = 17;
+            this.ListParts.ThreeDCheckBoxes = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(409, 581);
             this.Controls.Add(this.TblLayoutMain);
+            this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(425, 620);
             this.Name = "MainForm";
             this.Text = "S3 Multipart Uploader";
             this.TblLayoutMain.ResumeLayout(false);
             this.SplitOuter.Panel1.ResumeLayout(false);
-            this.SplitOuter.Panel1.PerformLayout();
             this.SplitOuter.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.SplitOuter)).EndInit();
             this.SplitOuter.ResumeLayout(false);
-            this.SplitInner.Panel1.ResumeLayout(false);
-            this.SplitInner.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.SplitInner)).EndInit();
-            this.SplitInner.ResumeLayout(false);
             this.PnlTop.ResumeLayout(false);
             this.PnlTop.PerformLayout();
             this.PnlBottom.ResumeLayout(false);
@@ -427,13 +359,8 @@
         private System.Windows.Forms.ListBox ListLog;
         private System.Windows.Forms.Button BtnOptions;
         private System.Windows.Forms.FolderBrowserDialog FolderBrowserParts;
-        private System.Windows.Forms.TextBox TxtOptions;
-        private System.Windows.Forms.CheckBox ChkAsynchronous;
-        private System.Windows.Forms.CheckedListBox ListParts;
         private System.Windows.Forms.ErrorProvider ErrorProviderMain;
-        private System.Windows.Forms.Label LblOptions;
         private System.Windows.Forms.ToolTip ToolTipMain;
-        private System.Windows.Forms.SplitContainer SplitInner;
         private System.Windows.Forms.Panel PnlBottom;
         private System.Windows.Forms.ProgressBar ProgressMain;
         private System.Windows.Forms.Button BtnStartStop;
@@ -441,6 +368,7 @@
         private System.Windows.Forms.ContextMenuStrip CntxtMenuParts;
         private System.Windows.Forms.ToolStripMenuItem restartPartToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pauseUploadToolStripMenuItem;
+        private System.Windows.Forms.CheckedListBox ListParts;
     }
 }
 
