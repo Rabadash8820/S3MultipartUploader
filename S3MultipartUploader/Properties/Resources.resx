@@ -208,4 +208,31 @@
   <data name="regions" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\regions.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="BucketSelected" xml:space="preserve">
+    <value>Bucket "{0}" selected.</value>
+  </data>
+  <data name="BucketsListed" xml:space="preserve">
+    <value>{0} buckets found.</value>
+  </data>
+  <data name="ListingBuckets" xml:space="preserve">
+    <value>Listing S3 buckets available to profile {0}...</value>
+  </data>
+  <data name="ListingProfiles" xml:space="preserve">
+    <value>Listing AWS credentials profiles stored on this machine...</value>
+  </data>
+  <data name="ListingS3Regions" xml:space="preserve">
+    <value>Listing all AWS S3 regions...</value>
+  </data>
+  <data name="ProfileSelected" xml:space="preserve">
+    <value>Profile "{0}" selected.</value>
+  </data>
+  <data name="ProfilesListed" xml:space="preserve">
+    <value>{0} profiles found.</value>
+  </data>
+  <data name="RegionSelected" xml:space="preserve">
+    <value>Region "{0}" selected.</value>
+  </data>
+  <data name="S3RegionsListed" xml:space="preserve">
+    <value>{0} regions listed.</value>
+  </data>
 </root>

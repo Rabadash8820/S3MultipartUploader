@@ -1,14 +1,16 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using System.Collections.Generic;
 
 using Amazon;
-using Amazon.S3.Model;
 using Amazon.Util;
 using Amazon.Runtime;
+
 using Amazon.S3;
+using Amazon.S3.Model;
 
 using static S3MultipartUploader.Properties.Resources;
 
@@ -17,12 +19,17 @@ namespace S3MultipartUploader {
     public partial class MainForm : Form {
 
         // HIDDEN FIELDS
+        private CancellationTokenSource _cts = new CancellationTokenSource();
+        private uint _numTabs = 0;
 
         public MainForm() {
             InitializeComponent();
 
+            // Bind data
             bindRegions();
+            deltaTabs(-1);
             bindProfiles();
+            deltaTabs(-1);
         }
 
         // EVENT HANDLERS
@@ -39,7 +46,7 @@ namespace S3MultipartUploader {
 
             // Otherwise, store the parts in the Directory
             else if (result == DialogResult.OK) {
-                resetParts();
+                resetPartCtrls();
                 string path = FolderBrowserParts.SelectedPath;
                 logMessage(string.Format(SelectDirectorySuccess, path));
                 getPartsInDirectory(new DirectoryInfo(path));
@@ -51,78 +58,147 @@ namespace S3MultipartUploader {
             f.ShowDialog();
         }
         private void AddProfileForm_ProfileAdded(object sender, ProfileEventArgs e) {
-            Cursor.Current = Cursors.WaitCursor;
-
             // Persist the new AWS credentials profile!
-            string name = e.ProfileName;
-            AWSCredentialsProfile.Persist(name, e.AccessKeyId, e.SecretAccessKey);
-            AWSCredentials creds = ProfileManager.GetAWSCredentials(name);
-
-            Cursor.Current = Cursors.Default;
+            toggleWaitState(true);
+            persistProfile(e.ProfileName, e.AccessKeyId, e.SecretAccessKey);
+            toggleWaitState(false);
 
             // Log this information
-            string msg = string.Format(ProfileAdded, name);
+            string msg = string.Format(ProfileAdded, e.ProfileName);
             logMessage(msg, showMsgBox: true);
 
             // Reset the data source for the profiles combobox
             bindProfiles();
         }
         private void ComboProfile_SelectedIndexChanged(object sender, EventArgs e) {
-            bindBuckets();
+            // Log the new selection
+            var profile = ComboProfile.SelectedItem as AWSCredentialsProfile;
+            string msg = string.Format(ProfileSelected, profile.Name);
+            logMessage(msg);
+            deltaTabs(1);
+
+            // Try to bind the buckets available to this profile to the buckets combobox
+            var region = ComboRegions.SelectedItem as RegionEndpoint;
+            tryBindBuckets(profile, region);
+            deltaTabs(-1);
         }
         private void ComboRegions_SelectedIndexChanged(object sender, EventArgs e) {
-            bindBuckets();
+            // Log the new selection
+            var region = ComboRegions.SelectedItem as RegionEndpoint;
+            string msg = string.Format(RegionSelected, region.DisplayName);
+            logMessage(msg);
+        }
+        private void ComboBucket_SelectedIndexChanged(object sender, EventArgs e) {
+            // Log the new selection
+            var bucket = ComboBucket.SelectedItem as S3Bucket;
+            string msg = string.Format(BucketSelected, bucket.BucketName);
+            logMessage(msg);
         }
 
         // HELPERS
         private void bindRegions() {
+            // Set up for listing S3 regions
+            string msg = string.Format(ListingS3Regions);
+            logMessage(msg);
+
+            // List regions
             IEnumerable<RegionEndpoint> regions = RegionEndpoint.EnumerableAllRegions;
+
+            // Adjust controls based on listed regions
+            deltaTabs(1);
+            msg = string.Format(S3RegionsListed, regions.Count());
+            logMessage(msg);
             ComboRegions.DataSource = regions;
             ComboRegions.DisplayMember = nameof(RegionEndpoint.DisplayName);
+            deltaTabs(-1);
         }
         private void bindProfiles() {
+            // Set up for listing profiles
+            string msg = string.Format(ListingProfiles);
+            logMessage(msg);
+
+            // List profiles
             IEnumerable<ProfileSettingsBase> profiles = ProfileManager.ListProfiles();
+
+            // Adjust controls based on listed profiles
+            deltaTabs(1);
+            msg = string.Format(ProfilesListed, profiles.Count());
+            logMessage(msg);
+            deltaTabs(-1);
             ComboProfile.DataSource = profiles;
             ComboProfile.DisplayMember = nameof(ProfileSettingsBase.Name);
             ComboProfile.ValueMember = nameof(ProfileSettingsBase.UniqueId);
         }
-        private void bindBuckets() {
-            // Only try to list S3Buckets if we have a credentials profile and a region
-            var profile = ComboProfile.SelectedItem as AWSCredentialsProfile;
-            var region = ComboRegions.SelectedItem as RegionEndpoint;
+        private async void tryBindBuckets(AWSCredentialsProfile profile, RegionEndpoint region) {
+            // If no credentials profile or region has been selected then just return
             if (profile == null || region == null)
                 return;
 
+            // Set up for listing buckets
             var s3 = new AmazonS3Client(profile.Credentials, region);
-            ListBucketsResponse response = s3.ListBuckets();
-            IEnumerable<S3Bucket> buckets = response.Buckets.Where(b => s3.GetBucketLocation(b.BucketName).Location.Value == region.SystemName).ToList();
-            ComboBucket.DataSource = buckets;
+            string msg = string.Format(ListingBuckets, profile.Name);
+            logMessage(msg);
+            toggleBucketCtrls(false);
+
+            // Asynchronously list buckets available to this profile
+            List<S3Bucket> buckets = (await s3.ListBucketsAsync(_cts.Token)).Buckets;
+
+            // Adjust controls based on listed buckets
+            deltaTabs(1);
+            msg = string.Format(BucketsListed, buckets.Count);
+            logMessage(msg);
+            ComboBucket.DataSource = buckets.ToArray();
             ComboBucket.DisplayMember = nameof(S3Bucket.BucketName);
-        }    
-        private void logMessage(string message, uint numTabs = 0, bool showMsgBox = false) {
-            logMessages(numTabs, message);
+            deltaTabs(-1);
+            toggleBucketCtrls(true);
+            toggleWaitState(false);
+        }
+        private static void persistProfile(string name, string accessKeyId, string secretKey) {
+            AWSCredentialsProfile.Persist(name, accessKeyId, secretKey);
+            AWSCredentials creds = ProfileManager.GetAWSCredentials(name);
+        }
+        private void toggleBucketCtrls(bool enabled) {
+            LblBucket.Enabled = enabled;
+            ComboBucket.Enabled = enabled;
+        }
+        private void toggleWaitState(bool waiting) {
+            Application.UseWaitCursor = waiting;
+        }
+        private void logMessage(string message, uint linesBefore = 0, bool showMsgBox = false) {
+            logBlanks(linesBefore);
+            logMessages(message);
 
             if (showMsgBox)
                 MessageBox.Show(message);
         }
+        private void logBlank() {
+            logMessages("");
+        }
+        private void logBlanks(uint numLines) {
+            for (int line = 0; line < numLines; ++line)
+                logMessages("");
+        }
         private void logMessages(params string[] messages) {
-            logMessages(0, messages);
-        }
-        private void logMessages(bool showMsgBox, params string[] messages) {
-            logMessages(0, messages);
-        }
-        private void logMessages(uint numTabs, params string[] messages) {
-            string tabs = new string(' ', 4 * (int)numTabs);
+            string tabs = new string(' ', 4 * (int)_numTabs);
             foreach (string msg in messages)
                 ListLog.Items.Add(tabs + msg);
+            autoScrollLogs();
         }
-        private void resetParts() {
+        private void autoScrollLogs() {
+            ListLog.SelectedIndex = ListLog.Items.Count - 1;
+            ListLog.SelectedIndex = -1;
+        }
+        private void deltaTabs(int delta) {
+            long newTabs = _numTabs + delta;
+            _numTabs = (uint)Math.Max(0L, newTabs);
+        }
+        private void resetPartCtrls() {
             ListParts.Items.Clear();
-            ListParts.Enabled = false;
+            TblLayoutParts.Enabled = false;
         }
-        private void resetParts(IEnumerable<FileInfo> parts) {
+        private void resetPartCtrls(IEnumerable<FileInfo> parts) {
             ListParts.Items.AddRange(parts.ToArray());
-            ListParts.Enabled = true;
+            TblLayoutParts.Enabled = true;
         }
         private void getPartsInDirectory(DirectoryInfo dir) {
             // Get the number of object parts and total files in this Directory
@@ -133,7 +209,7 @@ namespace S3MultipartUploader {
             int numFiles = files.Count();
             int numParts = parts.Count();
 
-            // Log messages and part names accordingly
+            // Create a log messages according to how many parts were found
             string[] messages;
             if (numFiles == 0)
                 messages = new string[] { NoFilesFound };
@@ -143,7 +219,7 @@ namespace S3MultipartUploader {
 
             else if (numFiles == 1 && numParts == 1) {
                 messages = new string[1] { OnePartFound };
-                resetParts(parts);
+                resetPartCtrls(parts);
             }
 
             else if (numParts == 0)
@@ -157,10 +233,13 @@ namespace S3MultipartUploader {
             
             else {
                 messages = new string[1] { string.Format(NPartsFound, numParts) };
-                resetParts(parts);
+                resetPartCtrls(parts);
             }
 
-            logMessages(1, messages);
+            // Log messages and part names accordingly
+            deltaTabs(1);
+            logMessages(messages);
+            deltaTabs(-1);
         }
     }
 

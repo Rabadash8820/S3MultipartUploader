@@ -3,7 +3,6 @@ using System.Windows.Forms;
 
 using S3MultipartUploader.Properties;
 
-using Amazon.Util;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
 

@@ -101,6 +101,24 @@ namespace S3MultipartUploader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bucket &quot;{0}&quot; selected..
+        /// </summary>
+        internal static string BucketSelected {
+            get {
+                return ResourceManager.GetString("BucketSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} buckets found..
+        /// </summary>
+        internal static string BucketsListed {
+            get {
+                return ResourceManager.GetString("BucketsListed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Profile Access Key IDs must contain exactly 20 uppercase alphanumeric characters..
         /// </summary>
         internal static string InvalidProfileAccessKeyID {
@@ -124,6 +142,33 @@ namespace S3MultipartUploader.Properties {
         internal static string InvalidProfileSecretKey {
             get {
                 return ResourceManager.GetString("InvalidProfileSecretKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Listing S3 buckets available to profile {0}....
+        /// </summary>
+        internal static string ListingBuckets {
+            get {
+                return ResourceManager.GetString("ListingBuckets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Listing AWS credentials profiles stored on this machine....
+        /// </summary>
+        internal static string ListingProfiles {
+            get {
+                return ResourceManager.GetString("ListingProfiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Listing all AWS S3 regions....
+        /// </summary>
+        internal static string ListingS3Regions {
+            get {
+                return ResourceManager.GetString("ListingS3Regions", resourceCulture);
             }
         }
         
@@ -283,6 +328,24 @@ namespace S3MultipartUploader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Profile &quot;{0}&quot; selected..
+        /// </summary>
+        internal static string ProfileSelected {
+            get {
+                return ResourceManager.GetString("ProfileSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} profiles found..
+        /// </summary>
+        internal static string ProfilesListed {
+            get {
+                return ResourceManager.GetString("ProfilesListed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap regions {
@@ -293,12 +356,30 @@ namespace S3MultipartUploader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Region &quot;{0}&quot; selected..
+        /// </summary>
+        internal static string RegionSelected {
+            get {
+                return ResourceManager.GetString("RegionSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap s3_key {
             get {
                 object obj = ResourceManager.GetObject("s3_key", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} regions listed..
+        /// </summary>
+        internal static string S3RegionsListed {
+            get {
+                return ResourceManager.GetString("S3RegionsListed", resourceCulture);
             }
         }
         
