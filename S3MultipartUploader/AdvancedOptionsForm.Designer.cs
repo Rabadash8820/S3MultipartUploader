@@ -81,6 +81,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AdvancedOptionsForm";
+            this.ShowInTaskbar = false;
             this.Text = "Advanced S3 Upload Options";
             this.ResumeLayout(false);
             this.PerformLayout();

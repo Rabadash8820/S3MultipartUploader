@@ -36,6 +36,8 @@
             this.MenuItemPauseUpload = new System.Windows.Forms.ToolStripMenuItem();
             this.ListLog = new System.Windows.Forms.ListBox();
             this.PnlTop = new System.Windows.Forms.Panel();
+            this.LblRegion = new System.Windows.Forms.Label();
+            this.ComboRegions = new System.Windows.Forms.ComboBox();
             this.BtnAddProfile = new System.Windows.Forms.Button();
             this.BtnOptions = new System.Windows.Forms.Button();
             this.LblChooseDir = new System.Windows.Forms.Label();
@@ -66,11 +68,11 @@
             this.LblProfile.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.LblProfile.Image = ((System.Drawing.Image)(resources.GetObject("LblProfile.Image")));
             this.LblProfile.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.LblProfile.Location = new System.Drawing.Point(32, 7);
+            this.LblProfile.Location = new System.Drawing.Point(33, 6);
             this.LblProfile.Name = "LblProfile";
-            this.LblProfile.Size = new System.Drawing.Size(73, 31);
+            this.LblProfile.Size = new System.Drawing.Size(78, 31);
             this.LblProfile.TabIndex = 0;
-            this.LblProfile.Text = "Profile";
+            this.LblProfile.Text = "Profile:";
             this.LblProfile.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.ToolTipMain.SetToolTip(this.LblProfile, "Choose one of the AWS credentials profile already stored on this machine.");
             // 
@@ -80,11 +82,11 @@
             this.LblBucket.Enabled = false;
             this.LblBucket.Image = global::S3MultipartUploader.Properties.Resources.bucket;
             this.LblBucket.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.LblBucket.Location = new System.Drawing.Point(32, 42);
+            this.LblBucket.Location = new System.Drawing.Point(31, 87);
             this.LblBucket.Name = "LblBucket";
-            this.LblBucket.Size = new System.Drawing.Size(77, 33);
+            this.LblBucket.Size = new System.Drawing.Size(80, 33);
             this.LblBucket.TabIndex = 1;
-            this.LblBucket.Text = "Bucket";
+            this.LblBucket.Text = "Bucket:";
             this.LblBucket.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.ToolTipMain.SetToolTip(this.LblBucket, "Choose one of the buckets available to the chosen AWS profile.");
             // 
@@ -93,11 +95,11 @@
             this.LblKey.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.LblKey.Image = global::S3MultipartUploader.Properties.Resources.s3_key;
             this.LblKey.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.LblKey.Location = new System.Drawing.Point(37, 80);
+            this.LblKey.Location = new System.Drawing.Point(36, 128);
             this.LblKey.Name = "LblKey";
-            this.LblKey.Size = new System.Drawing.Size(68, 32);
+            this.LblKey.Size = new System.Drawing.Size(75, 32);
             this.LblKey.TabIndex = 2;
-            this.LblKey.Text = "Key";
+            this.LblKey.Text = "Key:";
             this.LblKey.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.ToolTipMain.SetToolTip(this.LblKey, "The unique key where this object will be stored in the S3 bucket.");
             // 
@@ -112,7 +114,7 @@
             this.TblLayoutMain.Location = new System.Drawing.Point(0, 0);
             this.TblLayoutMain.Name = "TblLayoutMain";
             this.TblLayoutMain.RowCount = 3;
-            this.TblLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 160F));
+            this.TblLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 215F));
             this.TblLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.TblLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.TblLayoutMain.Size = new System.Drawing.Size(409, 581);
@@ -121,7 +123,7 @@
             // SplitOuter
             // 
             this.SplitOuter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SplitOuter.Location = new System.Drawing.Point(3, 160);
+            this.SplitOuter.Location = new System.Drawing.Point(3, 215);
             this.SplitOuter.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.SplitOuter.Name = "SplitOuter";
             this.SplitOuter.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -133,8 +135,8 @@
             // SplitOuter.Panel2
             // 
             this.SplitOuter.Panel2.Controls.Add(this.ListLog);
-            this.SplitOuter.Size = new System.Drawing.Size(403, 366);
-            this.SplitOuter.SplitterDistance = 163;
+            this.SplitOuter.Size = new System.Drawing.Size(403, 311);
+            this.SplitOuter.SplitterDistance = 138;
             this.SplitOuter.TabIndex = 13;
             // 
             // ListParts
@@ -146,7 +148,7 @@
             this.ListParts.Location = new System.Drawing.Point(0, 0);
             this.ListParts.Name = "ListParts";
             this.ListParts.ScrollAlwaysVisible = true;
-            this.ListParts.Size = new System.Drawing.Size(403, 163);
+            this.ListParts.Size = new System.Drawing.Size(403, 138);
             this.ListParts.TabIndex = 0;
             this.ListParts.ThreeDCheckBoxes = true;
             // 
@@ -180,11 +182,13 @@
             this.ListLog.Location = new System.Drawing.Point(0, 0);
             this.ListLog.Name = "ListLog";
             this.ListLog.ScrollAlwaysVisible = true;
-            this.ListLog.Size = new System.Drawing.Size(403, 199);
+            this.ListLog.Size = new System.Drawing.Size(403, 169);
             this.ListLog.TabIndex = 0;
             // 
             // PnlTop
             // 
+            this.PnlTop.Controls.Add(this.LblRegion);
+            this.PnlTop.Controls.Add(this.ComboRegions);
             this.PnlTop.Controls.Add(this.BtnAddProfile);
             this.PnlTop.Controls.Add(this.BtnOptions);
             this.PnlTop.Controls.Add(this.LblChooseDir);
@@ -199,15 +203,38 @@
             this.PnlTop.Location = new System.Drawing.Point(3, 3);
             this.PnlTop.MinimumSize = new System.Drawing.Size(400, 150);
             this.PnlTop.Name = "PnlTop";
-            this.PnlTop.Size = new System.Drawing.Size(403, 154);
+            this.PnlTop.Size = new System.Drawing.Size(403, 209);
             this.PnlTop.TabIndex = 0;
+            // 
+            // LblRegion
+            // 
+            this.LblRegion.Image = global::S3MultipartUploader.Properties.Resources.regions;
+            this.LblRegion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.LblRegion.Location = new System.Drawing.Point(33, 45);
+            this.LblRegion.Name = "LblRegion";
+            this.LblRegion.Size = new System.Drawing.Size(78, 34);
+            this.LblRegion.TabIndex = 7;
+            this.LblRegion.Text = "Region:";
+            this.LblRegion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // ComboRegions
+            // 
+            this.ComboRegions.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.ComboRegions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboRegions.FormattingEnabled = true;
+            this.ComboRegions.Location = new System.Drawing.Point(117, 53);
+            this.ComboRegions.Name = "ComboRegions";
+            this.ComboRegions.Size = new System.Drawing.Size(210, 21);
+            this.ComboRegions.TabIndex = 6;
+            this.ToolTipMain.SetToolTip(this.ComboRegions, "Choose one of the AWS credentials profile already stored on this machine.");
+            this.ComboRegions.SelectedIndexChanged += new System.EventHandler(this.ComboRegions_SelectedIndexChanged);
             // 
             // BtnAddProfile
             // 
             this.BtnAddProfile.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.BtnAddProfile.AutoSize = true;
             this.BtnAddProfile.Image = ((System.Drawing.Image)(resources.GetObject("BtnAddProfile.Image")));
-            this.BtnAddProfile.Location = new System.Drawing.Point(327, 3);
+            this.BtnAddProfile.Location = new System.Drawing.Point(333, 3);
             this.BtnAddProfile.Name = "BtnAddProfile";
             this.BtnAddProfile.Size = new System.Drawing.Size(38, 38);
             this.BtnAddProfile.TabIndex = 1;
@@ -219,7 +246,7 @@
             this.BtnOptions.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.BtnOptions.AutoSize = true;
             this.BtnOptions.Image = global::S3MultipartUploader.Properties.Resources.advanced_options;
-            this.BtnOptions.Location = new System.Drawing.Point(283, 113);
+            this.BtnOptions.Location = new System.Drawing.Point(289, 161);
             this.BtnOptions.Name = "BtnOptions";
             this.BtnOptions.Size = new System.Drawing.Size(38, 38);
             this.BtnOptions.TabIndex = 5;
@@ -231,7 +258,7 @@
             // 
             this.LblChooseDir.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.LblChooseDir.AutoSize = true;
-            this.LblChooseDir.Location = new System.Drawing.Point(162, 126);
+            this.LblChooseDir.Location = new System.Drawing.Point(168, 174);
             this.LblChooseDir.Name = "LblChooseDir";
             this.LblChooseDir.Size = new System.Drawing.Size(107, 13);
             this.LblChooseDir.TabIndex = 0;
@@ -242,11 +269,12 @@
             this.ComboProfile.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.ComboProfile.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboProfile.FormattingEnabled = true;
-            this.ComboProfile.Location = new System.Drawing.Point(111, 13);
+            this.ComboProfile.Location = new System.Drawing.Point(117, 13);
             this.ComboProfile.Name = "ComboProfile";
             this.ComboProfile.Size = new System.Drawing.Size(210, 21);
             this.ComboProfile.TabIndex = 0;
             this.ToolTipMain.SetToolTip(this.ComboProfile, "Choose one of the AWS credentials profile already stored on this machine.");
+            this.ComboProfile.SelectedIndexChanged += new System.EventHandler(this.ComboProfile_SelectedIndexChanged);
             // 
             // ComboBucket
             // 
@@ -254,7 +282,7 @@
             this.ComboBucket.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboBucket.Enabled = false;
             this.ComboBucket.FormattingEnabled = true;
-            this.ComboBucket.Location = new System.Drawing.Point(111, 49);
+            this.ComboBucket.Location = new System.Drawing.Point(117, 94);
             this.ComboBucket.Name = "ComboBucket";
             this.ComboBucket.Size = new System.Drawing.Size(210, 21);
             this.ComboBucket.TabIndex = 2;
@@ -264,7 +292,7 @@
             // 
             this.BtnChooseDir.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.BtnChooseDir.AutoSize = true;
-            this.BtnChooseDir.Location = new System.Drawing.Point(111, 121);
+            this.BtnChooseDir.Location = new System.Drawing.Point(117, 169);
             this.BtnChooseDir.Name = "BtnChooseDir";
             this.BtnChooseDir.Size = new System.Drawing.Size(45, 23);
             this.BtnChooseDir.TabIndex = 4;
@@ -276,7 +304,7 @@
             // TxtKey
             // 
             this.TxtKey.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.TxtKey.Location = new System.Drawing.Point(111, 87);
+            this.TxtKey.Location = new System.Drawing.Point(117, 135);
             this.TxtKey.Name = "TxtKey";
             this.TxtKey.Size = new System.Drawing.Size(210, 20);
             this.TxtKey.TabIndex = 3;
@@ -392,6 +420,8 @@
         private System.Windows.Forms.CheckedListBox ListParts;
         private System.Windows.Forms.Button BtnAddProfile;
         private System.Windows.Forms.Button BtnPause;
+        private System.Windows.Forms.Label LblRegion;
+        private System.Windows.Forms.ComboBox ComboRegions;
     }
 }
 

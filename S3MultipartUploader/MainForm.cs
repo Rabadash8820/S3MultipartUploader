@@ -4,8 +4,11 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Collections.Generic;
 
+using Amazon;
+using Amazon.S3.Model;
 using Amazon.Util;
 using Amazon.Runtime;
+using Amazon.S3;
 
 using static S3MultipartUploader.Properties.Resources;
 
@@ -18,6 +21,7 @@ namespace S3MultipartUploader {
         public MainForm() {
             InitializeComponent();
 
+            bindRegions();
             bindProfiles();
         }
 
@@ -63,15 +67,38 @@ namespace S3MultipartUploader {
             // Reset the data source for the profiles combobox
             bindProfiles();
         }
+        private void ComboProfile_SelectedIndexChanged(object sender, EventArgs e) {
+            bindBuckets();
+        }
+        private void ComboRegions_SelectedIndexChanged(object sender, EventArgs e) {
+            bindBuckets();
+        }
 
         // HELPERS
+        private void bindRegions() {
+            IEnumerable<RegionEndpoint> regions = RegionEndpoint.EnumerableAllRegions;
+            ComboRegions.DataSource = regions;
+            ComboRegions.DisplayMember = nameof(RegionEndpoint.DisplayName);
+        }
         private void bindProfiles() {
             IEnumerable<ProfileSettingsBase> profiles = ProfileManager.ListProfiles();
             ComboProfile.DataSource = profiles;
             ComboProfile.DisplayMember = nameof(ProfileSettingsBase.Name);
             ComboProfile.ValueMember = nameof(ProfileSettingsBase.UniqueId);
         }
-        
+        private void bindBuckets() {
+            // Only try to list S3Buckets if we have a credentials profile and a region
+            var profile = ComboProfile.SelectedItem as AWSCredentialsProfile;
+            var region = ComboRegions.SelectedItem as RegionEndpoint;
+            if (profile == null || region == null)
+                return;
+
+            var s3 = new AmazonS3Client(profile.Credentials, region);
+            ListBucketsResponse response = s3.ListBuckets();
+            IEnumerable<S3Bucket> buckets = response.Buckets.Where(b => s3.GetBucketLocation(b.BucketName).Location.Value == region.SystemName).ToList();
+            ComboBucket.DataSource = buckets;
+            ComboBucket.DisplayMember = nameof(S3Bucket.BucketName);
+        }    
         private void logMessage(string message, uint numTabs = 0, bool showMsgBox = false) {
             logMessages(numTabs, message);
 

@@ -285,6 +285,16 @@ namespace S3MultipartUploader.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap regions {
+            get {
+                object obj = ResourceManager.GetObject("regions", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap s3_key {
             get {
                 object obj = ResourceManager.GetObject("s3_key", resourceCulture);
