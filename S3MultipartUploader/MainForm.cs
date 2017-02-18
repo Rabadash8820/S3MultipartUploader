@@ -42,7 +42,7 @@ namespace S3MultipartUploader {
                 getPartsInDirectory(new DirectoryInfo(path));
             }
         }
-        private void BtnAddProfile_Click(object sender, EventArgs e) {
+        private void BtnAddProfile_Click_1(object sender, EventArgs e) {
             AddProfileForm f = new AddProfileForm();
             f.ShowDialog();
         }
@@ -102,7 +102,6 @@ namespace S3MultipartUploader {
 
             logMessages(1, messages);
         }
-
     }
 
 }

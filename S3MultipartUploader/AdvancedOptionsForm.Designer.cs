@@ -24,6 +24,7 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdvancedOptionsForm));
             this.ChkAsynchronous = new System.Windows.Forms.CheckBox();
             this.ToolTipMain = new System.Windows.Forms.ToolTip(this.components);
             this.BtnOK = new System.Windows.Forms.Button();
@@ -76,6 +77,7 @@
             this.Controls.Add(this.BtnCancel);
             this.Controls.Add(this.BtnOK);
             this.Controls.Add(this.ChkAsynchronous);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AdvancedOptionsForm";

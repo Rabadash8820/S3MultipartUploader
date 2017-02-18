@@ -24,13 +24,19 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.LblProfile = new System.Windows.Forms.Label();
             this.LblBucket = new System.Windows.Forms.Label();
             this.LblKey = new System.Windows.Forms.Label();
             this.TblLayoutMain = new System.Windows.Forms.TableLayoutPanel();
             this.SplitOuter = new System.Windows.Forms.SplitContainer();
+            this.ListParts = new System.Windows.Forms.CheckedListBox();
+            this.CntxtMenuParts = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.MenuItemRestartUpload = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuItemPauseUpload = new System.Windows.Forms.ToolStripMenuItem();
             this.ListLog = new System.Windows.Forms.ListBox();
             this.PnlTop = new System.Windows.Forms.Panel();
+            this.BtnAddProfile = new System.Windows.Forms.Button();
             this.BtnOptions = new System.Windows.Forms.Button();
             this.LblChooseDir = new System.Windows.Forms.Label();
             this.ComboProfile = new System.Windows.Forms.ComboBox();
@@ -38,59 +44,61 @@
             this.BtnChooseDir = new System.Windows.Forms.Button();
             this.TxtKey = new System.Windows.Forms.TextBox();
             this.PnlBottom = new System.Windows.Forms.Panel();
+            this.BtnPause = new System.Windows.Forms.Button();
             this.ProgressMain = new System.Windows.Forms.ProgressBar();
             this.BtnStartStop = new System.Windows.Forms.Button();
             this.FolderBrowserParts = new System.Windows.Forms.FolderBrowserDialog();
             this.ErrorProviderMain = new System.Windows.Forms.ErrorProvider(this.components);
             this.ToolTipMain = new System.Windows.Forms.ToolTip(this.components);
-            this.BtnAddProfile = new System.Windows.Forms.Button();
-            this.CntxtMenuParts = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.restartPartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pauseUploadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ListParts = new System.Windows.Forms.CheckedListBox();
             this.TblLayoutMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SplitOuter)).BeginInit();
             this.SplitOuter.Panel1.SuspendLayout();
             this.SplitOuter.Panel2.SuspendLayout();
             this.SplitOuter.SuspendLayout();
+            this.CntxtMenuParts.SuspendLayout();
             this.PnlTop.SuspendLayout();
             this.PnlBottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderMain)).BeginInit();
-            this.CntxtMenuParts.SuspendLayout();
             this.SuspendLayout();
             // 
             // LblProfile
             // 
             this.LblProfile.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.LblProfile.AutoSize = true;
-            this.LblProfile.Location = new System.Drawing.Point(50, 12);
+            this.LblProfile.Image = ((System.Drawing.Image)(resources.GetObject("LblProfile.Image")));
+            this.LblProfile.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.LblProfile.Location = new System.Drawing.Point(37, 7);
             this.LblProfile.Name = "LblProfile";
-            this.LblProfile.Size = new System.Drawing.Size(36, 13);
+            this.LblProfile.Size = new System.Drawing.Size(68, 31);
             this.LblProfile.TabIndex = 0;
             this.LblProfile.Text = "Profile";
+            this.LblProfile.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.ToolTipMain.SetToolTip(this.LblProfile, "Choose one of the AWS credentials profile already stored on this machine.");
             // 
             // LblBucket
             // 
             this.LblBucket.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.LblBucket.AutoSize = true;
             this.LblBucket.Enabled = false;
-            this.LblBucket.Location = new System.Drawing.Point(45, 39);
+            this.LblBucket.Image = global::S3MultipartUploader.Properties.Resources.bucket;
+            this.LblBucket.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.LblBucket.Location = new System.Drawing.Point(37, 42);
             this.LblBucket.Name = "LblBucket";
-            this.LblBucket.Size = new System.Drawing.Size(41, 13);
+            this.LblBucket.Size = new System.Drawing.Size(72, 33);
             this.LblBucket.TabIndex = 1;
             this.LblBucket.Text = "Bucket";
+            this.LblBucket.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.ToolTipMain.SetToolTip(this.LblBucket, "Choose one of the buckets available to the chosen AWS profile.");
             // 
             // LblKey
             // 
             this.LblKey.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.LblKey.AutoSize = true;
-            this.LblKey.Location = new System.Drawing.Point(61, 66);
+            this.LblKey.Image = global::S3MultipartUploader.Properties.Resources.s3_key;
+            this.LblKey.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.LblKey.Location = new System.Drawing.Point(42, 80);
             this.LblKey.Name = "LblKey";
-            this.LblKey.Size = new System.Drawing.Size(25, 13);
+            this.LblKey.Size = new System.Drawing.Size(63, 32);
             this.LblKey.TabIndex = 2;
             this.LblKey.Text = "Key";
+            this.LblKey.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.ToolTipMain.SetToolTip(this.LblKey, "The unique key where this object will be stored in the S3 bucket.");
             // 
             // TblLayoutMain
@@ -106,7 +114,7 @@
             this.TblLayoutMain.RowCount = 3;
             this.TblLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 160F));
             this.TblLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TblLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.TblLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.TblLayoutMain.Size = new System.Drawing.Size(409, 581);
             this.TblLayoutMain.TabIndex = 4;
             // 
@@ -125,9 +133,42 @@
             // SplitOuter.Panel2
             // 
             this.SplitOuter.Panel2.Controls.Add(this.ListLog);
-            this.SplitOuter.Size = new System.Drawing.Size(403, 386);
-            this.SplitOuter.SplitterDistance = 168;
+            this.SplitOuter.Size = new System.Drawing.Size(403, 366);
+            this.SplitOuter.SplitterDistance = 163;
             this.SplitOuter.TabIndex = 13;
+            // 
+            // ListParts
+            // 
+            this.ListParts.ContextMenuStrip = this.CntxtMenuParts;
+            this.ListParts.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ListParts.Enabled = false;
+            this.ListParts.FormattingEnabled = true;
+            this.ListParts.Location = new System.Drawing.Point(0, 0);
+            this.ListParts.Name = "ListParts";
+            this.ListParts.ScrollAlwaysVisible = true;
+            this.ListParts.Size = new System.Drawing.Size(403, 163);
+            this.ListParts.TabIndex = 17;
+            this.ListParts.ThreeDCheckBoxes = true;
+            // 
+            // CntxtMenuParts
+            // 
+            this.CntxtMenuParts.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MenuItemRestartUpload,
+            this.MenuItemPauseUpload});
+            this.CntxtMenuParts.Name = "CntxtMenuParts";
+            this.CntxtMenuParts.Size = new System.Drawing.Size(155, 48);
+            // 
+            // MenuItemRestartUpload
+            // 
+            this.MenuItemRestartUpload.Name = "MenuItemRestartUpload";
+            this.MenuItemRestartUpload.Size = new System.Drawing.Size(154, 22);
+            this.MenuItemRestartUpload.Text = "Restart Upload ";
+            // 
+            // MenuItemPauseUpload
+            // 
+            this.MenuItemPauseUpload.Name = "MenuItemPauseUpload";
+            this.MenuItemPauseUpload.Size = new System.Drawing.Size(154, 22);
+            this.MenuItemPauseUpload.Text = "Pause Upload";
             // 
             // ListLog
             // 
@@ -139,7 +180,7 @@
             this.ListLog.Location = new System.Drawing.Point(0, 0);
             this.ListLog.Name = "ListLog";
             this.ListLog.ScrollAlwaysVisible = true;
-            this.ListLog.Size = new System.Drawing.Size(403, 214);
+            this.ListLog.Size = new System.Drawing.Size(403, 199);
             this.ListLog.TabIndex = 0;
             // 
             // PnlTop
@@ -161,15 +202,27 @@
             this.PnlTop.Size = new System.Drawing.Size(403, 154);
             this.PnlTop.TabIndex = 0;
             // 
+            // BtnAddProfile
+            // 
+            this.BtnAddProfile.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.BtnAddProfile.AutoSize = true;
+            this.BtnAddProfile.Image = ((System.Drawing.Image)(resources.GetObject("BtnAddProfile.Image")));
+            this.BtnAddProfile.Location = new System.Drawing.Point(327, 3);
+            this.BtnAddProfile.Name = "BtnAddProfile";
+            this.BtnAddProfile.Size = new System.Drawing.Size(38, 38);
+            this.BtnAddProfile.TabIndex = 6;
+            this.BtnAddProfile.UseVisualStyleBackColor = false;
+            this.BtnAddProfile.Click += new System.EventHandler(this.BtnAddProfile_Click_1);
+            // 
             // BtnOptions
             // 
             this.BtnOptions.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.BtnOptions.AutoSize = true;
-            this.BtnOptions.Location = new System.Drawing.Point(92, 118);
+            this.BtnOptions.Image = global::S3MultipartUploader.Properties.Resources.advanced_options;
+            this.BtnOptions.Location = new System.Drawing.Point(283, 113);
             this.BtnOptions.Name = "BtnOptions";
-            this.BtnOptions.Size = new System.Drawing.Size(75, 23);
+            this.BtnOptions.Size = new System.Drawing.Size(38, 38);
             this.BtnOptions.TabIndex = 5;
-            this.BtnOptions.Text = "Advanced...";
             this.ToolTipMain.SetToolTip(this.BtnOptions, "Advanced options.");
             this.BtnOptions.UseVisualStyleBackColor = true;
             this.BtnOptions.Click += new System.EventHandler(this.BtnOptions_Click);
@@ -178,7 +231,7 @@
             // 
             this.LblChooseDir.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.LblChooseDir.AutoSize = true;
-            this.LblChooseDir.Location = new System.Drawing.Point(143, 94);
+            this.LblChooseDir.Location = new System.Drawing.Point(162, 126);
             this.LblChooseDir.Name = "LblChooseDir";
             this.LblChooseDir.Size = new System.Drawing.Size(107, 13);
             this.LblChooseDir.TabIndex = 0;
@@ -189,7 +242,7 @@
             this.ComboProfile.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.ComboProfile.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboProfile.FormattingEnabled = true;
-            this.ComboProfile.Location = new System.Drawing.Point(92, 9);
+            this.ComboProfile.Location = new System.Drawing.Point(111, 13);
             this.ComboProfile.Name = "ComboProfile";
             this.ComboProfile.Size = new System.Drawing.Size(210, 21);
             this.ComboProfile.TabIndex = 0;
@@ -201,7 +254,7 @@
             this.ComboBucket.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboBucket.Enabled = false;
             this.ComboBucket.FormattingEnabled = true;
-            this.ComboBucket.Location = new System.Drawing.Point(92, 36);
+            this.ComboBucket.Location = new System.Drawing.Point(111, 49);
             this.ComboBucket.Name = "ComboBucket";
             this.ComboBucket.Size = new System.Drawing.Size(210, 21);
             this.ComboBucket.TabIndex = 2;
@@ -211,7 +264,7 @@
             // 
             this.BtnChooseDir.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.BtnChooseDir.AutoSize = true;
-            this.BtnChooseDir.Location = new System.Drawing.Point(92, 89);
+            this.BtnChooseDir.Location = new System.Drawing.Point(111, 121);
             this.BtnChooseDir.Name = "BtnChooseDir";
             this.BtnChooseDir.Size = new System.Drawing.Size(45, 23);
             this.BtnChooseDir.TabIndex = 4;
@@ -223,7 +276,7 @@
             // TxtKey
             // 
             this.TxtKey.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.TxtKey.Location = new System.Drawing.Point(92, 63);
+            this.TxtKey.Location = new System.Drawing.Point(111, 87);
             this.TxtKey.Name = "TxtKey";
             this.TxtKey.Size = new System.Drawing.Size(210, 20);
             this.TxtKey.TabIndex = 3;
@@ -231,22 +284,36 @@
             // 
             // PnlBottom
             // 
+            this.PnlBottom.Controls.Add(this.BtnPause);
             this.PnlBottom.Controls.Add(this.ProgressMain);
             this.PnlBottom.Controls.Add(this.BtnStartStop);
             this.PnlBottom.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PnlBottom.Location = new System.Drawing.Point(3, 549);
+            this.PnlBottom.Location = new System.Drawing.Point(3, 529);
             this.PnlBottom.Name = "PnlBottom";
-            this.PnlBottom.Size = new System.Drawing.Size(403, 29);
+            this.PnlBottom.Size = new System.Drawing.Size(403, 49);
             this.PnlBottom.TabIndex = 15;
+            // 
+            // BtnPause
+            // 
+            this.BtnPause.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnPause.AutoSize = true;
+            this.BtnPause.Enabled = false;
+            this.BtnPause.Image = global::S3MultipartUploader.Properties.Resources.pause_upload;
+            this.BtnPause.Location = new System.Drawing.Point(362, 8);
+            this.BtnPause.Name = "BtnPause";
+            this.BtnPause.Size = new System.Drawing.Size(38, 38);
+            this.BtnPause.TabIndex = 2;
+            this.ToolTipMain.SetToolTip(this.BtnPause, "Pause all part uploads.");
+            this.BtnPause.UseVisualStyleBackColor = true;
             // 
             // ProgressMain
             // 
             this.ProgressMain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ProgressMain.Enabled = false;
-            this.ProgressMain.Location = new System.Drawing.Point(3, 3);
+            this.ProgressMain.Location = new System.Drawing.Point(3, 8);
             this.ProgressMain.Name = "ProgressMain";
-            this.ProgressMain.Size = new System.Drawing.Size(316, 23);
+            this.ProgressMain.Size = new System.Drawing.Size(308, 38);
             this.ProgressMain.TabIndex = 0;
             this.ToolTipMain.SetToolTip(this.ProgressMain, "Upload has not started yet.");
             // 
@@ -255,12 +322,12 @@
             this.BtnStartStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnStartStop.AutoSize = true;
             this.BtnStartStop.Enabled = false;
-            this.BtnStartStop.Location = new System.Drawing.Point(325, 3);
+            this.BtnStartStop.Image = global::S3MultipartUploader.Properties.Resources.start_resume_upload;
+            this.BtnStartStop.Location = new System.Drawing.Point(317, 8);
             this.BtnStartStop.Name = "BtnStartStop";
-            this.BtnStartStop.Size = new System.Drawing.Size(75, 23);
+            this.BtnStartStop.Size = new System.Drawing.Size(39, 38);
             this.BtnStartStop.TabIndex = 1;
-            this.BtnStartStop.Text = "Start";
-            this.ToolTipMain.SetToolTip(this.BtnStartStop, "Begin uploading object parts!");
+            this.ToolTipMain.SetToolTip(this.BtnStartStop, "Start uploading object parts.");
             this.BtnStartStop.UseVisualStyleBackColor = true;
             // 
             // FolderBrowserParts
@@ -272,58 +339,13 @@
             // 
             this.ErrorProviderMain.ContainerControl = this;
             // 
-            // BtnAddProfile
-            // 
-            this.BtnAddProfile.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.BtnAddProfile.AutoSize = true;
-            this.BtnAddProfile.Location = new System.Drawing.Point(308, 7);
-            this.BtnAddProfile.Name = "BtnAddProfile";
-            this.BtnAddProfile.Size = new System.Drawing.Size(49, 23);
-            this.BtnAddProfile.TabIndex = 1;
-            this.BtnAddProfile.Text = "Add";
-            this.ToolTipMain.SetToolTip(this.BtnAddProfile, "Add a new AWS credentials profile.");
-            this.BtnAddProfile.UseVisualStyleBackColor = true;
-            this.BtnAddProfile.Click += new System.EventHandler(this.BtnAddProfile_Click);
-            // 
-            // CntxtMenuParts
-            // 
-            this.CntxtMenuParts.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.restartPartToolStripMenuItem,
-            this.pauseUploadToolStripMenuItem});
-            this.CntxtMenuParts.Name = "CntxtMenuParts";
-            this.CntxtMenuParts.Size = new System.Drawing.Size(155, 48);
-            // 
-            // restartPartToolStripMenuItem
-            // 
-            this.restartPartToolStripMenuItem.Name = "restartPartToolStripMenuItem";
-            this.restartPartToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
-            this.restartPartToolStripMenuItem.Text = "Restart Upload ";
-            // 
-            // pauseUploadToolStripMenuItem
-            // 
-            this.pauseUploadToolStripMenuItem.Name = "pauseUploadToolStripMenuItem";
-            this.pauseUploadToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
-            this.pauseUploadToolStripMenuItem.Text = "Pause Upload";
-            // 
-            // ListParts
-            // 
-            this.ListParts.ContextMenuStrip = this.CntxtMenuParts;
-            this.ListParts.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ListParts.Enabled = false;
-            this.ListParts.FormattingEnabled = true;
-            this.ListParts.Location = new System.Drawing.Point(0, 0);
-            this.ListParts.Name = "ListParts";
-            this.ListParts.ScrollAlwaysVisible = true;
-            this.ListParts.Size = new System.Drawing.Size(403, 168);
-            this.ListParts.TabIndex = 17;
-            this.ListParts.ThreeDCheckBoxes = true;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(409, 581);
             this.Controls.Add(this.TblLayoutMain);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(425, 620);
             this.Name = "MainForm";
@@ -333,12 +355,12 @@
             this.SplitOuter.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.SplitOuter)).EndInit();
             this.SplitOuter.ResumeLayout(false);
+            this.CntxtMenuParts.ResumeLayout(false);
             this.PnlTop.ResumeLayout(false);
             this.PnlTop.PerformLayout();
             this.PnlBottom.ResumeLayout(false);
             this.PnlBottom.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderMain)).EndInit();
-            this.CntxtMenuParts.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -364,11 +386,12 @@
         private System.Windows.Forms.Panel PnlBottom;
         private System.Windows.Forms.ProgressBar ProgressMain;
         private System.Windows.Forms.Button BtnStartStop;
-        private System.Windows.Forms.Button BtnAddProfile;
         private System.Windows.Forms.ContextMenuStrip CntxtMenuParts;
-        private System.Windows.Forms.ToolStripMenuItem restartPartToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem pauseUploadToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem MenuItemRestartUpload;
+        private System.Windows.Forms.ToolStripMenuItem MenuItemPauseUpload;
         private System.Windows.Forms.CheckedListBox ListParts;
+        private System.Windows.Forms.Button BtnAddProfile;
+        private System.Windows.Forms.Button BtnPause;
     }
 }
 

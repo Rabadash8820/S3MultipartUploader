@@ -61,6 +61,46 @@ namespace S3MultipartUploader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap add_profile {
+            get {
+                object obj = ResourceManager.GetObject("add_profile", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap advanced_options {
+            get {
+                object obj = ResourceManager.GetObject("advanced_options", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon aws_s3 {
+            get {
+                object obj = ResourceManager.GetObject("aws_s3", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap bucket {
+            get {
+                object obj = ResourceManager.GetObject("bucket", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No files found..
         /// </summary>
         internal static string NoFilesFound {
@@ -133,6 +173,36 @@ namespace S3MultipartUploader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pause_upload {
+            get {
+                object obj = ResourceManager.GetObject("pause_upload", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap profile {
+            get {
+                object obj = ResourceManager.GetObject("profile", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap s3_key {
+            get {
+                object obj = ResourceManager.GetObject("s3_key", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Directory selection cancelled..
         /// </summary>
         internal static string SelectDirectoryCancel {
@@ -147,6 +217,26 @@ namespace S3MultipartUploader.Properties {
         internal static string SelectDirectorySuccess {
             get {
                 return ResourceManager.GetString("SelectDirectorySuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap start_resume_upload {
+            get {
+                object obj = ResourceManager.GetObject("start_resume_upload", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap stop_upload {
+            get {
+                object obj = ResourceManager.GetObject("stop_upload", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }
