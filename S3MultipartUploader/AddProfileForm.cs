@@ -61,7 +61,7 @@ namespace S3MultipartUploader {
             // If the provided Name is valid then try to enable the Add button
             // Show or clear the error message accordingly
             string error;
-            bool valid = validName(TxtProfileName.Text, out error);
+            bool valid = ValidateProfile.Name(TxtProfileName.Text, out error);
             ErrorMain.SetError(TxtProfileName, error);
             BtnAdd.Enabled = canAdd();
         }
@@ -71,7 +71,7 @@ namespace S3MultipartUploader {
             // If the provided Access Key ID is valid then try to enable the Add button
             // Show or clear the error message accordingly
             string error;
-            bool valid = validAccessKey(TxtAccessKeyID.Text, out error);
+            bool valid = ValidateProfile.AccessKey(TxtAccessKeyID.Text, out error);
             ErrorMain.SetError(TxtAccessKeyID, error);
             BtnAdd.Enabled = canAdd();
         }
@@ -81,54 +81,9 @@ namespace S3MultipartUploader {
             // If the provided Secret Access Key is valid then try to enable the Add button
             // Show or clear the error message accordingly
             string error;
-            bool valid = validSecretKey(TxtSecretAccessKey.Text, out error);
+            bool valid = ValidateProfile.SecretKey(TxtSecretAccessKey.Text, out error);
             ErrorMain.SetError(TxtSecretAccessKey, error);
             BtnAdd.Enabled = canAdd();
-        }
-        private bool validName(string name, out string error) {
-            bool valid = true;
-            error = "";
-
-            if (name == "") {
-                error = Resources.MissingProfileName;
-                valid = false;
-            }
-            else if (!Regex.IsMatch(name, Resources.ProfileNameRegex)) {
-                error = Resources.InvalidProfileName;
-                valid = false;
-            }
-
-            return valid;
-        }
-        private bool validAccessKey(string accessKey, out string error) {
-            bool valid = true;
-            error = "";
-
-            if (accessKey == "") {
-                error = Resources.MissingAccessKeyID;
-                valid = false;
-            }
-            else if (!Regex.IsMatch(accessKey, Resources.ProfileAccessKeyIDRegex)) {
-                error = Resources.InvalidProfileAccessKeyID;
-                valid = false;
-            }
-
-            return valid;
-        }
-        private bool validSecretKey(string secretKey, out string error) {
-            bool valid = true;
-            error = "";
-
-            if (secretKey == "") {
-                error = Resources.MissingSecretAccessKey;
-                valid = false;
-            }
-            else if (!Regex.IsMatch(secretKey, Resources.ProfileSecretKeyRegex)) {
-                error = Resources.InvalidProfileSecretKey;
-                valid = false;
-            }
-
-            return valid;
         }
         private bool canAdd() {
             // If there are any outstanding errors on the Form, then we cannot add this Profile yet
@@ -140,17 +95,6 @@ namespace S3MultipartUploader {
         }
 
         #endregion
-    }
-
-    public class ProfileEventArgs : EventArgs {
-        public ProfileEventArgs(string name, string accessKeyId, string secretKey) {
-            ProfileName = name;
-            AccessKeyId = accessKeyId;
-            SecretAccessKey = secretKey;
-        }
-        public string ProfileName { get; }
-        public string AccessKeyId { get; }
-        public string SecretAccessKey { get; }
     }
 
 }

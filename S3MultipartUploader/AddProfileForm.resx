@@ -120,6 +120,11 @@
   <metadata name="ToolTipMain.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>122, 17</value>
   </metadata>
+  <data name="LblSecretAccessKey.ToolTip" xml:space="preserve">
+    <value>Enter the Secret Access Key provided by your AWS administrator.
+Must contain exactly 40 lower and/or uppercase alphanumeric characters with no spaces, forward slashes ("/"), and/or plus signs ("+").
+</value>
+  </data>
   <metadata name="ErrorMain.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>

@@ -49,6 +49,7 @@
             this.BtnAdd.Size = new System.Drawing.Size(75, 23);
             this.BtnAdd.TabIndex = 4;
             this.BtnAdd.Text = "Add";
+            this.ToolTipMain.SetToolTip(this.BtnAdd, "Add");
             this.BtnAdd.UseVisualStyleBackColor = true;
             this.BtnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
             // 
@@ -62,6 +63,7 @@
             this.BtnCancel.Size = new System.Drawing.Size(75, 23);
             this.BtnCancel.TabIndex = 5;
             this.BtnCancel.Text = "Cancel";
+            this.ToolTipMain.SetToolTip(this.BtnCancel, "Cancel adding this creditials profile.");
             this.BtnCancel.UseVisualStyleBackColor = true;
             // 
             // LblAccessKeyId
@@ -72,7 +74,8 @@
             this.LblAccessKeyId.Size = new System.Drawing.Size(80, 13);
             this.LblAccessKeyId.TabIndex = 2;
             this.LblAccessKeyId.Text = "Access Key ID:";
-            this.ToolTipMain.SetToolTip(this.LblAccessKeyId, "Enter the Access Key ID provided by your AWS administrator.");
+            this.ToolTipMain.SetToolTip(this.LblAccessKeyId, "Enter the Access Key ID provided by your AWS administrator.\r\nMust contain exactly" +
+        " 20 uppercase letters and/or numbers.\r\n");
             // 
             // LblSecretAccessKey
             // 
@@ -82,7 +85,7 @@
             this.LblSecretAccessKey.Size = new System.Drawing.Size(100, 13);
             this.LblSecretAccessKey.TabIndex = 3;
             this.LblSecretAccessKey.Text = "Secret Access Key:";
-            this.ToolTipMain.SetToolTip(this.LblSecretAccessKey, "Enter the Secret Access Key provided by your AWS administrator.");
+            this.ToolTipMain.SetToolTip(this.LblSecretAccessKey, resources.GetString("LblSecretAccessKey.ToolTip"));
             // 
             // LblName
             // 
@@ -92,9 +95,9 @@
             this.LblName.Size = new System.Drawing.Size(70, 13);
             this.LblName.TabIndex = 4;
             this.LblName.Text = "Profile Name:";
-            this.ToolTipMain.SetToolTip(this.LblName, "Enter a unique name for this credentials profile.  Must contain only lower and up" +
-        "percase alphanumeric characters without spaces, and any of the following charact" +
-        "ers:  following characters: =,.@-");
+            this.ToolTipMain.SetToolTip(this.LblName, "Enter a unique name for this credentials profile.\r\nMust only contain upper and lo" +
+        "wercase alphanumeric characters with no spaces, and any of the following charact" +
+        "ers: =,.@-\r\n");
             // 
             // TxtProfileName
             // 
@@ -106,9 +109,9 @@
             this.TxtProfileName.Name = "TxtProfileName";
             this.TxtProfileName.Size = new System.Drawing.Size(456, 20);
             this.TxtProfileName.TabIndex = 0;
-            this.ToolTipMain.SetToolTip(this.TxtProfileName, "Enter a unique name for this credentials profile.  Must contain only lower and up" +
-        "percase alphanumeric characters without spaces, and any of the following charact" +
-        "ers:  following characters: =,.@-");
+            this.ToolTipMain.SetToolTip(this.TxtProfileName, "Enter a unique name for this credentials profile.\r\nMust only contain upper and lo" +
+        "wercase alphanumeric characters with no spaces, and any of the following charact" +
+        "ers: =,.@-");
             this.TxtProfileName.TextChanged += new System.EventHandler(this.TxtProfileName_TextChanged);
             this.TxtProfileName.Validating += new System.ComponentModel.CancelEventHandler(this.TxtProfileName_Validating);
             // 
@@ -122,7 +125,8 @@
             this.TxtAccessKeyID.Name = "TxtAccessKeyID";
             this.TxtAccessKeyID.Size = new System.Drawing.Size(456, 20);
             this.TxtAccessKeyID.TabIndex = 1;
-            this.ToolTipMain.SetToolTip(this.TxtAccessKeyID, "Enter the Access Key ID provided by your AWS administrator.");
+            this.ToolTipMain.SetToolTip(this.TxtAccessKeyID, "Enter the Access Key ID provided by your AWS administrator.\r\nMust contain exactly" +
+        " 20 uppercase letters and/or numbers.");
             this.TxtAccessKeyID.TextChanged += new System.EventHandler(this.TxtAccessKeyID_TextChanged);
             this.TxtAccessKeyID.Validating += new System.ComponentModel.CancelEventHandler(this.TxtAccessKeyID_Validating);
             // 
@@ -136,7 +140,9 @@
             this.TxtSecretAccessKey.Name = "TxtSecretAccessKey";
             this.TxtSecretAccessKey.Size = new System.Drawing.Size(456, 20);
             this.TxtSecretAccessKey.TabIndex = 2;
-            this.ToolTipMain.SetToolTip(this.TxtSecretAccessKey, "Enter the Secret Access Key provided by your AWS administrator.");
+            this.ToolTipMain.SetToolTip(this.TxtSecretAccessKey, "Enter the Secret Access Key provided by your AWS administrator.\r\nMust contain exa" +
+        "ctly 40 lower and/or uppercase alphanumeric characters with no spaces, forward s" +
+        "lashes (\"/\"), and/or plus signs (\"+\").");
             this.TxtSecretAccessKey.UseSystemPasswordChar = true;
             this.TxtSecretAccessKey.TextChanged += new System.EventHandler(this.TxtSecretAccessKey_TextChanged);
             this.TxtSecretAccessKey.Validating += new System.ComponentModel.CancelEventHandler(this.TxtSecretAccessKey_Validating);
