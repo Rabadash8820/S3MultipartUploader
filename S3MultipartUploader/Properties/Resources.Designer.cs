@@ -119,7 +119,7 @@ namespace S3MultipartUploader.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Profile Access Key IDs must contain exactly 20 uppercase alphanumeric characters..
+        ///   Looks up a localized string similar to Profile Access Key IDs must contain exactly 20 uppercase letters and/or numbers..
         /// </summary>
         internal static string InvalidProfileAccessKeyID {
             get {
@@ -128,7 +128,7 @@ namespace S3MultipartUploader.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Profile names must only contain upper and lowercase alphanumeric characters with no spaces and any of the following characters: =,.@-.
+        ///   Looks up a localized string similar to Profile names must only contain upper and lowercase alphanumeric characters with no spaces, and any of the following characters: =,.@-.
         /// </summary>
         internal static string InvalidProfileName {
             get {
@@ -137,11 +137,20 @@ namespace S3MultipartUploader.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Profile Secret Access Keys must contain exactly 40 lower and/or uppercase alphanumeric characters, forward slashes (&quot;/&quot;), and/or plus signs (&quot;+&quot;)..
+        ///   Looks up a localized string similar to Profile Secret Access Keys must contain exactly 40 lower and/or uppercase alphanumeric characters with no spaces, forward slashes (&quot;/&quot;), and/or plus signs (&quot;+&quot;)..
         /// </summary>
         internal static string InvalidProfileSecretKey {
             get {
                 return ResourceManager.GetString("InvalidProfileSecretKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profile names must only contain upper and lowercase alphanumeric characters with no spaces, and any of the following characters:  !-_.*&apos;()/.
+        /// </summary>
+        internal static string InvalidS3Key {
+            get {
+                return ResourceManager.GetString("InvalidS3Key", resourceCulture);
             }
         }
         
@@ -182,11 +191,47 @@ namespace S3MultipartUploader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You must select or add an AWS credentials profile..
+        /// </summary>
+        internal static string MissingProfile {
+            get {
+                return ResourceManager.GetString("MissingProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You must provide a name for the new AWS credentials profile..
         /// </summary>
         internal static string MissingProfileName {
             get {
                 return ResourceManager.GetString("MissingProfileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must select an AWS S3 region..
+        /// </summary>
+        internal static string MissingRegion {
+            get {
+                return ResourceManager.GetString("MissingRegion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must select an AWS S3 bucket..
+        /// </summary>
+        internal static string MissingS3Bucket {
+            get {
+                return ResourceManager.GetString("MissingS3Bucket", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must provide an S3 key to give this object in the selected bucket..
+        /// </summary>
+        internal static string MissingS3Key {
+            get {
+                return ResourceManager.GetString("MissingS3Key", resourceCulture);
             }
         }
         
@@ -375,6 +420,15 @@ namespace S3MultipartUploader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ^[0-9a-zA-Z!\-_.*&apos;()/\\]+$.
+        /// </summary>
+        internal static string S3KeyRegex {
+            get {
+                return ResourceManager.GetString("S3KeyRegex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} regions listed..
         /// </summary>
         internal static string S3RegionsListed {
@@ -418,6 +472,15 @@ namespace S3MultipartUploader.Properties {
             get {
                 object obj = ResourceManager.GetObject("stop_upload", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Before you can start uploading, you must select a credentials profile, region, and bucket, provide an object key, and select the directory with the object&apos;s parts..
+        /// </summary>
+        internal static string String1 {
+            get {
+                return ResourceManager.GetString("String1", resourceCulture);
             }
         }
     }

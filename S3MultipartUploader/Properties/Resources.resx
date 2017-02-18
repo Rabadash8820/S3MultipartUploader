@@ -134,7 +134,7 @@
     <value>{0} files found, but only 1 of them was an object part.</value>
   </data>
   <data name="InvalidProfileSecretKey" xml:space="preserve">
-    <value>Profile Secret Access Keys must contain exactly 40 lower and/or uppercase alphanumeric characters, forward slashes ("/"), and/or plus signs ("+").</value>
+    <value>Profile Secret Access Keys must contain exactly 40 lower and/or uppercase alphanumeric characters with no spaces, forward slashes ("/"), and/or plus signs ("+").</value>
   </data>
   <data name="ProfileAccessKeyIDRegex" xml:space="preserve">
     <value>^[0-9A-Z]{20}$</value>
@@ -161,7 +161,7 @@
     <value>Selected Directory "{0}".</value>
   </data>
   <data name="InvalidProfileName" xml:space="preserve">
-    <value>Profile names must only contain upper and lowercase alphanumeric characters with no spaces and any of the following characters: =,.@-</value>
+    <value>Profile names must only contain upper and lowercase alphanumeric characters with no spaces, and any of the following characters: =,.@-</value>
   </data>
   <data name="MissingAccessKeyID" xml:space="preserve">
     <value>You must provide an Access Key ID for the new AWS credentials profile.</value>
@@ -194,7 +194,7 @@
     <value>..\Resources\aws_s3.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="InvalidProfileAccessKeyID" xml:space="preserve">
-    <value>Profile Access Key IDs must contain exactly 20 uppercase alphanumeric characters.</value>
+    <value>Profile Access Key IDs must contain exactly 20 uppercase letters and/or numbers.</value>
   </data>
   <data name="OnlyOneFileFound" xml:space="preserve">
     <value>1 file found, but it wasn't an object part.</value>
@@ -214,6 +214,9 @@
   <data name="BucketsListed" xml:space="preserve">
     <value>{0} buckets found.</value>
   </data>
+  <data name="InvalidS3Key" xml:space="preserve">
+    <value>Profile names must only contain upper and lowercase alphanumeric characters with no spaces, and any of the following characters:  !-_.*'()/</value>
+  </data>
   <data name="ListingBuckets" xml:space="preserve">
     <value>Listing S3 buckets available to profile {0}...</value>
   </data>
@@ -222,6 +225,18 @@
   </data>
   <data name="ListingS3Regions" xml:space="preserve">
     <value>Listing all AWS S3 regions...</value>
+  </data>
+  <data name="MissingProfile" xml:space="preserve">
+    <value>You must select or add an AWS credentials profile.</value>
+  </data>
+  <data name="MissingRegion" xml:space="preserve">
+    <value>You must select an AWS S3 region.</value>
+  </data>
+  <data name="MissingS3Bucket" xml:space="preserve">
+    <value>You must select an AWS S3 bucket.</value>
+  </data>
+  <data name="MissingS3Key" xml:space="preserve">
+    <value>You must provide an S3 key to give this object in the selected bucket.</value>
   </data>
   <data name="ProfileSelected" xml:space="preserve">
     <value>Profile "{0}" selected.</value>
@@ -232,7 +247,13 @@
   <data name="RegionSelected" xml:space="preserve">
     <value>Region "{0}" selected.</value>
   </data>
+  <data name="S3KeyRegex" xml:space="preserve">
+    <value>^[0-9a-zA-Z!\-_.*'()/\\]+$</value>
+  </data>
   <data name="S3RegionsListed" xml:space="preserve">
     <value>{0} regions listed.</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>Before you can start uploading, you must select a credentials profile, region, and bucket, provide an object key, and select the directory with the object's parts.</value>
   </data>
 </root>

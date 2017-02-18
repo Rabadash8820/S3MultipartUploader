@@ -30,10 +30,14 @@
             this.LblKey = new System.Windows.Forms.Label();
             this.TblLayoutMain = new System.Windows.Forms.TableLayoutPanel();
             this.SplitMain = new System.Windows.Forms.SplitContainer();
+            this.TblLayoutParts = new System.Windows.Forms.TableLayoutPanel();
+            this.LblPars = new System.Windows.Forms.Label();
             this.ListParts = new System.Windows.Forms.CheckedListBox();
             this.CntxtMenuParts = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.MenuItemRestartUpload = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemPauseUpload = new System.Windows.Forms.ToolStripMenuItem();
+            this.TblLayoutLogs = new System.Windows.Forms.TableLayoutPanel();
+            this.LblLogs = new System.Windows.Forms.Label();
             this.ListLog = new System.Windows.Forms.ListBox();
             this.PnlTop = new System.Windows.Forms.Panel();
             this.LblRegion = new System.Windows.Forms.Label();
@@ -41,8 +45,8 @@
             this.BtnAddProfile = new System.Windows.Forms.Button();
             this.BtnOptions = new System.Windows.Forms.Button();
             this.LblChooseDir = new System.Windows.Forms.Label();
-            this.ComboProfile = new System.Windows.Forms.ComboBox();
-            this.ComboBucket = new System.Windows.Forms.ComboBox();
+            this.ComboProfiles = new System.Windows.Forms.ComboBox();
+            this.ComboBuckets = new System.Windows.Forms.ComboBox();
             this.BtnChooseDir = new System.Windows.Forms.Button();
             this.TxtKey = new System.Windows.Forms.TextBox();
             this.PnlBottom = new System.Windows.Forms.Panel();
@@ -50,23 +54,19 @@
             this.ProgressMain = new System.Windows.Forms.ProgressBar();
             this.BtnStartStop = new System.Windows.Forms.Button();
             this.FolderBrowserParts = new System.Windows.Forms.FolderBrowserDialog();
-            this.ErrorProviderMain = new System.Windows.Forms.ErrorProvider(this.components);
+            this.ErrorMain = new System.Windows.Forms.ErrorProvider(this.components);
             this.ToolTipMain = new System.Windows.Forms.ToolTip(this.components);
-            this.TblLayoutLogs = new System.Windows.Forms.TableLayoutPanel();
-            this.LblLogs = new System.Windows.Forms.Label();
-            this.TblLayoutParts = new System.Windows.Forms.TableLayoutPanel();
-            this.LblPars = new System.Windows.Forms.Label();
             this.TblLayoutMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SplitMain)).BeginInit();
             this.SplitMain.Panel1.SuspendLayout();
             this.SplitMain.Panel2.SuspendLayout();
             this.SplitMain.SuspendLayout();
+            this.TblLayoutParts.SuspendLayout();
             this.CntxtMenuParts.SuspendLayout();
+            this.TblLayoutLogs.SuspendLayout();
             this.PnlTop.SuspendLayout();
             this.PnlBottom.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderMain)).BeginInit();
-            this.TblLayoutLogs.SuspendLayout();
-            this.TblLayoutParts.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ErrorMain)).BeginInit();
             this.SuspendLayout();
             // 
             // LblProfile
@@ -74,7 +74,7 @@
             this.LblProfile.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.LblProfile.Image = ((System.Drawing.Image)(resources.GetObject("LblProfile.Image")));
             this.LblProfile.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.LblProfile.Location = new System.Drawing.Point(56, 6);
+            this.LblProfile.Location = new System.Drawing.Point(162, 6);
             this.LblProfile.Name = "LblProfile";
             this.LblProfile.Size = new System.Drawing.Size(78, 31);
             this.LblProfile.TabIndex = 0;
@@ -88,7 +88,7 @@
             this.LblBucket.Enabled = false;
             this.LblBucket.Image = global::S3MultipartUploader.Properties.Resources.bucket;
             this.LblBucket.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.LblBucket.Location = new System.Drawing.Point(54, 87);
+            this.LblBucket.Location = new System.Drawing.Point(160, 87);
             this.LblBucket.Name = "LblBucket";
             this.LblBucket.Size = new System.Drawing.Size(80, 33);
             this.LblBucket.TabIndex = 1;
@@ -101,13 +101,13 @@
             this.LblKey.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.LblKey.Image = global::S3MultipartUploader.Properties.Resources.s3_key;
             this.LblKey.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.LblKey.Location = new System.Drawing.Point(59, 128);
+            this.LblKey.Location = new System.Drawing.Point(165, 128);
             this.LblKey.Name = "LblKey";
             this.LblKey.Size = new System.Drawing.Size(75, 32);
             this.LblKey.TabIndex = 2;
             this.LblKey.Text = "Key:";
             this.LblKey.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.ToolTipMain.SetToolTip(this.LblKey, "The unique key where this object will be stored in the S3 bucket.");
+            this.ToolTipMain.SetToolTip(this.LblKey, resources.GetString("LblKey.ToolTip"));
             // 
             // TblLayoutMain
             // 
@@ -123,7 +123,7 @@
             this.TblLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 205F));
             this.TblLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.TblLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
-            this.TblLayoutMain.Size = new System.Drawing.Size(455, 603);
+            this.TblLayoutMain.Size = new System.Drawing.Size(684, 603);
             this.TblLayoutMain.TabIndex = 4;
             // 
             // SplitMain
@@ -141,9 +141,35 @@
             // SplitMain.Panel2
             // 
             this.SplitMain.Panel2.Controls.Add(this.TblLayoutLogs);
-            this.SplitMain.Size = new System.Drawing.Size(449, 343);
+            this.SplitMain.Size = new System.Drawing.Size(678, 343);
             this.SplitMain.SplitterDistance = 152;
             this.SplitMain.TabIndex = 13;
+            // 
+            // TblLayoutParts
+            // 
+            this.TblLayoutParts.ColumnCount = 1;
+            this.TblLayoutParts.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.TblLayoutParts.Controls.Add(this.LblPars, 0, 0);
+            this.TblLayoutParts.Controls.Add(this.ListParts, 0, 1);
+            this.TblLayoutParts.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TblLayoutParts.Enabled = false;
+            this.TblLayoutParts.Location = new System.Drawing.Point(0, 0);
+            this.TblLayoutParts.Name = "TblLayoutParts";
+            this.TblLayoutParts.RowCount = 2;
+            this.TblLayoutParts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15F));
+            this.TblLayoutParts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.TblLayoutParts.Size = new System.Drawing.Size(678, 152);
+            this.TblLayoutParts.TabIndex = 1;
+            // 
+            // LblPars
+            // 
+            this.LblPars.AutoSize = true;
+            this.LblPars.Location = new System.Drawing.Point(3, 0);
+            this.LblPars.Name = "LblPars";
+            this.LblPars.Size = new System.Drawing.Size(68, 13);
+            this.LblPars.TabIndex = 0;
+            this.LblPars.Text = "Object Parts:";
+            this.ToolTipMain.SetToolTip(this.LblPars, "A list of all the object parts in the selected directory.");
             // 
             // ListParts
             // 
@@ -154,7 +180,7 @@
             this.ListParts.Location = new System.Drawing.Point(3, 18);
             this.ListParts.Name = "ListParts";
             this.ListParts.ScrollAlwaysVisible = true;
-            this.ListParts.Size = new System.Drawing.Size(443, 131);
+            this.ListParts.Size = new System.Drawing.Size(672, 131);
             this.ListParts.TabIndex = 0;
             this.ListParts.ThreeDCheckBoxes = true;
             this.ToolTipMain.SetToolTip(this.ListParts, "A list of all the object parts in the selected directory.");
@@ -179,206 +205,6 @@
             this.MenuItemPauseUpload.Size = new System.Drawing.Size(154, 22);
             this.MenuItemPauseUpload.Text = "Pause Upload";
             // 
-            // ListLog
-            // 
-            this.ListLog.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ListLog.FormattingEnabled = true;
-            this.ListLog.Items.AddRange(new object[] {
-            "Welcome to the S3 Multipart Uploader!",
-            ""});
-            this.ListLog.Location = new System.Drawing.Point(3, 18);
-            this.ListLog.Name = "ListLog";
-            this.ListLog.ScrollAlwaysVisible = true;
-            this.ListLog.Size = new System.Drawing.Size(443, 166);
-            this.ListLog.TabIndex = 0;
-            this.ToolTipMain.SetToolTip(this.ListLog, "Log messages.");
-            // 
-            // PnlTop
-            // 
-            this.PnlTop.Controls.Add(this.LblRegion);
-            this.PnlTop.Controls.Add(this.ComboRegions);
-            this.PnlTop.Controls.Add(this.BtnAddProfile);
-            this.PnlTop.Controls.Add(this.BtnOptions);
-            this.PnlTop.Controls.Add(this.LblChooseDir);
-            this.PnlTop.Controls.Add(this.ComboProfile);
-            this.PnlTop.Controls.Add(this.LblProfile);
-            this.PnlTop.Controls.Add(this.ComboBucket);
-            this.PnlTop.Controls.Add(this.BtnChooseDir);
-            this.PnlTop.Controls.Add(this.TxtKey);
-            this.PnlTop.Controls.Add(this.LblBucket);
-            this.PnlTop.Controls.Add(this.LblKey);
-            this.PnlTop.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PnlTop.Location = new System.Drawing.Point(3, 3);
-            this.PnlTop.MinimumSize = new System.Drawing.Size(400, 150);
-            this.PnlTop.Name = "PnlTop";
-            this.PnlTop.Size = new System.Drawing.Size(449, 199);
-            this.PnlTop.TabIndex = 0;
-            // 
-            // LblRegion
-            // 
-            this.LblRegion.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.LblRegion.Image = global::S3MultipartUploader.Properties.Resources.regions;
-            this.LblRegion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.LblRegion.Location = new System.Drawing.Point(56, 45);
-            this.LblRegion.Name = "LblRegion";
-            this.LblRegion.Size = new System.Drawing.Size(78, 34);
-            this.LblRegion.TabIndex = 7;
-            this.LblRegion.Text = "Region:";
-            this.LblRegion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.ToolTipMain.SetToolTip(this.LblRegion, "Choose the AWS region containing the bucket where you want to upload.");
-            // 
-            // ComboRegions
-            // 
-            this.ComboRegions.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.ComboRegions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComboRegions.FormattingEnabled = true;
-            this.ComboRegions.Location = new System.Drawing.Point(140, 53);
-            this.ComboRegions.Name = "ComboRegions";
-            this.ComboRegions.Size = new System.Drawing.Size(210, 21);
-            this.ComboRegions.TabIndex = 6;
-            this.ToolTipMain.SetToolTip(this.ComboRegions, "Choose the AWS region containing the bucket where you want to upload.");
-            this.ComboRegions.SelectedIndexChanged += new System.EventHandler(this.ComboRegions_SelectedIndexChanged);
-            // 
-            // BtnAddProfile
-            // 
-            this.BtnAddProfile.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.BtnAddProfile.AutoSize = true;
-            this.BtnAddProfile.Image = ((System.Drawing.Image)(resources.GetObject("BtnAddProfile.Image")));
-            this.BtnAddProfile.Location = new System.Drawing.Point(356, 3);
-            this.BtnAddProfile.Name = "BtnAddProfile";
-            this.BtnAddProfile.Size = new System.Drawing.Size(38, 38);
-            this.BtnAddProfile.TabIndex = 1;
-            this.ToolTipMain.SetToolTip(this.BtnAddProfile, "Add a new AWS credentials profile.");
-            this.BtnAddProfile.UseVisualStyleBackColor = false;
-            this.BtnAddProfile.Click += new System.EventHandler(this.BtnAddProfile_Click_1);
-            // 
-            // BtnOptions
-            // 
-            this.BtnOptions.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.BtnOptions.AutoSize = true;
-            this.BtnOptions.Image = global::S3MultipartUploader.Properties.Resources.advanced_options;
-            this.BtnOptions.Location = new System.Drawing.Point(312, 161);
-            this.BtnOptions.Name = "BtnOptions";
-            this.BtnOptions.Size = new System.Drawing.Size(38, 38);
-            this.BtnOptions.TabIndex = 5;
-            this.ToolTipMain.SetToolTip(this.BtnOptions, "Advanced options.");
-            this.BtnOptions.UseVisualStyleBackColor = true;
-            this.BtnOptions.Click += new System.EventHandler(this.BtnOptions_Click);
-            // 
-            // LblChooseDir
-            // 
-            this.LblChooseDir.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.LblChooseDir.AutoSize = true;
-            this.LblChooseDir.Location = new System.Drawing.Point(191, 174);
-            this.LblChooseDir.Name = "LblChooseDir";
-            this.LblChooseDir.Size = new System.Drawing.Size(107, 13);
-            this.LblChooseDir.TabIndex = 0;
-            this.LblChooseDir.Text = "Object parts directory";
-            // 
-            // ComboProfile
-            // 
-            this.ComboProfile.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.ComboProfile.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComboProfile.FormattingEnabled = true;
-            this.ComboProfile.Location = new System.Drawing.Point(140, 13);
-            this.ComboProfile.Name = "ComboProfile";
-            this.ComboProfile.Size = new System.Drawing.Size(210, 21);
-            this.ComboProfile.TabIndex = 0;
-            this.ToolTipMain.SetToolTip(this.ComboProfile, "Choose one of the AWS credentials profile already stored on this machine.");
-            this.ComboProfile.SelectedIndexChanged += new System.EventHandler(this.ComboProfile_SelectedIndexChanged);
-            // 
-            // ComboBucket
-            // 
-            this.ComboBucket.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.ComboBucket.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComboBucket.Enabled = false;
-            this.ComboBucket.FormattingEnabled = true;
-            this.ComboBucket.Location = new System.Drawing.Point(140, 94);
-            this.ComboBucket.Name = "ComboBucket";
-            this.ComboBucket.Size = new System.Drawing.Size(210, 21);
-            this.ComboBucket.TabIndex = 2;
-            this.ToolTipMain.SetToolTip(this.ComboBucket, "Choose one of the buckets available to the chosen AWS profile.");
-            this.ComboBucket.SelectedIndexChanged += new System.EventHandler(this.ComboBucket_SelectedIndexChanged);
-            // 
-            // BtnChooseDir
-            // 
-            this.BtnChooseDir.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.BtnChooseDir.AutoSize = true;
-            this.BtnChooseDir.Location = new System.Drawing.Point(140, 169);
-            this.BtnChooseDir.Name = "BtnChooseDir";
-            this.BtnChooseDir.Size = new System.Drawing.Size(45, 23);
-            this.BtnChooseDir.TabIndex = 4;
-            this.BtnChooseDir.Text = "...";
-            this.ToolTipMain.SetToolTip(this.BtnChooseDir, "Select the directory containing this object\'s parts.");
-            this.BtnChooseDir.UseVisualStyleBackColor = true;
-            this.BtnChooseDir.Click += new System.EventHandler(this.BtnChooseDir_Click);
-            // 
-            // TxtKey
-            // 
-            this.TxtKey.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.TxtKey.Location = new System.Drawing.Point(140, 135);
-            this.TxtKey.Name = "TxtKey";
-            this.TxtKey.Size = new System.Drawing.Size(210, 20);
-            this.TxtKey.TabIndex = 3;
-            this.ToolTipMain.SetToolTip(this.TxtKey, "The unique key where this object will be stored in the S3 bucket.");
-            // 
-            // PnlBottom
-            // 
-            this.PnlBottom.Controls.Add(this.BtnPause);
-            this.PnlBottom.Controls.Add(this.ProgressMain);
-            this.PnlBottom.Controls.Add(this.BtnStartStop);
-            this.PnlBottom.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PnlBottom.Location = new System.Drawing.Point(3, 551);
-            this.PnlBottom.Name = "PnlBottom";
-            this.PnlBottom.Size = new System.Drawing.Size(449, 49);
-            this.PnlBottom.TabIndex = 15;
-            // 
-            // BtnPause
-            // 
-            this.BtnPause.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnPause.AutoSize = true;
-            this.BtnPause.Enabled = false;
-            this.BtnPause.Image = global::S3MultipartUploader.Properties.Resources.pause_upload;
-            this.BtnPause.Location = new System.Drawing.Point(408, 3);
-            this.BtnPause.Name = "BtnPause";
-            this.BtnPause.Size = new System.Drawing.Size(38, 38);
-            this.BtnPause.TabIndex = 2;
-            this.ToolTipMain.SetToolTip(this.BtnPause, "Pause all part uploads.");
-            this.BtnPause.UseVisualStyleBackColor = true;
-            // 
-            // ProgressMain
-            // 
-            this.ProgressMain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ProgressMain.Enabled = false;
-            this.ProgressMain.Location = new System.Drawing.Point(3, 3);
-            this.ProgressMain.Name = "ProgressMain";
-            this.ProgressMain.Size = new System.Drawing.Size(354, 38);
-            this.ProgressMain.TabIndex = 0;
-            this.ToolTipMain.SetToolTip(this.ProgressMain, "Upload has not started yet.");
-            // 
-            // BtnStartStop
-            // 
-            this.BtnStartStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnStartStop.AutoSize = true;
-            this.BtnStartStop.Enabled = false;
-            this.BtnStartStop.Image = global::S3MultipartUploader.Properties.Resources.start_resume_upload;
-            this.BtnStartStop.Location = new System.Drawing.Point(363, 3);
-            this.BtnStartStop.Name = "BtnStartStop";
-            this.BtnStartStop.Size = new System.Drawing.Size(39, 38);
-            this.BtnStartStop.TabIndex = 1;
-            this.ToolTipMain.SetToolTip(this.BtnStartStop, "Start uploading object parts.");
-            this.BtnStartStop.UseVisualStyleBackColor = true;
-            // 
-            // FolderBrowserParts
-            // 
-            this.FolderBrowserParts.Description = "Select a directory containing object parts to upload.";
-            this.FolderBrowserParts.RootFolder = System.Environment.SpecialFolder.MyComputer;
-            // 
-            // ErrorProviderMain
-            // 
-            this.ErrorProviderMain.ContainerControl = this;
-            // 
             // TblLayoutLogs
             // 
             this.TblLayoutLogs.ColumnCount = 1;
@@ -391,7 +217,7 @@
             this.TblLayoutLogs.RowCount = 2;
             this.TblLayoutLogs.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15F));
             this.TblLayoutLogs.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TblLayoutLogs.Size = new System.Drawing.Size(449, 187);
+            this.TblLayoutLogs.Size = new System.Drawing.Size(678, 187);
             this.TblLayoutLogs.TabIndex = 1;
             // 
             // LblLogs
@@ -404,37 +230,222 @@
             this.LblLogs.Text = "Messages:";
             this.ToolTipMain.SetToolTip(this.LblLogs, "Log messages.");
             // 
-            // TblLayoutParts
+            // ListLog
             // 
-            this.TblLayoutParts.ColumnCount = 1;
-            this.TblLayoutParts.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TblLayoutParts.Controls.Add(this.LblPars, 0, 0);
-            this.TblLayoutParts.Controls.Add(this.ListParts, 0, 1);
-            this.TblLayoutParts.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TblLayoutParts.Enabled = false;
-            this.TblLayoutParts.Location = new System.Drawing.Point(0, 0);
-            this.TblLayoutParts.Name = "TblLayoutParts";
-            this.TblLayoutParts.RowCount = 2;
-            this.TblLayoutParts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15F));
-            this.TblLayoutParts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TblLayoutParts.Size = new System.Drawing.Size(449, 152);
-            this.TblLayoutParts.TabIndex = 1;
+            this.ListLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ListLog.FormattingEnabled = true;
+            this.ListLog.Items.AddRange(new object[] {
+            "Welcome to the S3 Multipart Uploader!",
+            ""});
+            this.ListLog.Location = new System.Drawing.Point(3, 18);
+            this.ListLog.Name = "ListLog";
+            this.ListLog.ScrollAlwaysVisible = true;
+            this.ListLog.Size = new System.Drawing.Size(672, 166);
+            this.ListLog.TabIndex = 0;
+            this.ToolTipMain.SetToolTip(this.ListLog, "Log messages.");
             // 
-            // LblPars
+            // PnlTop
             // 
-            this.LblPars.AutoSize = true;
-            this.LblPars.Location = new System.Drawing.Point(3, 0);
-            this.LblPars.Name = "LblPars";
-            this.LblPars.Size = new System.Drawing.Size(68, 13);
-            this.LblPars.TabIndex = 0;
-            this.LblPars.Text = "Object Parts:";
-            this.ToolTipMain.SetToolTip(this.LblPars, "A list of all the object parts in the selected directory.");
+            this.PnlTop.Controls.Add(this.LblRegion);
+            this.PnlTop.Controls.Add(this.ComboRegions);
+            this.PnlTop.Controls.Add(this.BtnAddProfile);
+            this.PnlTop.Controls.Add(this.BtnOptions);
+            this.PnlTop.Controls.Add(this.LblChooseDir);
+            this.PnlTop.Controls.Add(this.ComboProfiles);
+            this.PnlTop.Controls.Add(this.LblProfile);
+            this.PnlTop.Controls.Add(this.ComboBuckets);
+            this.PnlTop.Controls.Add(this.BtnChooseDir);
+            this.PnlTop.Controls.Add(this.TxtKey);
+            this.PnlTop.Controls.Add(this.LblBucket);
+            this.PnlTop.Controls.Add(this.LblKey);
+            this.PnlTop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PnlTop.Location = new System.Drawing.Point(3, 3);
+            this.PnlTop.MinimumSize = new System.Drawing.Size(400, 150);
+            this.PnlTop.Name = "PnlTop";
+            this.PnlTop.Size = new System.Drawing.Size(678, 199);
+            this.PnlTop.TabIndex = 0;
+            // 
+            // LblRegion
+            // 
+            this.LblRegion.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.LblRegion.Image = global::S3MultipartUploader.Properties.Resources.regions;
+            this.LblRegion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.LblRegion.Location = new System.Drawing.Point(162, 45);
+            this.LblRegion.Name = "LblRegion";
+            this.LblRegion.Size = new System.Drawing.Size(78, 34);
+            this.LblRegion.TabIndex = 7;
+            this.LblRegion.Text = "Region:";
+            this.LblRegion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.ToolTipMain.SetToolTip(this.LblRegion, "Choose the AWS region containing the bucket where you want to upload.");
+            // 
+            // ComboRegions
+            // 
+            this.ComboRegions.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.ComboRegions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboRegions.FormattingEnabled = true;
+            this.ErrorMain.SetIconPadding(this.ComboRegions, 3);
+            this.ComboRegions.Location = new System.Drawing.Point(246, 53);
+            this.ComboRegions.Name = "ComboRegions";
+            this.ComboRegions.Size = new System.Drawing.Size(210, 21);
+            this.ComboRegions.TabIndex = 2;
+            this.ToolTipMain.SetToolTip(this.ComboRegions, "Choose the AWS region containing the bucket where you want to upload.");
+            this.ComboRegions.SelectedIndexChanged += new System.EventHandler(this.ComboRegions_SelectedIndexChanged);
+            this.ComboRegions.Validating += new System.ComponentModel.CancelEventHandler(this.ComboRegions_Validating);
+            // 
+            // BtnAddProfile
+            // 
+            this.BtnAddProfile.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.BtnAddProfile.AutoSize = true;
+            this.BtnAddProfile.Image = ((System.Drawing.Image)(resources.GetObject("BtnAddProfile.Image")));
+            this.BtnAddProfile.Location = new System.Drawing.Point(480, 3);
+            this.BtnAddProfile.Name = "BtnAddProfile";
+            this.BtnAddProfile.Size = new System.Drawing.Size(38, 38);
+            this.BtnAddProfile.TabIndex = 1;
+            this.ToolTipMain.SetToolTip(this.BtnAddProfile, "Add a new AWS credentials profile.");
+            this.BtnAddProfile.UseVisualStyleBackColor = false;
+            this.BtnAddProfile.Click += new System.EventHandler(this.BtnAddProfile_Click_1);
+            // 
+            // BtnOptions
+            // 
+            this.BtnOptions.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.BtnOptions.AutoSize = true;
+            this.BtnOptions.Image = global::S3MultipartUploader.Properties.Resources.advanced_options;
+            this.BtnOptions.Location = new System.Drawing.Point(418, 161);
+            this.BtnOptions.Name = "BtnOptions";
+            this.BtnOptions.Size = new System.Drawing.Size(38, 38);
+            this.BtnOptions.TabIndex = 6;
+            this.ToolTipMain.SetToolTip(this.BtnOptions, "Advanced options.");
+            this.BtnOptions.UseVisualStyleBackColor = true;
+            this.BtnOptions.Click += new System.EventHandler(this.BtnOptions_Click);
+            // 
+            // LblChooseDir
+            // 
+            this.LblChooseDir.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.LblChooseDir.AutoSize = true;
+            this.LblChooseDir.Location = new System.Drawing.Point(297, 174);
+            this.LblChooseDir.Name = "LblChooseDir";
+            this.LblChooseDir.Size = new System.Drawing.Size(107, 13);
+            this.LblChooseDir.TabIndex = 0;
+            this.LblChooseDir.Text = "Object parts directory";
+            this.ToolTipMain.SetToolTip(this.LblChooseDir, "Select the directory containing the parts of the object to upload.");
+            // 
+            // ComboProfile
+            // 
+            this.ComboProfiles.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.ComboProfiles.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboProfiles.FormattingEnabled = true;
+            this.ErrorMain.SetIconPadding(this.ComboProfiles, 3);
+            this.ComboProfiles.Location = new System.Drawing.Point(246, 13);
+            this.ComboProfiles.Name = "ComboProfile";
+            this.ComboProfiles.Size = new System.Drawing.Size(210, 21);
+            this.ComboProfiles.TabIndex = 0;
+            this.ToolTipMain.SetToolTip(this.ComboProfiles, "Choose one of the AWS credentials profile already stored on this machine.");
+            this.ComboProfiles.SelectedIndexChanged += new System.EventHandler(this.ComboProfile_SelectedIndexChanged);
+            this.ComboProfiles.Validating += new System.ComponentModel.CancelEventHandler(this.ComboProfile_Validating);
+            // 
+            // ComboBucket
+            // 
+            this.ComboBuckets.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.ComboBuckets.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboBuckets.Enabled = false;
+            this.ComboBuckets.FormattingEnabled = true;
+            this.ErrorMain.SetIconPadding(this.ComboBuckets, 3);
+            this.ComboBuckets.Location = new System.Drawing.Point(246, 94);
+            this.ComboBuckets.Name = "ComboBucket";
+            this.ComboBuckets.Size = new System.Drawing.Size(210, 21);
+            this.ComboBuckets.TabIndex = 3;
+            this.ToolTipMain.SetToolTip(this.ComboBuckets, "Choose one of the buckets available to the chosen AWS profile.");
+            this.ComboBuckets.SelectedIndexChanged += new System.EventHandler(this.ComboBucket_SelectedIndexChanged);
+            this.ComboBuckets.Validating += new System.ComponentModel.CancelEventHandler(this.ComboBucket_Validating);
+            // 
+            // BtnChooseDir
+            // 
+            this.BtnChooseDir.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.BtnChooseDir.AutoSize = true;
+            this.BtnChooseDir.Location = new System.Drawing.Point(246, 169);
+            this.BtnChooseDir.Name = "BtnChooseDir";
+            this.BtnChooseDir.Size = new System.Drawing.Size(45, 23);
+            this.BtnChooseDir.TabIndex = 5;
+            this.BtnChooseDir.Text = "...";
+            this.ToolTipMain.SetToolTip(this.BtnChooseDir, "Select the directory containing the parts of the object to upload.");
+            this.BtnChooseDir.UseVisualStyleBackColor = true;
+            this.BtnChooseDir.Click += new System.EventHandler(this.BtnChooseDir_Click);
+            // 
+            // TxtKey
+            // 
+            this.TxtKey.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.ErrorMain.SetIconPadding(this.TxtKey, 3);
+            this.TxtKey.Location = new System.Drawing.Point(246, 135);
+            this.TxtKey.Name = "TxtKey";
+            this.TxtKey.Size = new System.Drawing.Size(210, 20);
+            this.TxtKey.TabIndex = 4;
+            this.ToolTipMain.SetToolTip(this.TxtKey, resources.GetString("TxtKey.ToolTip"));
+            this.TxtKey.TextChanged += new System.EventHandler(this.TxtKey_TextChanged);
+            this.TxtKey.Validating += new System.ComponentModel.CancelEventHandler(this.TxtKey_Validating);
+            // 
+            // PnlBottom
+            // 
+            this.PnlBottom.Controls.Add(this.BtnPause);
+            this.PnlBottom.Controls.Add(this.ProgressMain);
+            this.PnlBottom.Controls.Add(this.BtnStartStop);
+            this.PnlBottom.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PnlBottom.Location = new System.Drawing.Point(3, 551);
+            this.PnlBottom.Name = "PnlBottom";
+            this.PnlBottom.Size = new System.Drawing.Size(678, 49);
+            this.PnlBottom.TabIndex = 15;
+            // 
+            // BtnPause
+            // 
+            this.BtnPause.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnPause.AutoSize = true;
+            this.BtnPause.Enabled = false;
+            this.BtnPause.Image = global::S3MultipartUploader.Properties.Resources.pause_upload;
+            this.BtnPause.Location = new System.Drawing.Point(637, 3);
+            this.BtnPause.Name = "BtnPause";
+            this.BtnPause.Size = new System.Drawing.Size(38, 38);
+            this.BtnPause.TabIndex = 1;
+            this.ToolTipMain.SetToolTip(this.BtnPause, "Pause all part uploads.");
+            this.BtnPause.UseVisualStyleBackColor = true;
+            // 
+            // ProgressMain
+            // 
+            this.ProgressMain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ProgressMain.Enabled = false;
+            this.ProgressMain.Location = new System.Drawing.Point(3, 3);
+            this.ProgressMain.Name = "ProgressMain";
+            this.ProgressMain.Size = new System.Drawing.Size(583, 38);
+            this.ProgressMain.TabIndex = 0;
+            this.ToolTipMain.SetToolTip(this.ProgressMain, "Upload has not started yet.");
+            // 
+            // BtnStartStop
+            // 
+            this.BtnStartStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnStartStop.AutoSize = true;
+            this.BtnStartStop.Enabled = false;
+            this.BtnStartStop.Image = global::S3MultipartUploader.Properties.Resources.start_resume_upload;
+            this.BtnStartStop.Location = new System.Drawing.Point(592, 3);
+            this.BtnStartStop.Name = "BtnStartStop";
+            this.BtnStartStop.Size = new System.Drawing.Size(39, 38);
+            this.BtnStartStop.TabIndex = 0;
+            this.ToolTipMain.SetToolTip(this.BtnStartStop, "Start uploading object parts.");
+            this.BtnStartStop.UseVisualStyleBackColor = true;
+            // 
+            // FolderBrowserParts
+            // 
+            this.FolderBrowserParts.Description = "Select a directory containing object parts to upload.";
+            this.FolderBrowserParts.RootFolder = System.Environment.SpecialFolder.MyComputer;
+            // 
+            // ErrorMain
+            // 
+            this.ErrorMain.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.ErrorMain.ContainerControl = this;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(455, 603);
+            this.ClientSize = new System.Drawing.Size(684, 603);
             this.Controls.Add(this.TblLayoutMain);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -446,16 +457,16 @@
             this.SplitMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.SplitMain)).EndInit();
             this.SplitMain.ResumeLayout(false);
+            this.TblLayoutParts.ResumeLayout(false);
+            this.TblLayoutParts.PerformLayout();
             this.CntxtMenuParts.ResumeLayout(false);
+            this.TblLayoutLogs.ResumeLayout(false);
+            this.TblLayoutLogs.PerformLayout();
             this.PnlTop.ResumeLayout(false);
             this.PnlTop.PerformLayout();
             this.PnlBottom.ResumeLayout(false);
             this.PnlBottom.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderMain)).EndInit();
-            this.TblLayoutLogs.ResumeLayout(false);
-            this.TblLayoutLogs.PerformLayout();
-            this.TblLayoutParts.ResumeLayout(false);
-            this.TblLayoutParts.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ErrorMain)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -466,8 +477,8 @@
         private System.Windows.Forms.Label LblBucket;
         private System.Windows.Forms.Label LblKey;
         private System.Windows.Forms.TableLayoutPanel TblLayoutMain;
-        private System.Windows.Forms.ComboBox ComboProfile;
-        private System.Windows.Forms.ComboBox ComboBucket;
+        private System.Windows.Forms.ComboBox ComboProfiles;
+        private System.Windows.Forms.ComboBox ComboBuckets;
         private System.Windows.Forms.TextBox TxtKey;
         private System.Windows.Forms.Panel PnlTop;
         private System.Windows.Forms.Button BtnChooseDir;
@@ -476,7 +487,7 @@
         private System.Windows.Forms.ListBox ListLog;
         private System.Windows.Forms.Button BtnOptions;
         private System.Windows.Forms.FolderBrowserDialog FolderBrowserParts;
-        private System.Windows.Forms.ErrorProvider ErrorProviderMain;
+        private System.Windows.Forms.ErrorProvider ErrorMain;
         private System.Windows.Forms.ToolTip ToolTipMain;
         private System.Windows.Forms.Panel PnlBottom;
         private System.Windows.Forms.ProgressBar ProgressMain;
