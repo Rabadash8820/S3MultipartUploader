@@ -101,6 +101,60 @@ namespace S3MultipartUploader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Profile Access Key IDs must contain exactly 20 uppercase alphanumeric characters..
+        /// </summary>
+        internal static string InvalidProfileAccessKeyID {
+            get {
+                return ResourceManager.GetString("InvalidProfileAccessKeyID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profile names must only contain upper and lowercase alphanumeric characters with no spaces and any of the following characters: =,.@-.
+        /// </summary>
+        internal static string InvalidProfileName {
+            get {
+                return ResourceManager.GetString("InvalidProfileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profile Secret Access Keys must contain exactly 40 lower and/or uppercase alphanumeric characters, forward slashes (&quot;/&quot;), and/or plus signs (&quot;+&quot;)..
+        /// </summary>
+        internal static string InvalidProfileSecretKey {
+            get {
+                return ResourceManager.GetString("InvalidProfileSecretKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must provide an Access Key ID for the new AWS credentials profile..
+        /// </summary>
+        internal static string MissingAccessKeyID {
+            get {
+                return ResourceManager.GetString("MissingAccessKeyID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must provide a name for the new AWS credentials profile..
+        /// </summary>
+        internal static string MissingProfileName {
+            get {
+                return ResourceManager.GetString("MissingProfileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must provide a Secret Access Key for the new AWS credentials profile..
+        /// </summary>
+        internal static string MissingSecretAccessKey {
+            get {
+                return ResourceManager.GetString("MissingSecretAccessKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No files found..
         /// </summary>
         internal static string NoFilesFound {
@@ -189,6 +243,42 @@ namespace S3MultipartUploader.Properties {
             get {
                 object obj = ResourceManager.GetObject("profile", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ^[0-9A-Z]{20}$.
+        /// </summary>
+        internal static string ProfileAccessKeyIDRegex {
+            get {
+                return ResourceManager.GetString("ProfileAccessKeyIDRegex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profile &quot;{0}&quot; added!.
+        /// </summary>
+        internal static string ProfileAdded {
+            get {
+                return ResourceManager.GetString("ProfileAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ^[0-9a-zA-Z=,.@-]+$.
+        /// </summary>
+        internal static string ProfileNameRegex {
+            get {
+                return ResourceManager.GetString("ProfileNameRegex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ^[0-9a-zA-Z/+]{40}$.
+        /// </summary>
+        internal static string ProfileSecretKeyRegex {
+            get {
+                return ResourceManager.GetString("ProfileSecretKeyRegex", resourceCulture);
             }
         }
         

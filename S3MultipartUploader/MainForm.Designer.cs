@@ -66,9 +66,9 @@
             this.LblProfile.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.LblProfile.Image = ((System.Drawing.Image)(resources.GetObject("LblProfile.Image")));
             this.LblProfile.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.LblProfile.Location = new System.Drawing.Point(37, 7);
+            this.LblProfile.Location = new System.Drawing.Point(32, 7);
             this.LblProfile.Name = "LblProfile";
-            this.LblProfile.Size = new System.Drawing.Size(68, 31);
+            this.LblProfile.Size = new System.Drawing.Size(73, 31);
             this.LblProfile.TabIndex = 0;
             this.LblProfile.Text = "Profile";
             this.LblProfile.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -80,9 +80,9 @@
             this.LblBucket.Enabled = false;
             this.LblBucket.Image = global::S3MultipartUploader.Properties.Resources.bucket;
             this.LblBucket.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.LblBucket.Location = new System.Drawing.Point(37, 42);
+            this.LblBucket.Location = new System.Drawing.Point(32, 42);
             this.LblBucket.Name = "LblBucket";
-            this.LblBucket.Size = new System.Drawing.Size(72, 33);
+            this.LblBucket.Size = new System.Drawing.Size(77, 33);
             this.LblBucket.TabIndex = 1;
             this.LblBucket.Text = "Bucket";
             this.LblBucket.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -93,9 +93,9 @@
             this.LblKey.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.LblKey.Image = global::S3MultipartUploader.Properties.Resources.s3_key;
             this.LblKey.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.LblKey.Location = new System.Drawing.Point(42, 80);
+            this.LblKey.Location = new System.Drawing.Point(37, 80);
             this.LblKey.Name = "LblKey";
-            this.LblKey.Size = new System.Drawing.Size(63, 32);
+            this.LblKey.Size = new System.Drawing.Size(68, 32);
             this.LblKey.TabIndex = 2;
             this.LblKey.Text = "Key";
             this.LblKey.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -147,7 +147,7 @@
             this.ListParts.Name = "ListParts";
             this.ListParts.ScrollAlwaysVisible = true;
             this.ListParts.Size = new System.Drawing.Size(403, 163);
-            this.ListParts.TabIndex = 17;
+            this.ListParts.TabIndex = 0;
             this.ListParts.ThreeDCheckBoxes = true;
             // 
             // CntxtMenuParts
@@ -210,7 +210,7 @@
             this.BtnAddProfile.Location = new System.Drawing.Point(327, 3);
             this.BtnAddProfile.Name = "BtnAddProfile";
             this.BtnAddProfile.Size = new System.Drawing.Size(38, 38);
-            this.BtnAddProfile.TabIndex = 6;
+            this.BtnAddProfile.TabIndex = 1;
             this.BtnAddProfile.UseVisualStyleBackColor = false;
             this.BtnAddProfile.Click += new System.EventHandler(this.BtnAddProfile_Click_1);
             // 

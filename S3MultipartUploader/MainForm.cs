@@ -2,10 +2,9 @@
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 
-using Amazon.S3;
+using Amazon.Util;
 using Amazon.Runtime;
 
 using static S3MultipartUploader.Properties.Resources;
@@ -18,8 +17,8 @@ namespace S3MultipartUploader {
 
         public MainForm() {
             InitializeComponent();
-            //AWSCredentials cred = new 
-            
+
+            bindProfiles();
         }
 
         // EVENT HANDLERS
@@ -32,23 +31,57 @@ namespace S3MultipartUploader {
             // If they cancel then just log a message
             DialogResult result = FolderBrowserParts.ShowDialog();
             if (result == DialogResult.Cancel)
-                logMessages(SelectDirectoryCancel);
+                logMessage(SelectDirectoryCancel);
 
             // Otherwise, store the parts in the Directory
             else if (result == DialogResult.OK) {
                 resetParts();
                 string path = FolderBrowserParts.SelectedPath;
-                logMessages(string.Format(SelectDirectorySuccess, path));
+                logMessage(string.Format(SelectDirectorySuccess, path));
                 getPartsInDirectory(new DirectoryInfo(path));
             }
         }
         private void BtnAddProfile_Click_1(object sender, EventArgs e) {
             AddProfileForm f = new AddProfileForm();
+            f.ProfileAdded += AddProfileForm_ProfileAdded;
             f.ShowDialog();
+        }
+        private void AddProfileForm_ProfileAdded(object sender, ProfileEventArgs e) {
+            Cursor.Current = Cursors.WaitCursor;
+
+            // Persist the new AWS credentials profile!
+            string name = e.ProfileName;
+            AWSCredentialsProfile.Persist(name, e.AccessKeyId, e.SecretAccessKey);
+            AWSCredentials creds = ProfileManager.GetAWSCredentials(name);
+
+            Cursor.Current = Cursors.Default;
+
+            // Log this information
+            string msg = string.Format(ProfileAdded, name);
+            logMessage(msg, showMsgBox: true);
+
+            // Reset the data source for the profiles combobox
+            bindProfiles();
         }
 
         // HELPERS
+        private void bindProfiles() {
+            IEnumerable<ProfileSettingsBase> profiles = ProfileManager.ListProfiles();
+            ComboProfile.DataSource = profiles;
+            ComboProfile.DisplayMember = nameof(ProfileSettingsBase.Name);
+            ComboProfile.ValueMember = nameof(ProfileSettingsBase.UniqueId);
+        }
+        
+        private void logMessage(string message, uint numTabs = 0, bool showMsgBox = false) {
+            logMessages(numTabs, message);
+
+            if (showMsgBox)
+                MessageBox.Show(message);
+        }
         private void logMessages(params string[] messages) {
+            logMessages(0, messages);
+        }
+        private void logMessages(bool showMsgBox, params string[] messages) {
             logMessages(0, messages);
         }
         private void logMessages(uint numTabs, params string[] messages) {
