@@ -26,6 +26,7 @@ namespace S3MultipartUploader {
         private bool _regionVisited = false;
         private bool _bucketVisited = false;
         private bool _keyVistied = false;
+
         private object _logLock = new object();
         private ConcurrentQueue<string> _logQueue = new ConcurrentQueue<string>();
 
@@ -52,7 +53,6 @@ namespace S3MultipartUploader {
             else if (result == DialogResult.OK)
                 bindObjectPartsAsync();
         }
-
         private void BtnAddProfile_Click_1(object sender, EventArgs e) {
             AddProfileForm f = new AddProfileForm();
             f.ProfileAdded += AddProfileForm_ProfileAdded;
@@ -60,9 +60,9 @@ namespace S3MultipartUploader {
         }
         private void AddProfileForm_ProfileAdded(object sender, ProfileEventArgs e) {
             // Persist the new AWS credentials profile!
-            toggleWaitState(true);
-            persistProfile(e.ProfileName, e.AccessKeyId, e.SecretAccessKey);
-            toggleWaitState(false);
+            using (new WaitCursor()) {
+                AWSCredentialsProfile.Persist(e.ProfileName, e.AccessKeyId, e.SecretAccessKey);
+            }
 
             // Log this information
             string msg = string.Format(ProfileAdded, e.ProfileName);
@@ -129,7 +129,10 @@ namespace S3MultipartUploader {
             logMessage(msg);
 
             // List regions
-            IEnumerable<RegionEndpoint> regions = await Task.Run(() => RegionEndpoint.EnumerableAllRegions);
+            IEnumerable<RegionEndpoint> regions;
+            using (new WaitCursor()) {
+                regions = await Task.Run(() => RegionEndpoint.EnumerableAllRegions);
+            }
 
             // Adjust controls based on listed regions
             msg = string.Format(S3RegionsListed, regions.Count());
@@ -143,7 +146,10 @@ namespace S3MultipartUploader {
             logMessage(msg);
 
             // List profiles
-            IEnumerable<ProfileSettingsBase> profiles = await Task.Run(() => ProfileManager.ListProfiles());
+            IEnumerable<ProfileSettingsBase> profiles;
+            using (new WaitCursor()) {
+                profiles = await Task.Run(() => ProfileManager.ListProfiles());
+            }
 
             // Adjust controls based on listed profiles
             msg = string.Format(ProfilesListed, profiles.Count());
@@ -160,7 +166,10 @@ namespace S3MultipartUploader {
 
             // Asynchronously list buckets available to this profile
             var s3 = new AmazonS3Client(profile.Credentials, region);
-            List<S3Bucket> buckets = (await s3.ListBucketsAsync(_cts.Token)).Buckets;
+            List<S3Bucket> buckets;
+            using (new WaitCursor()) {
+                buckets = (await s3.ListBucketsAsync(_cts.Token)).Buckets;
+            }
 
             // Adjust controls based on listed buckets
             msg = string.Format(BucketsListed, buckets.Count);
@@ -168,7 +177,6 @@ namespace S3MultipartUploader {
             ComboBuckets.DisplayMember = nameof(S3Bucket.BucketName);
             ComboBuckets.DataSource = buckets.ToArray();
             toggleBucketCtrls(true);
-            toggleWaitState(false);
         }
         private async void bindObjectPartsAsync() {
             // Set up for listing object parts
@@ -178,7 +186,10 @@ namespace S3MultipartUploader {
 
             // List object parts
             string[] messages = new string[0];
-            FileInfo[] parts = await Task.Run(() => getPartsInDirectory(new DirectoryInfo(path), out messages));
+            FileInfo[] parts;
+            using (new WaitCursor()) {
+                parts = await Task.Run(() => getPartsInDirectory(new DirectoryInfo(path), out messages));
+            }
 
             // Adjust controls based on listed object parts
             logMessages(messages);
@@ -187,19 +198,12 @@ namespace S3MultipartUploader {
                 resetPartCtrls(parts);
             }
         }
-        private static void persistProfile(string name, string accessKeyId, string secretKey) {
-            AWSCredentialsProfile.Persist(name, accessKeyId, secretKey);
-            AWSCredentials creds = ProfileManager.GetAWSCredentials(name);
-        }
         private void toggleBucketCtrls(bool enabled) {
             LblBucket.Enabled = enabled;
             ComboBuckets.Enabled = enabled;
         }
         private void togglePartCtrls(bool enabled) {
             TblLayoutParts.Enabled = false;
-        }
-        private void toggleWaitState(bool waiting) {
-            Application.UseWaitCursor = waiting;
         }
         private void resetPartCtrls(IEnumerable<FileInfo> parts) {
             ListParts.Items.AddRange(parts.ToArray());

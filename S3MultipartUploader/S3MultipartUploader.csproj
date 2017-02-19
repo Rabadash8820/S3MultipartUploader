@@ -79,6 +79,7 @@
     <Compile Include="ValidateProfile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WaitCursor.cs" />
     <EmbeddedResource Include="AddProfileForm.resx">
       <DependentUpon>AddProfileForm.cs</DependentUpon>
     </EmbeddedResource>
