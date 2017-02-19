@@ -57,11 +57,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddProfileForm.cs">
+    <Compile Include="SaveProfileForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddProfileForm.Designer.cs">
-      <DependentUpon>AddProfileForm.cs</DependentUpon>
+    <Compile Include="SaveProfileForm.Designer.cs">
+      <DependentUpon>SaveProfileForm.cs</DependentUpon>
     </Compile>
     <Compile Include="AdvancedOptionsForm.cs">
       <SubType>Form</SubType>
@@ -80,8 +80,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WaitCursor.cs" />
-    <EmbeddedResource Include="AddProfileForm.resx">
-      <DependentUpon>AddProfileForm.cs</DependentUpon>
+    <EmbeddedResource Include="SaveProfileForm.resx">
+      <DependentUpon>SaveProfileForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AdvancedOptionsForm.resx">
       <DependentUpon>AdvancedOptionsForm.cs</DependentUpon>
@@ -148,6 +148,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\delete_profile.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\edit_profile.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

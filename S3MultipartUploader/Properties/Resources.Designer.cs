@@ -129,6 +129,43 @@ namespace S3MultipartUploader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Duplicate profile detected!.
+        /// </summary>
+        internal static string DuplicateProfileCaption {
+            get {
+                return ResourceManager.GetString("DuplicateProfileCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A credentials profile named &quot;{0}&quot; has already been registered on this machine.  Are you sure you want to continue saving and overwrite the existing profile&apos;s values?.
+        /// </summary>
+        internal static string DuplicateProfileText {
+            get {
+                return ResourceManager.GetString("DuplicateProfileText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap edit_profile {
+            get {
+                object obj = ResourceManager.GetObject("edit_profile", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Credentials for Profile&quot;{0}&quot;.
+        /// </summary>
+        internal static string EditProfileTitle {
+            get {
+                return ResourceManager.GetString("EditProfileTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Profile Access Key IDs must contain exactly 20 uppercase letters and/or numbers..
         /// </summary>
         internal static string InvalidProfileAccessKeyID {
@@ -337,6 +374,15 @@ namespace S3MultipartUploader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pause all part uploads..
+        /// </summary>
+        internal static string PauseUploading {
+            get {
+                return ResourceManager.GetString("PauseUploading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap profile {
@@ -370,6 +416,15 @@ namespace S3MultipartUploader.Properties {
         internal static string ProfileDeleted {
             get {
                 return ResourceManager.GetString("ProfileDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Changes to profile &quot;{0}&quot; have been saved!.
+        /// </summary>
+        internal static string ProfileEdited {
+            get {
+                return ResourceManager.GetString("ProfileEdited", resourceCulture);
             }
         }
         
@@ -429,6 +484,15 @@ namespace S3MultipartUploader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Resume all part uploads..
+        /// </summary>
+        internal static string ResumeUploading {
+            get {
+                return ResourceManager.GetString("ResumeUploading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap s3_key {
@@ -481,6 +545,15 @@ namespace S3MultipartUploader.Properties {
             get {
                 object obj = ResourceManager.GetObject("start_resume_upload", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start uploading object parts!.
+        /// </summary>
+        internal static string StartUploading {
+            get {
+                return ResourceManager.GetString("StartUploading", resourceCulture);
             }
         }
         

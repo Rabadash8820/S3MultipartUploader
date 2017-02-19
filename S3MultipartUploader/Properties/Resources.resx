@@ -262,4 +262,28 @@
   <data name="NoPartsFound" xml:space="preserve">
     <value>{0} files found, but none of them were object parts.</value>
   </data>
+  <data name="edit_profile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\edit_profile.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DuplicateProfileCaption" xml:space="preserve">
+    <value>Duplicate profile detected!</value>
+  </data>
+  <data name="DuplicateProfileText" xml:space="preserve">
+    <value>A credentials profile named "{0}" has already been registered on this machine.  Are you sure you want to continue saving and overwrite the existing profile's values?</value>
+  </data>
+  <data name="EditProfileTitle" xml:space="preserve">
+    <value>Edit Credentials for Profile"{0}"</value>
+  </data>
+  <data name="PauseUploading" xml:space="preserve">
+    <value>Pause all part uploads.</value>
+  </data>
+  <data name="ProfileEdited" xml:space="preserve">
+    <value>Changes to profile "{0}" have been saved!</value>
+  </data>
+  <data name="ResumeUploading" xml:space="preserve">
+    <value>Resume all part uploads.</value>
+  </data>
+  <data name="StartUploading" xml:space="preserve">
+    <value>Start uploading object parts!</value>
+  </data>
 </root>

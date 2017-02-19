@@ -37,6 +37,7 @@
             this.LblLogs = new System.Windows.Forms.Label();
             this.ListLog = new System.Windows.Forms.ListBox();
             this.PnlTop = new System.Windows.Forms.Panel();
+            this.BtnEditProfile = new System.Windows.Forms.Button();
             this.BtnDeleteProfile = new System.Windows.Forms.Button();
             this.LblRegion = new System.Windows.Forms.Label();
             this.ComboRegions = new System.Windows.Forms.ComboBox();
@@ -48,9 +49,9 @@
             this.BtnChooseDir = new System.Windows.Forms.Button();
             this.TxtKey = new System.Windows.Forms.TextBox();
             this.PnlBottom = new System.Windows.Forms.Panel();
-            this.BtnPause = new System.Windows.Forms.Button();
+            this.BtnStop = new System.Windows.Forms.Button();
             this.ProgressMain = new System.Windows.Forms.ProgressBar();
-            this.BtnStartStop = new System.Windows.Forms.Button();
+            this.BtnStartPause = new System.Windows.Forms.Button();
             this.CntxtMenuParts = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.MenuItemRestartUpload = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemPauseUpload = new System.Windows.Forms.ToolStripMenuItem();
@@ -223,6 +224,7 @@
             // 
             // PnlTop
             // 
+            this.PnlTop.Controls.Add(this.BtnEditProfile);
             this.PnlTop.Controls.Add(this.BtnDeleteProfile);
             this.PnlTop.Controls.Add(this.LblRegion);
             this.PnlTop.Controls.Add(this.ComboRegions);
@@ -242,6 +244,20 @@
             this.PnlTop.Name = "PnlTop";
             this.PnlTop.Size = new System.Drawing.Size(678, 199);
             this.PnlTop.TabIndex = 0;
+            // 
+            // BtnEditProfile
+            // 
+            this.BtnEditProfile.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.BtnEditProfile.AutoSize = true;
+            this.BtnEditProfile.Enabled = false;
+            this.BtnEditProfile.Image = global::S3MultipartUploader.Properties.Resources.edit_profile;
+            this.BtnEditProfile.Location = new System.Drawing.Point(524, 3);
+            this.BtnEditProfile.Name = "BtnEditProfile";
+            this.BtnEditProfile.Size = new System.Drawing.Size(38, 38);
+            this.BtnEditProfile.TabIndex = 9;
+            this.ToolTipMain.SetToolTip(this.BtnEditProfile, "Edit the currently selected AWS credentials profile.");
+            this.BtnEditProfile.UseVisualStyleBackColor = false;
+            this.BtnEditProfile.Click += new System.EventHandler(this.BtnEditProfile_Click);
             // 
             // BtnDeleteProfile
             // 
@@ -380,27 +396,28 @@
             // 
             // PnlBottom
             // 
-            this.PnlBottom.Controls.Add(this.BtnPause);
+            this.PnlBottom.Controls.Add(this.BtnStop);
             this.PnlBottom.Controls.Add(this.ProgressMain);
-            this.PnlBottom.Controls.Add(this.BtnStartStop);
+            this.PnlBottom.Controls.Add(this.BtnStartPause);
             this.PnlBottom.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PnlBottom.Location = new System.Drawing.Point(3, 551);
             this.PnlBottom.Name = "PnlBottom";
             this.PnlBottom.Size = new System.Drawing.Size(678, 49);
             this.PnlBottom.TabIndex = 15;
             // 
-            // BtnPause
+            // BtnStop
             // 
-            this.BtnPause.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnPause.AutoSize = true;
-            this.BtnPause.Enabled = false;
-            this.BtnPause.Image = global::S3MultipartUploader.Properties.Resources.pause_upload;
-            this.BtnPause.Location = new System.Drawing.Point(637, 3);
-            this.BtnPause.Name = "BtnPause";
-            this.BtnPause.Size = new System.Drawing.Size(38, 38);
-            this.BtnPause.TabIndex = 1;
-            this.ToolTipMain.SetToolTip(this.BtnPause, "Pause all part uploads.");
-            this.BtnPause.UseVisualStyleBackColor = true;
+            this.BtnStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnStop.AutoSize = true;
+            this.BtnStop.Enabled = false;
+            this.BtnStop.Image = global::S3MultipartUploader.Properties.Resources.stop_upload;
+            this.BtnStop.Location = new System.Drawing.Point(637, 3);
+            this.BtnStop.Name = "BtnStop";
+            this.BtnStop.Size = new System.Drawing.Size(38, 38);
+            this.BtnStop.TabIndex = 1;
+            this.ToolTipMain.SetToolTip(this.BtnStop, "Abort this multipart upload.");
+            this.BtnStop.UseVisualStyleBackColor = true;
+            this.BtnStop.Click += new System.EventHandler(this.BtnStop_Click);
             // 
             // ProgressMain
             // 
@@ -415,16 +432,17 @@
             // 
             // BtnStartStop
             // 
-            this.BtnStartStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnStartStop.AutoSize = true;
-            this.BtnStartStop.Enabled = false;
-            this.BtnStartStop.Image = global::S3MultipartUploader.Properties.Resources.start_resume_upload;
-            this.BtnStartStop.Location = new System.Drawing.Point(592, 3);
-            this.BtnStartStop.Name = "BtnStartStop";
-            this.BtnStartStop.Size = new System.Drawing.Size(39, 38);
-            this.BtnStartStop.TabIndex = 0;
-            this.ToolTipMain.SetToolTip(this.BtnStartStop, "Start uploading object parts!");
-            this.BtnStartStop.UseVisualStyleBackColor = true;
+            this.BtnStartPause.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnStartPause.AutoSize = true;
+            this.BtnStartPause.Enabled = false;
+            this.BtnStartPause.Image = global::S3MultipartUploader.Properties.Resources.start_resume_upload;
+            this.BtnStartPause.Location = new System.Drawing.Point(592, 3);
+            this.BtnStartPause.Name = "BtnStartStop";
+            this.BtnStartPause.Size = new System.Drawing.Size(39, 38);
+            this.BtnStartPause.TabIndex = 0;
+            this.ToolTipMain.SetToolTip(this.BtnStartPause, "Start uploading object parts!");
+            this.BtnStartPause.UseVisualStyleBackColor = true;
+            this.BtnStartPause.Click += new System.EventHandler(this.BtnStartPause_Click);
             // 
             // CntxtMenuParts
             // 
@@ -506,12 +524,12 @@
         private System.Windows.Forms.ToolTip ToolTipMain;
         private System.Windows.Forms.Panel PnlBottom;
         private System.Windows.Forms.ProgressBar ProgressMain;
-        private System.Windows.Forms.Button BtnStartStop;
+        private System.Windows.Forms.Button BtnStartPause;
         private System.Windows.Forms.ContextMenuStrip CntxtMenuParts;
         private System.Windows.Forms.ToolStripMenuItem MenuItemRestartUpload;
         private System.Windows.Forms.ToolStripMenuItem MenuItemPauseUpload;
         private System.Windows.Forms.Button BtnAddProfile;
-        private System.Windows.Forms.Button BtnPause;
+        private System.Windows.Forms.Button BtnStop;
         private System.Windows.Forms.Label LblRegion;
         private System.Windows.Forms.ComboBox ComboRegions;
         private System.Windows.Forms.TableLayoutPanel TblLayoutParts;
@@ -520,6 +538,7 @@
         private System.Windows.Forms.Label LblLogs;
         private System.Windows.Forms.ListBox ListParts;
         private System.Windows.Forms.Button BtnDeleteProfile;
+        private System.Windows.Forms.Button BtnEditProfile;
     }
 }
 

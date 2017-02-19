@@ -22,14 +22,16 @@ namespace S3MultipartUploader {
 
         // HIDDEN FIELDS
         private CancellationTokenSource _cts = new CancellationTokenSource();
+        private object _logLock = new object();
+        private ConcurrentQueue<string> _logQueue = new ConcurrentQueue<string>();
+        private bool _uploading = false;
+        private bool _paused = false;
+
         private bool _profileVisited = false;
         private bool _regionVisited = false;
         private bool _bucketVisited = false;
         private bool _keyVistied = false;
         private bool _partsVisited = false;
-
-        private object _logLock = new object();
-        private ConcurrentQueue<string> _logQueue = new ConcurrentQueue<string>();
 
         public MainForm() {
             InitializeComponent();
@@ -55,11 +57,17 @@ namespace S3MultipartUploader {
                 bindObjectPartsAsync();
         }
         private void BtnAddProfile_Click(object sender, EventArgs e) {
-            AddProfileForm f = new AddProfileForm();
-            f.ProfileAdded += AddProfileForm_ProfileAdded;
+            SaveProfileForm f = new SaveProfileForm();
+            f.ProfileAdded += SaveProfileForm_ProfileAdded;
             f.ShowDialog();
         }
-        private void AddProfileForm_ProfileAdded(object sender, ProfileEventArgs e) {
+        private void BtnEditProfile_Click(object sender, EventArgs e) {
+            var profile = ComboProfiles.SelectedItem as AWSCredentialsProfile;
+            SaveProfileForm f = new SaveProfileForm(profile);
+            f.ProfileEdited += SaveProfileForm_ProfileEdited;
+            f.ShowDialog();
+        }
+        private void SaveProfileForm_ProfileAdded(object sender, ProfileEventArgs e) {
             // Persist the new AWS credentials profile!
             using (new WaitCursor()) {
                 ProfileManager.RegisterProfile(e.ProfileName, e.AccessKeyId, e.SecretAccessKey);
@@ -67,6 +75,20 @@ namespace S3MultipartUploader {
 
             // Log this information
             string msg = string.Format(ProfileAdded, e.ProfileName);
+            logMessage(msg);
+
+            // Reset the data source for the profiles combobox
+            // and select the profile that was just added
+            bindProfilesAsync(true);
+        }
+        private void SaveProfileForm_ProfileEdited(object sender, ProfileEventArgs e) {
+            // Persist changes to this AWS credentials profile
+            using (new WaitCursor()) {
+                AWSCredentialsProfile.Persist(e.ProfileName, e.AccessKeyId, e.SecretAccessKey);
+            }
+
+            // Log this information
+            string msg = string.Format(ProfileEdited, e.ProfileName);
             logMessage(msg);
 
             // Reset the data source for the profiles combobox
@@ -135,6 +157,16 @@ namespace S3MultipartUploader {
         private void TxtKey_Validating(object sender, System.ComponentModel.CancelEventArgs e) {
             validateKey();
         }
+        private void BtnStartPause_Click(object sender, EventArgs e) {
+            if (!_uploading)
+                toggleUploadCtrls(true);
+
+            _paused = !_paused;
+            toggleUploadPlayPauseCtrls(_paused);
+        }
+        private void BtnStop_Click(object sender, EventArgs e) {
+            toggleUploadCtrls(false);
+        }
 
         #endregion
 
@@ -155,7 +187,7 @@ namespace S3MultipartUploader {
             logMessage(msg);
             ComboRegions.DataSource = regions;
         }
-        private async void bindProfilesAsync() {
+        private async void bindProfilesAsync(bool selectLast = false) {
             // Set up for listing profiles
             string msg = string.Format(ListingProfiles);
             logMessage(msg);
@@ -171,6 +203,8 @@ namespace S3MultipartUploader {
             msg = string.Format(ProfilesListed, numProfiles);
             logMessage(msg);
             ComboProfiles.DataSource = profiles;
+            if (selectLast)
+                ComboProfiles.SelectedIndex = ComboProfiles.Items.Count - 1;
             toggleProfileCtrls(numProfiles > 0);
         }
         private async void bindBucketsAsync(AWSCredentialsProfile profile, RegionEndpoint region) {
@@ -196,7 +230,7 @@ namespace S3MultipartUploader {
             // Set up for listing object parts
             string path = FolderBrowserParts.SelectedPath;
             logMessage(string.Format(SelectDirectorySuccess, path));
-            ListParts.Items.Clear();
+            resetParts();
             togglePartCtrls(false);
 
             // List object parts
@@ -212,22 +246,8 @@ namespace S3MultipartUploader {
             bool noErrs = (errMsgs.Length == 0);
             togglePartCtrls(noErrs);
             if (noErrs)
-                resetPartCtrls(parts);
+                resetParts(parts);
             validateParts();
-        }
-        private void toggleProfileCtrls(bool enabled) {
-            BtnDeleteProfile.Enabled = enabled;
-        }
-        private void toggleBucketCtrls(bool enabled) {
-            LblBucket.Enabled = enabled;
-            ComboBuckets.Enabled = enabled;
-        }
-        private void togglePartCtrls(bool enabled) {
-            TblLayoutParts.Enabled = false;
-        }
-        private void resetPartCtrls(IEnumerable<FileInfo> parts) {
-            ListParts.Items.AddRange(parts.ToArray());
-            TblLayoutParts.Enabled = true;
         }
         private FileInfo[] getPartsInDirectory(DirectoryInfo dir, out string[] logMsgs, out string[] errorMsgs) {
             // Get the number of object parts and total files in this Directory
@@ -277,6 +297,35 @@ namespace S3MultipartUploader {
             logMsgs = logs.ToArray();
             errorMsgs = errs.ToArray();
             return parts.ToArray();
+        }
+
+        private void toggleProfileCtrls(bool enabled) {
+            BtnEditProfile.Enabled = enabled;
+            BtnDeleteProfile.Enabled = enabled;
+        }
+        private void toggleBucketCtrls(bool enabled) {
+            LblBucket.Enabled = enabled;
+            ComboBuckets.Enabled = enabled;
+        }
+        private void togglePartCtrls(bool enabled) {
+            TblLayoutParts.Enabled = enabled;
+        }
+        private void toggleUploadCtrls(bool uploading) {
+            PnlTop.Enabled = !uploading;
+            SplitMain.Panel1.Enabled = !uploading;
+            ProgressMain.Enabled = uploading;
+            BtnStop.Enabled = uploading;
+            BtnStartPause.Image = start_resume_upload;
+            ToolTipMain.SetToolTip(BtnStartPause, StartUploading);
+        }
+        private void toggleUploadPlayPauseCtrls(bool resuming) {
+            BtnStartPause.Image = (resuming ? pause_upload : start_resume_upload);
+            ToolTipMain.SetToolTip(BtnStartPause, (resuming ? PauseUploading : ResumeUploading));
+        }
+        private void resetParts(IEnumerable<FileInfo> parts = null) {
+            ListParts.Items.Clear();
+            if (parts != null)
+                ListParts.Items.AddRange(parts?.ToArray());
         }
 
         #region Log Helpers
@@ -329,7 +378,7 @@ namespace S3MultipartUploader {
             // Show or clear the error message accordingly
             string error = (ComboProfiles.SelectedIndex == -1) ? MissingProfile : "";
             ErrorMain.SetError(ComboProfiles, error);
-            BtnStartStop.Enabled = canStart();
+            BtnStartPause.Enabled = canStart();
         }
         private void validateRegion() {
             _regionVisited = true;
@@ -338,7 +387,7 @@ namespace S3MultipartUploader {
             // Show or clear the error message accordingly
             string error = (ComboRegions.SelectedIndex == -1) ? MissingRegion : "";
             ErrorMain.SetError(ComboRegions, error);
-            BtnStartStop.Enabled = canStart();
+            BtnStartPause.Enabled = canStart();
         }
         private void validateBucket() {
             _bucketVisited = true;
@@ -347,7 +396,7 @@ namespace S3MultipartUploader {
             // Show or clear the error message accordingly
             string error = (ComboBuckets.SelectedIndex == -1) ? MissingS3Bucket : "";
             ErrorMain.SetError(ComboBuckets, error);
-            BtnStartStop.Enabled = canStart();
+            BtnStartPause.Enabled = canStart();
         }
         private void validateKey() {
             _keyVistied = true;
@@ -355,13 +404,13 @@ namespace S3MultipartUploader {
             // If the provided Name is valid then try to enable the Add button
             // Show or clear the error message accordingly
             string error;
-            bool valid = ValidateS3.Key(TxtKey.Text, out error);
+            ValidateS3.Key(TxtKey.Text, out error);
             ErrorMain.SetError(TxtKey, error);
-            BtnStartStop.Enabled = canStart();
+            BtnStartPause.Enabled = canStart();
         }
         private void validateParts() {
             _partsVisited = true;
-            BtnStartStop.Enabled = canStart();
+            BtnStartPause.Enabled = canStart();
         }
         private bool canStart() {
             // If there are no outstanding errors on the Form and some parts have been added,
