@@ -117,8 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ProfileAdded" xml:space="preserve">
-    <value>Profile "{0}" added!</value>
+  <data name="MissingProfile" xml:space="preserve">
+    <value>You must select or add an AWS credentials profile.</value>
+  </data>
+  <data name="MissingS3Bucket" xml:space="preserve">
+    <value>You must select an AWS S3 bucket.</value>
+  </data>
+  <data name="MissingS3Key" xml:space="preserve">
+    <value>You must provide an S3 key to give this object in the selected bucket.</value>
+  </data>
+  <data name="ListingProfiles" xml:space="preserve">
+    <value>Listing AWS credentials profiles stored on this machine...</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="bucket" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -130,11 +139,20 @@
   <data name="NoFilesFound" xml:space="preserve">
     <value>No files found.</value>
   </data>
+  <data name="ProfileDeleted" xml:space="preserve">
+    <value>Profile "{0}" deleted.</value>
+  </data>
   <data name="OnlyOnePartFound" xml:space="preserve">
     <value>{0} files found, but only 1 of them was an object part.</value>
   </data>
-  <data name="InvalidProfileSecretKey" xml:space="preserve">
-    <value>Profile Secret Access Keys must contain exactly 40 lower and/or uppercase alphanumeric characters with no spaces, forward slashes ("/"), and/or plus signs ("+").</value>
+  <data name="ProfileSelected" xml:space="preserve">
+    <value>Profile "{0}" selected.</value>
+  </data>
+  <data name="regions" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\regions.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="profile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\profile.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ProfileAccessKeyIDRegex" xml:space="preserve">
     <value>^[0-9A-Z]{20}$</value>
@@ -151,29 +169,44 @@
   <data name="OnePartFound" xml:space="preserve">
     <value>1 object part found.</value>
   </data>
+  <data name="S3RegionsListed" xml:space="preserve">
+    <value>{0} regions listed.</value>
+  </data>
   <data name="OnlyPartsAllowed" xml:space="preserve">
     <value>The selected directory must only contain object parts.  These files are expected to have a numeric extension, e.g. "mydata.zip.003".</value>
   </data>
-  <data name="profile" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\profile.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="InvalidS3Key" xml:space="preserve">
+    <value>Profile names must only contain upper and lowercase alphanumeric characters with no spaces, and any of the following characters:  !-_.*'()/</value>
   </data>
   <data name="SelectDirectorySuccess" xml:space="preserve">
     <value>Selected Directory "{0}".</value>
   </data>
+  <data name="delete_profile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\delete_profile.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="InvalidProfileName" xml:space="preserve">
     <value>Profile names must only contain upper and lowercase alphanumeric characters with no spaces, and any of the following characters: =,.@-</value>
   </data>
-  <data name="MissingAccessKeyID" xml:space="preserve">
-    <value>You must provide an Access Key ID for the new AWS credentials profile.</value>
+  <data name="ProfileAdded" xml:space="preserve">
+    <value>Profile "{0}" added!</value>
+  </data>
+  <data name="S3KeyRegex" xml:space="preserve">
+    <value>^[0-9a-zA-Z!\-_.*'()/\\]+$</value>
   </data>
   <data name="MissingSecretAccessKey" xml:space="preserve">
     <value>You must provide a Secret Access Key for the new AWS credentials profile.</value>
   </data>
+  <data name="MissingRegion" xml:space="preserve">
+    <value>You must select an AWS S3 region.</value>
+  </data>
+  <data name="BucketSelected" xml:space="preserve">
+    <value>Bucket "{0}" selected.</value>
+  </data>
   <data name="OnlyNPartsFound" xml:space="preserve">
     <value>{0} files found, but only {1} of them were object parts.</value>
   </data>
-  <data name="s3_key" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\s3_key.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="MissingAccessKeyID" xml:space="preserve">
+    <value>You must provide an Access Key ID for the new AWS credentials profile.</value>
   </data>
   <data name="start_resume_upload" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\start_resume_upload.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -181,79 +214,52 @@
   <data name="add_profile" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\add_profile.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="SelectDirectoryCancel" xml:space="preserve">
-    <value>Directory selection cancelled.</value>
-  </data>
-  <data name="NPartsFound" xml:space="preserve">
-    <value>{0} object parts found.</value>
-  </data>
-  <data name="ProfileNameRegex" xml:space="preserve">
-    <value>^[0-9a-zA-Z=,.@-]+$</value>
-  </data>
-  <data name="aws_s3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\aws_s3.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="InvalidProfileAccessKeyID" xml:space="preserve">
-    <value>Profile Access Key IDs must contain exactly 20 uppercase letters and/or numbers.</value>
-  </data>
-  <data name="OnlyOneFileFound" xml:space="preserve">
-    <value>1 file found, but it wasn't an object part.</value>
-  </data>
-  <data name="advanced_options" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\advanced_options.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="NoPartsFound" xml:space="preserve">
-    <value>{0} files found, but none of them were object parts.</value>
-  </data>
-  <data name="regions" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\regions.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="BucketSelected" xml:space="preserve">
-    <value>Bucket "{0}" selected.</value>
-  </data>
   <data name="BucketsListed" xml:space="preserve">
     <value>{0} buckets found.</value>
   </data>
-  <data name="InvalidS3Key" xml:space="preserve">
-    <value>Profile names must only contain upper and lowercase alphanumeric characters with no spaces, and any of the following characters:  !-_.*'()/</value>
-  </data>
-  <data name="ListingBuckets" xml:space="preserve">
-    <value>Listing S3 buckets available to profile {0}...</value>
-  </data>
-  <data name="ListingProfiles" xml:space="preserve">
-    <value>Listing AWS credentials profiles stored on this machine...</value>
-  </data>
-  <data name="ListingS3Regions" xml:space="preserve">
-    <value>Listing all AWS S3 regions...</value>
-  </data>
-  <data name="MissingProfile" xml:space="preserve">
-    <value>You must select or add an AWS credentials profile.</value>
-  </data>
-  <data name="MissingRegion" xml:space="preserve">
-    <value>You must select an AWS S3 region.</value>
-  </data>
-  <data name="MissingS3Bucket" xml:space="preserve">
-    <value>You must select an AWS S3 bucket.</value>
-  </data>
-  <data name="MissingS3Key" xml:space="preserve">
-    <value>You must provide an S3 key to give this object in the selected bucket.</value>
-  </data>
-  <data name="ProfileSelected" xml:space="preserve">
-    <value>Profile "{0}" selected.</value>
+  <data name="s3_key" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\s3_key.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ProfilesListed" xml:space="preserve">
     <value>{0} profiles found.</value>
   </data>
-  <data name="RegionSelected" xml:space="preserve">
-    <value>Region "{0}" selected.</value>
+  <data name="SelectDirectoryCancel" xml:space="preserve">
+    <value>Directory selection cancelled.</value>
   </data>
-  <data name="S3KeyRegex" xml:space="preserve">
-    <value>^[0-9a-zA-Z!\-_.*'()/\\]+$</value>
+  <data name="ProfileNameRegex" xml:space="preserve">
+    <value>^[0-9a-zA-Z=,.@-]+$</value>
   </data>
-  <data name="S3RegionsListed" xml:space="preserve">
-    <value>{0} regions listed.</value>
+  <data name="InvalidProfileSecretKey" xml:space="preserve">
+    <value>Profile Secret Access Keys must contain exactly 40 lower and/or uppercase alphanumeric characters with no spaces, forward slashes ("/"), and/or plus signs ("+").</value>
+  </data>
+  <data name="aws_s3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\aws_s3.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ListingBuckets" xml:space="preserve">
+    <value>Listing S3 buckets available to profile {0}...</value>
   </data>
   <data name="String1" xml:space="preserve">
     <value>Before you can start uploading, you must select a credentials profile, region, and bucket, provide an object key, and select the directory with the object's parts.</value>
+  </data>
+  <data name="NPartsFound" xml:space="preserve">
+    <value>{0} object parts found.</value>
+  </data>
+  <data name="InvalidProfileAccessKeyID" xml:space="preserve">
+    <value>Profile Access Key IDs must contain exactly 20 uppercase letters and/or numbers.</value>
+  </data>
+  <data name="RegionSelected" xml:space="preserve">
+    <value>Region "{0}" selected.</value>
+  </data>
+  <data name="advanced_options" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\advanced_options.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ListingS3Regions" xml:space="preserve">
+    <value>Listing all AWS S3 regions...</value>
+  </data>
+  <data name="OnlyOneFileFound" xml:space="preserve">
+    <value>1 file found, but it wasn't an object part.</value>
+  </data>
+  <data name="NoPartsFound" xml:space="preserve">
+    <value>{0} files found, but none of them were object parts.</value>
   </data>
 </root>

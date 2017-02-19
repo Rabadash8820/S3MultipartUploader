@@ -142,9 +142,6 @@
 Key name prefixes with the delimiter ("/") will be used by S3 to present a folder structure.
 Key must only contain upper and lowercase alphanumeric characters with no spaces, and any of the following characters:  !-_.*'()/</value>
   </data>
-  <metadata name="CntxtMenuParts.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>398, 17</value>
-  </metadata>
   <metadata name="ErrorMain.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
@@ -276,6 +273,9 @@ Key must only contain upper and lowercase alphanumeric characters with no spaces
 Key name prefixes with the delimiter ("/") will be used by S3 to present a folder structure.
 Key must only contain upper and lowercase alphanumeric characters with no spaces, and any of the following characters:  !-_.*'()/</value>
   </data>
+  <metadata name="CntxtMenuParts.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>398, 17</value>
+  </metadata>
   <metadata name="FolderBrowserParts.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>122, 17</value>
   </metadata>

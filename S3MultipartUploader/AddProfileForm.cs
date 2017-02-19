@@ -87,11 +87,11 @@ namespace S3MultipartUploader {
         }
         private bool canAdd() {
             // If there are any outstanding errors on the Form, then we cannot add this Profile yet
-            bool noErrors = (
+            bool allGood = (
                 _nameVisited      && ErrorMain.GetError(TxtProfileName)     == "" &&
                 _accessKeyVisited && ErrorMain.GetError(TxtAccessKeyID)     == "" &&
                 _secretKeyVisited && ErrorMain.GetError(TxtSecretAccessKey) == "");
-            return noErrors;
+            return allGood;
         }
 
         #endregion

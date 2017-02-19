@@ -32,14 +32,12 @@
             this.SplitMain = new System.Windows.Forms.SplitContainer();
             this.TblLayoutParts = new System.Windows.Forms.TableLayoutPanel();
             this.LblPars = new System.Windows.Forms.Label();
-            this.ListParts = new System.Windows.Forms.CheckedListBox();
-            this.CntxtMenuParts = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.MenuItemRestartUpload = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuItemPauseUpload = new System.Windows.Forms.ToolStripMenuItem();
+            this.ListParts = new System.Windows.Forms.ListBox();
             this.TblLayoutLogs = new System.Windows.Forms.TableLayoutPanel();
             this.LblLogs = new System.Windows.Forms.Label();
             this.ListLog = new System.Windows.Forms.ListBox();
             this.PnlTop = new System.Windows.Forms.Panel();
+            this.BtnDeleteProfile = new System.Windows.Forms.Button();
             this.LblRegion = new System.Windows.Forms.Label();
             this.ComboRegions = new System.Windows.Forms.ComboBox();
             this.BtnAddProfile = new System.Windows.Forms.Button();
@@ -53,6 +51,9 @@
             this.BtnPause = new System.Windows.Forms.Button();
             this.ProgressMain = new System.Windows.Forms.ProgressBar();
             this.BtnStartStop = new System.Windows.Forms.Button();
+            this.CntxtMenuParts = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.MenuItemRestartUpload = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuItemPauseUpload = new System.Windows.Forms.ToolStripMenuItem();
             this.FolderBrowserParts = new System.Windows.Forms.FolderBrowserDialog();
             this.ErrorMain = new System.Windows.Forms.ErrorProvider(this.components);
             this.ToolTipMain = new System.Windows.Forms.ToolTip(this.components);
@@ -62,10 +63,10 @@
             this.SplitMain.Panel2.SuspendLayout();
             this.SplitMain.SuspendLayout();
             this.TblLayoutParts.SuspendLayout();
-            this.CntxtMenuParts.SuspendLayout();
             this.TblLayoutLogs.SuspendLayout();
             this.PnlTop.SuspendLayout();
             this.PnlBottom.SuspendLayout();
+            this.CntxtMenuParts.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorMain)).BeginInit();
             this.SuspendLayout();
             // 
@@ -80,7 +81,7 @@
             this.LblProfile.TabIndex = 0;
             this.LblProfile.Text = "Profile:";
             this.LblProfile.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.ToolTipMain.SetToolTip(this.LblProfile, "Choose one of the AWS credentials profile already stored on this machine.");
+            this.ToolTipMain.SetToolTip(this.LblProfile, "Choose one of the AWS credentials profile stored on this machine.");
             // 
             // LblBucket
             // 
@@ -173,37 +174,13 @@
             // 
             // ListParts
             // 
-            this.ListParts.ContextMenuStrip = this.CntxtMenuParts;
             this.ListParts.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ListParts.Enabled = false;
             this.ListParts.FormattingEnabled = true;
             this.ListParts.Location = new System.Drawing.Point(3, 18);
             this.ListParts.Name = "ListParts";
-            this.ListParts.ScrollAlwaysVisible = true;
             this.ListParts.Size = new System.Drawing.Size(672, 131);
-            this.ListParts.TabIndex = 0;
-            this.ListParts.ThreeDCheckBoxes = true;
+            this.ListParts.TabIndex = 1;
             this.ToolTipMain.SetToolTip(this.ListParts, "A list of all the object parts in the selected directory.");
-            // 
-            // CntxtMenuParts
-            // 
-            this.CntxtMenuParts.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuItemRestartUpload,
-            this.MenuItemPauseUpload});
-            this.CntxtMenuParts.Name = "CntxtMenuParts";
-            this.CntxtMenuParts.Size = new System.Drawing.Size(155, 48);
-            // 
-            // MenuItemRestartUpload
-            // 
-            this.MenuItemRestartUpload.Name = "MenuItemRestartUpload";
-            this.MenuItemRestartUpload.Size = new System.Drawing.Size(154, 22);
-            this.MenuItemRestartUpload.Text = "Restart Upload ";
-            // 
-            // MenuItemPauseUpload
-            // 
-            this.MenuItemPauseUpload.Name = "MenuItemPauseUpload";
-            this.MenuItemPauseUpload.Size = new System.Drawing.Size(154, 22);
-            this.MenuItemPauseUpload.Text = "Pause Upload";
             // 
             // TblLayoutLogs
             // 
@@ -246,6 +223,7 @@
             // 
             // PnlTop
             // 
+            this.PnlTop.Controls.Add(this.BtnDeleteProfile);
             this.PnlTop.Controls.Add(this.LblRegion);
             this.PnlTop.Controls.Add(this.ComboRegions);
             this.PnlTop.Controls.Add(this.BtnAddProfile);
@@ -265,6 +243,20 @@
             this.PnlTop.Size = new System.Drawing.Size(678, 199);
             this.PnlTop.TabIndex = 0;
             // 
+            // BtnDeleteProfile
+            // 
+            this.BtnDeleteProfile.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.BtnDeleteProfile.AutoSize = true;
+            this.BtnDeleteProfile.Enabled = false;
+            this.BtnDeleteProfile.Image = global::S3MultipartUploader.Properties.Resources.delete_profile;
+            this.BtnDeleteProfile.Location = new System.Drawing.Point(568, 3);
+            this.BtnDeleteProfile.Name = "BtnDeleteProfile";
+            this.BtnDeleteProfile.Size = new System.Drawing.Size(38, 38);
+            this.BtnDeleteProfile.TabIndex = 8;
+            this.ToolTipMain.SetToolTip(this.BtnDeleteProfile, "Delete the currently selected AWS credentials profile.");
+            this.BtnDeleteProfile.UseVisualStyleBackColor = false;
+            this.BtnDeleteProfile.Click += new System.EventHandler(this.BtnDeleteProfile_Click);
+            // 
             // LblRegion
             // 
             this.LblRegion.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -281,6 +273,7 @@
             // ComboRegions
             // 
             this.ComboRegions.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.ComboRegions.DisplayMember = "DisplayName";
             this.ComboRegions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboRegions.FormattingEnabled = true;
             this.ErrorMain.SetIconPadding(this.ComboRegions, 3);
@@ -303,7 +296,7 @@
             this.BtnAddProfile.TabIndex = 1;
             this.ToolTipMain.SetToolTip(this.BtnAddProfile, "Add a new AWS credentials profile.");
             this.BtnAddProfile.UseVisualStyleBackColor = false;
-            this.BtnAddProfile.Click += new System.EventHandler(this.BtnAddProfile_Click_1);
+            this.BtnAddProfile.Click += new System.EventHandler(this.BtnAddProfile_Click);
             // 
             // BtnOptions
             // 
@@ -329,29 +322,31 @@
             this.LblChooseDir.Text = "Object parts directory";
             this.ToolTipMain.SetToolTip(this.LblChooseDir, "Select the directory containing the parts of the object to upload.");
             // 
-            // ComboProfile
+            // ComboProfiles
             // 
             this.ComboProfiles.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.ComboProfiles.DisplayMember = "Name";
             this.ComboProfiles.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboProfiles.FormattingEnabled = true;
             this.ErrorMain.SetIconPadding(this.ComboProfiles, 3);
             this.ComboProfiles.Location = new System.Drawing.Point(246, 13);
-            this.ComboProfiles.Name = "ComboProfile";
+            this.ComboProfiles.Name = "ComboProfiles";
             this.ComboProfiles.Size = new System.Drawing.Size(210, 21);
             this.ComboProfiles.TabIndex = 0;
-            this.ToolTipMain.SetToolTip(this.ComboProfiles, "Choose one of the AWS credentials profile already stored on this machine.");
+            this.ToolTipMain.SetToolTip(this.ComboProfiles, "Choose one of the AWS credentials profile stored on this machine.");
             this.ComboProfiles.SelectedIndexChanged += new System.EventHandler(this.ComboProfile_SelectedIndexChanged);
             this.ComboProfiles.Validating += new System.ComponentModel.CancelEventHandler(this.ComboProfile_Validating);
             // 
-            // ComboBucket
+            // ComboBuckets
             // 
             this.ComboBuckets.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.ComboBuckets.DisplayMember = "BucketName";
             this.ComboBuckets.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboBuckets.Enabled = false;
             this.ComboBuckets.FormattingEnabled = true;
             this.ErrorMain.SetIconPadding(this.ComboBuckets, 3);
             this.ComboBuckets.Location = new System.Drawing.Point(246, 94);
-            this.ComboBuckets.Name = "ComboBucket";
+            this.ComboBuckets.Name = "ComboBuckets";
             this.ComboBuckets.Size = new System.Drawing.Size(210, 21);
             this.ComboBuckets.TabIndex = 3;
             this.ToolTipMain.SetToolTip(this.ComboBuckets, "Choose one of the buckets available to the chosen AWS profile.");
@@ -428,8 +423,28 @@
             this.BtnStartStop.Name = "BtnStartStop";
             this.BtnStartStop.Size = new System.Drawing.Size(39, 38);
             this.BtnStartStop.TabIndex = 0;
-            this.ToolTipMain.SetToolTip(this.BtnStartStop, "Start uploading object parts.");
+            this.ToolTipMain.SetToolTip(this.BtnStartStop, "Start uploading object parts!");
             this.BtnStartStop.UseVisualStyleBackColor = true;
+            // 
+            // CntxtMenuParts
+            // 
+            this.CntxtMenuParts.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MenuItemRestartUpload,
+            this.MenuItemPauseUpload});
+            this.CntxtMenuParts.Name = "CntxtMenuParts";
+            this.CntxtMenuParts.Size = new System.Drawing.Size(155, 48);
+            // 
+            // MenuItemRestartUpload
+            // 
+            this.MenuItemRestartUpload.Name = "MenuItemRestartUpload";
+            this.MenuItemRestartUpload.Size = new System.Drawing.Size(154, 22);
+            this.MenuItemRestartUpload.Text = "Restart Upload ";
+            // 
+            // MenuItemPauseUpload
+            // 
+            this.MenuItemPauseUpload.Name = "MenuItemPauseUpload";
+            this.MenuItemPauseUpload.Size = new System.Drawing.Size(154, 22);
+            this.MenuItemPauseUpload.Text = "Pause Upload";
             // 
             // FolderBrowserParts
             // 
@@ -459,13 +474,13 @@
             this.SplitMain.ResumeLayout(false);
             this.TblLayoutParts.ResumeLayout(false);
             this.TblLayoutParts.PerformLayout();
-            this.CntxtMenuParts.ResumeLayout(false);
             this.TblLayoutLogs.ResumeLayout(false);
             this.TblLayoutLogs.PerformLayout();
             this.PnlTop.ResumeLayout(false);
             this.PnlTop.PerformLayout();
             this.PnlBottom.ResumeLayout(false);
             this.PnlBottom.PerformLayout();
+            this.CntxtMenuParts.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ErrorMain)).EndInit();
             this.ResumeLayout(false);
 
@@ -495,7 +510,6 @@
         private System.Windows.Forms.ContextMenuStrip CntxtMenuParts;
         private System.Windows.Forms.ToolStripMenuItem MenuItemRestartUpload;
         private System.Windows.Forms.ToolStripMenuItem MenuItemPauseUpload;
-        private System.Windows.Forms.CheckedListBox ListParts;
         private System.Windows.Forms.Button BtnAddProfile;
         private System.Windows.Forms.Button BtnPause;
         private System.Windows.Forms.Label LblRegion;
@@ -504,6 +518,8 @@
         private System.Windows.Forms.Label LblPars;
         private System.Windows.Forms.TableLayoutPanel TblLayoutLogs;
         private System.Windows.Forms.Label LblLogs;
+        private System.Windows.Forms.ListBox ListParts;
+        private System.Windows.Forms.Button BtnDeleteProfile;
     }
 }
 

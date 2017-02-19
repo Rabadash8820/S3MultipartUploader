@@ -26,6 +26,7 @@ namespace S3MultipartUploader {
         private bool _regionVisited = false;
         private bool _bucketVisited = false;
         private bool _keyVistied = false;
+        private bool _partsVisited = false;
 
         private object _logLock = new object();
         private ConcurrentQueue<string> _logQueue = new ConcurrentQueue<string>();
@@ -53,7 +54,7 @@ namespace S3MultipartUploader {
             else if (result == DialogResult.OK)
                 bindObjectPartsAsync();
         }
-        private void BtnAddProfile_Click_1(object sender, EventArgs e) {
+        private void BtnAddProfile_Click(object sender, EventArgs e) {
             AddProfileForm f = new AddProfileForm();
             f.ProfileAdded += AddProfileForm_ProfileAdded;
             f.ShowDialog();
@@ -61,12 +62,27 @@ namespace S3MultipartUploader {
         private void AddProfileForm_ProfileAdded(object sender, ProfileEventArgs e) {
             // Persist the new AWS credentials profile!
             using (new WaitCursor()) {
-                AWSCredentialsProfile.Persist(e.ProfileName, e.AccessKeyId, e.SecretAccessKey);
+                ProfileManager.RegisterProfile(e.ProfileName, e.AccessKeyId, e.SecretAccessKey);
             }
 
             // Log this information
             string msg = string.Format(ProfileAdded, e.ProfileName);
-            logMessage(msg, showMsgBox: true);
+            logMessage(msg);
+
+            // Reset the data source for the profiles combobox
+            bindProfilesAsync();
+        }
+        private void BtnDeleteProfile_Click(object sender, EventArgs e) {
+            // Delete the selected AWS credentials profile
+            AWSCredentialsProfile profile;
+            using (new WaitCursor()) {
+                profile = ComboProfiles.SelectedItem as AWSCredentialsProfile;
+                ProfileManager.UnregisterProfile(profile.Name);
+            }
+
+            // Log this information
+            string msg = string.Format(ProfileDeleted, profile.Name);
+            logMessage(msg);
 
             // Reset the data source for the profiles combobox
             bindProfilesAsync();
@@ -80,7 +96,7 @@ namespace S3MultipartUploader {
             // Validate this selection to see if we can start uploading
             validateProfile();
 
-            // If no credentials profile or region has been selected then just return
+            // If both a credentials profile and a region have been selected then list buckets
             var region = ComboRegions.SelectedItem as RegionEndpoint;
             if (region != null) {
                 bindBucketsAsync(profile, region);
@@ -137,7 +153,6 @@ namespace S3MultipartUploader {
             // Adjust controls based on listed regions
             msg = string.Format(S3RegionsListed, regions.Count());
             logMessage(msg);
-            ComboRegions.DisplayMember = nameof(RegionEndpoint.DisplayName);
             ComboRegions.DataSource = regions;
         }
         private async void bindProfilesAsync() {
@@ -152,11 +167,11 @@ namespace S3MultipartUploader {
             }
 
             // Adjust controls based on listed profiles
-            msg = string.Format(ProfilesListed, profiles.Count());
+            int numProfiles = profiles.Count();
+            msg = string.Format(ProfilesListed, numProfiles);
             logMessage(msg);
-            ComboProfiles.DisplayMember = nameof(ProfileSettingsBase.Name);
-            ComboProfiles.ValueMember = nameof(ProfileSettingsBase.UniqueId);
             ComboProfiles.DataSource = profiles;
+            toggleProfileCtrls(numProfiles > 0);
         }
         private async void bindBucketsAsync(AWSCredentialsProfile profile, RegionEndpoint region) {
             // Set up for listing buckets
@@ -174,7 +189,6 @@ namespace S3MultipartUploader {
             // Adjust controls based on listed buckets
             msg = string.Format(BucketsListed, buckets.Count);
             logMessage(msg);
-            ComboBuckets.DisplayMember = nameof(S3Bucket.BucketName);
             ComboBuckets.DataSource = buckets.ToArray();
             toggleBucketCtrls(true);
         }
@@ -182,21 +196,27 @@ namespace S3MultipartUploader {
             // Set up for listing object parts
             string path = FolderBrowserParts.SelectedPath;
             logMessage(string.Format(SelectDirectorySuccess, path));
+            ListParts.Items.Clear();
             togglePartCtrls(false);
 
             // List object parts
-            string[] messages = new string[0];
+            string[] logMsgs = new string[0], errMsgs = new string[0];
             FileInfo[] parts;
             using (new WaitCursor()) {
-                parts = await Task.Run(() => getPartsInDirectory(new DirectoryInfo(path), out messages));
+                parts = await Task.Run(() => getPartsInDirectory(new DirectoryInfo(path), out logMsgs, out errMsgs));
             }
 
             // Adjust controls based on listed object parts
-            logMessages(messages);
-            if (parts.Length > 0) {
-                togglePartCtrls(true);
+            logMessages(logMsgs);
+            logMessages(errMsgs);
+            bool noErrs = (errMsgs.Length == 0);
+            togglePartCtrls(noErrs);
+            if (noErrs)
                 resetPartCtrls(parts);
-            }
+            validateParts();
+        }
+        private void toggleProfileCtrls(bool enabled) {
+            BtnDeleteProfile.Enabled = enabled;
         }
         private void toggleBucketCtrls(bool enabled) {
             LblBucket.Enabled = enabled;
@@ -209,7 +229,7 @@ namespace S3MultipartUploader {
             ListParts.Items.AddRange(parts.ToArray());
             TblLayoutParts.Enabled = true;
         }
-        private FileInfo[] getPartsInDirectory(DirectoryInfo dir, out string[] messages) {
+        private FileInfo[] getPartsInDirectory(DirectoryInfo dir, out string[] logMsgs, out string[] errorMsgs) {
             // Get the number of object parts and total files in this Directory
             IEnumerable<FileInfo> files = dir.EnumerateFiles()
                                              .Where(f =>
@@ -220,30 +240,42 @@ namespace S3MultipartUploader {
                                                     return double.TryParse(f.Extension, out result); });
             int numFiles = files.Count();
             int numParts = parts.Count();
+            List<string> logs = new List<string>(1);
+            List<string> errs = new List<string>(2);
 
             // Create a log messages according to how many parts were found
             if (numFiles == 0)
-                messages = new string[] { NoFilesFound };
+                errs.Add(NoFilesFound);
 
-            else if (numFiles == 1 && numParts == 0)
-                messages = new string[2] { OnlyOneFileFound, OnlyPartsAllowed };
+            else if (numFiles == 1 && numParts == 0) {
+                errs.Add(OnlyOneFileFound);
+                errs.Add(OnlyPartsAllowed);
+            }
 
             else if (numFiles == 1 && numParts == 1)
-                messages = new string[1] { OnePartFound };
+                logs.Add(OnePartFound);
 
-            else if (numParts == 0)
-                messages = new string[2] { string.Format(NoPartsFound, numFiles), OnlyPartsAllowed };
+            else if (numParts == 0) {
+                errs.Add(string.Format(NoPartsFound, numFiles));
+                errs.Add(OnlyPartsAllowed);
+            }
 
-            else if (numParts == 1)
-                messages = new string[2] { string.Format(OnlyOnePartFound, numFiles), OnlyPartsAllowed };
+            else if (numParts == 1) {
+                errs.Add(string.Format(OnlyOnePartFound, numFiles));
+                errs.Add(OnlyPartsAllowed);
+            }
 
-            else if (numParts < numFiles)
-                messages = new string[2] { string.Format(OnlyNPartsFound, numFiles, numParts), OnlyPartsAllowed };
-            
+            else if (numParts < numFiles) {
+                errs.Add(string.Format(OnlyNPartsFound, numFiles, numParts));
+                errs.Add(OnlyPartsAllowed);
+            }
+
             else
-                messages = new string[1] { string.Format(NPartsFound, numParts) };
+                logs.Add(string.Format(NPartsFound, numParts));
 
-            // Return the object parts as an array
+            // Return the object parts and log/error messages
+            logMsgs = logs.ToArray();
+            errorMsgs = errs.ToArray();
             return parts.ToArray();
         }
 
@@ -327,18 +359,21 @@ namespace S3MultipartUploader {
             ErrorMain.SetError(TxtKey, error);
             BtnStartStop.Enabled = canStart();
         }
+        private void validateParts() {
+            _partsVisited = true;
+            BtnStartStop.Enabled = canStart();
+        }
         private bool canStart() {
-            // If there are any outstanding errors on the Form, then we cannot start uploading
-            bool noErrors = (
+            // If there are no outstanding errors on the Form and some parts have been added,
+            // then enable the start uploading button!
+            bool allGood = (
                 _profileVisited && ErrorMain.GetError(ComboProfiles) == "" &&
-                _regionVisited  && ErrorMain.GetError(ComboRegions) == "" &&
-                _bucketVisited  && ErrorMain.GetError(ComboBuckets) == "" &&
-                _keyVistied     && ErrorMain.GetError(TxtKey) == "");
+                _regionVisited && ErrorMain.GetError(ComboRegions) == "" &&
+                _bucketVisited && ErrorMain.GetError(ComboBuckets) == "" &&
+                _keyVistied && ErrorMain.GetError(TxtKey) == "" &&
+                _partsVisited && ListParts.Items.Count > 0);
 
-            // If no parts have been added then we certainly cannot start uploading!
-            bool partsAdded = (ListParts.Items.Count > 0);
-
-            return noErrors && partsAdded;
+            return allGood;
         }
 
         #endregion

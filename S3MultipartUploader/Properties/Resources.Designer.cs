@@ -119,6 +119,16 @@ namespace S3MultipartUploader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap delete_profile {
+            get {
+                object obj = ResourceManager.GetObject("delete_profile", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Profile Access Key IDs must contain exactly 20 uppercase letters and/or numbers..
         /// </summary>
         internal static string InvalidProfileAccessKeyID {
@@ -351,6 +361,15 @@ namespace S3MultipartUploader.Properties {
         internal static string ProfileAdded {
             get {
                 return ResourceManager.GetString("ProfileAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profile &quot;{0}&quot; deleted..
+        /// </summary>
+        internal static string ProfileDeleted {
+            get {
+                return ResourceManager.GetString("ProfileDeleted", resourceCulture);
             }
         }
         
