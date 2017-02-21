@@ -36,6 +36,7 @@
             this.ErrorMain = new System.Windows.Forms.ErrorProvider(this.components);
             this.ToolTipMain = new System.Windows.Forms.ToolTip(this.components);
             this.PnlMain = new System.Windows.Forms.Panel();
+            this.cvSave = new S3MultipartUploader.ControlValidator();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorMain)).BeginInit();
             this.PnlMain.SuspendLayout();
             this.SuspendLayout();
@@ -49,7 +50,7 @@
             this.BtnSave.Location = new System.Drawing.Point(418, 86);
             this.BtnSave.Name = "BtnSave";
             this.BtnSave.Size = new System.Drawing.Size(75, 23);
-            this.BtnSave.TabIndex = 4;
+            this.BtnSave.TabIndex = 1;
             this.BtnSave.Text = "Save";
             this.ToolTipMain.SetToolTip(this.BtnSave, "Save this credentials profile.");
             this.BtnSave.UseVisualStyleBackColor = true;
@@ -63,7 +64,7 @@
             this.BtnCancel.Location = new System.Drawing.Point(499, 86);
             this.BtnCancel.Name = "BtnCancel";
             this.BtnCancel.Size = new System.Drawing.Size(75, 23);
-            this.BtnCancel.TabIndex = 5;
+            this.BtnCancel.TabIndex = 2;
             this.BtnCancel.Text = "Cancel";
             this.ToolTipMain.SetToolTip(this.BtnCancel, "Cancel adding this creditials profile.");
             this.BtnCancel.UseVisualStyleBackColor = true;
@@ -166,9 +167,13 @@
             this.PnlMain.Location = new System.Drawing.Point(0, 0);
             this.PnlMain.Name = "PnlMain";
             this.PnlMain.Size = new System.Drawing.Size(599, 85);
-            this.PnlMain.TabIndex = 6;
+            this.PnlMain.TabIndex = 0;
             // 
-            // AddProfileForm
+            // cvSave
+            // 
+            this.cvSave.ValidityChanged += new System.EventHandler(this.VsmSave_ValidityChanged);
+            // 
+            // SaveProfileForm
             // 
             this.AcceptButton = this.BtnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -183,7 +188,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(615, 160);
-            this.Name = "AddProfileForm";
+            this.Name = "SaveProfileForm";
             this.ShowInTaskbar = false;
             this.Text = "Add AWS Credentials Profile";
             ((System.ComponentModel.ISupportInitialize)(this.ErrorMain)).EndInit();
@@ -207,5 +212,6 @@
         private System.Windows.Forms.ErrorProvider ErrorMain;
         private System.Windows.Forms.ToolTip ToolTipMain;
         private System.Windows.Forms.Panel PnlMain;
+        private ControlValidator cvSave;
     }
 }

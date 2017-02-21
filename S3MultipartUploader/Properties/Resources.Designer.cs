@@ -211,6 +211,15 @@ namespace S3MultipartUploader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Listing buckets failed!  More info below..
+        /// </summary>
+        internal static string ListingBucketsFailed {
+            get {
+                return ResourceManager.GetString("ListingBucketsFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Listing AWS credentials profiles stored on this machine....
         /// </summary>
         internal static string ListingProfiles {
@@ -465,6 +474,15 @@ namespace S3MultipartUploader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No changes made to profile &quot;{0}&quot;.
+        /// </summary>
+        internal static string ProfileUnchanged {
+            get {
+                return ResourceManager.GetString("ProfileUnchanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap regions {
@@ -564,15 +582,6 @@ namespace S3MultipartUploader.Properties {
             get {
                 object obj = ResourceManager.GetObject("stop_upload", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Before you can start uploading, you must select a credentials profile, region, and bucket, provide an object key, and select the directory with the object&apos;s parts..
-        /// </summary>
-        internal static string String1 {
-            get {
-                return ResourceManager.GetString("String1", resourceCulture);
             }
         }
     }

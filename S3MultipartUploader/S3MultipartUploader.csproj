@@ -79,6 +79,9 @@
     <Compile Include="ValidateProfile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ControlValidator.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WaitCursor.cs" />
     <EmbeddedResource Include="SaveProfileForm.resx">
       <DependentUpon>SaveProfileForm.cs</DependentUpon>
@@ -151,6 +154,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\edit_profile.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\DataSources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

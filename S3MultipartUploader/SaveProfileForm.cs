@@ -14,20 +14,20 @@ namespace S3MultipartUploader {
         private AWSCredentialsProfile _origProfile;
         private ImmutableCredentials _origCreds;
 
-        private bool _nameVisited = false;
-        private bool _accessKeyVisited = false;
-        private bool _secretKeyVisited = false;
-
         public event EventHandler<ProfileEventArgs> ProfileAdded;
         public event EventHandler<ProfileEventArgs> ProfileEdited;
 
-        public SaveProfileForm() {
-            InitializeComponent();
-        }
-        public SaveProfileForm(AWSCredentialsProfile profile) {
+        public SaveProfileForm(AWSCredentialsProfile profile = null) {
             InitializeComponent();
 
-            initFields(profile);
+            // Initialize the Form depending on whether we adding a new Profile or editing an existing one
+            if (profile == null) {
+                cvSave.MarkValidity(TxtProfileName, false);
+                cvSave.MarkValidity(TxtAccessKeyID, false);
+                cvSave.MarkValidity(TxtSecretAccessKey, false);
+            }
+            else
+                initFields(profile);
         }
 
         #region Event Handlers
@@ -49,6 +49,9 @@ namespace S3MultipartUploader {
         }
         private void TxtSecretAccessKey_TextChanged(object sender, EventArgs e) {
             validateSecretKey();
+        }
+        private void VsmSave_ValidityChanged(object sender, EventArgs e) {
+            BtnSave.Enabled = cvSave.AllControlsValid;
         }
         private void BtnAdd_Click(object sender, EventArgs e) {
             // Get values from the UI
@@ -76,7 +79,7 @@ namespace S3MultipartUploader {
             // Get this profile's credentials asynchronously
             _origProfile = profile;
             using (new WaitCursor()) {
-                _origCreds= await profile.Credentials.GetCredentialsAsync();
+                _origCreds = await profile.Credentials.GetCredentialsAsync();
             }
 
             // Initialize controls with these credentials
@@ -89,51 +92,27 @@ namespace S3MultipartUploader {
         }
 
         #region Validation Helpers
-
+        
         private void validateName() {
-            _nameVisited = true;
-
-            // If the provided Name is valid then try to enable the Add button
-            // Show or clear the error message accordingly
-            string error;
-            ValidateProfile.Name(TxtProfileName.Text, out error);
+            // Log messages and update the Form's valid state depending on whether the provided S3 key is valid
+            string error = "";
+            bool valid = ValidateProfile.Name(TxtProfileName.Text, out error);
             ErrorMain.SetError(TxtProfileName, error);
-            BtnSave.Enabled = canAdd();
+            cvSave.MarkValidity(TxtProfileName, valid);
         }
         private void validateAccessKeyId() {
-            _accessKeyVisited = true;
-
-            // If the provided Access Key ID is valid then try to enable the Add button
-            // Show or clear the error message accordingly
-            string error;
-            ValidateProfile.AccessKey(TxtAccessKeyID.Text, out error);
+            // Log messages and update the Form's valid state depending on whether the provided S3 key is valid
+            string error = "";
+            bool valid = ValidateProfile.AccessKey(TxtAccessKeyID.Text, out error);
             ErrorMain.SetError(TxtAccessKeyID, error);
-            BtnSave.Enabled = canAdd();
+            cvSave.MarkValidity(TxtAccessKeyID, valid);
         }
         private void validateSecretKey() {
-            _secretKeyVisited = true;
-
-            // If the provided Secret Access Key is valid then try to enable the Add button
-            // Show or clear the error message accordingly
-            string error;
-            ValidateProfile.SecretKey(TxtSecretAccessKey.Text, out error);
+            // Log messages and update the Form's valid state depending on whether the provided S3 key is valid
+            string error = "";
+            bool valid = ValidateProfile.SecretKey(TxtSecretAccessKey.Text, out error);
             ErrorMain.SetError(TxtSecretAccessKey, error);
-            BtnSave.Enabled = canAdd();
-        }
-        private bool canAdd() {
-            // If there are any outstanding errors on the Form, then we cannot save this Profile yet
-            bool allGood = (
-                _nameVisited      && ErrorMain.GetError(TxtProfileName)     == "" && 
-                _accessKeyVisited && ErrorMain.GetError(TxtAccessKeyID)     == "" &&
-                _secretKeyVisited && ErrorMain.GetError(TxtSecretAccessKey) == "");
-
-            // If we are editing a Profile and there have not been any changes, then we cannot save this Profile yet
-            bool valsNew = (_origProfile == null ||
-                TxtProfileName.Text     != _origProfile.Name ||
-                TxtAccessKeyID.Text     != _origCreds.AccessKey ||
-                TxtSecretAccessKey.Text != _origCreds.SecretKey);
-
-            return allGood && valsNew;
+            cvSave.MarkValidity(TxtSecretAccessKey, valid);
         }
         private void saveNew(string name, string accessKeyId, string secretKey) {
             // Warn the user if they are about to overwrite an existing profile
@@ -159,6 +138,7 @@ namespace S3MultipartUploader {
         }
 
         #endregion
+
     }
 
 }

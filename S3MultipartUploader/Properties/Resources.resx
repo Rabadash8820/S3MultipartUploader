@@ -238,9 +238,6 @@
   <data name="ListingBuckets" xml:space="preserve">
     <value>Listing S3 buckets available to profile {0}...</value>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value>Before you can start uploading, you must select a credentials profile, region, and bucket, provide an object key, and select the directory with the object's parts.</value>
-  </data>
   <data name="NPartsFound" xml:space="preserve">
     <value>{0} object parts found.</value>
   </data>
@@ -274,6 +271,9 @@
   <data name="EditProfileTitle" xml:space="preserve">
     <value>Edit Credentials for Profile"{0}"</value>
   </data>
+  <data name="ListingBucketsFailed" xml:space="preserve">
+    <value>Listing buckets failed!  More info below.</value>
+  </data>
   <data name="PauseUploading" xml:space="preserve">
     <value>Pause all part uploads.</value>
   </data>
@@ -285,5 +285,8 @@
   </data>
   <data name="StartUploading" xml:space="preserve">
     <value>Start uploading object parts!</value>
+  </data>
+  <data name="ProfileUnchanged" xml:space="preserve">
+    <value>No changes made to profile "{0}"</value>
   </data>
 </root>
