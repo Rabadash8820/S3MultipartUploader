@@ -58,6 +58,7 @@
             this.FolderBrowserParts = new System.Windows.Forms.FolderBrowserDialog();
             this.ErrorMain = new System.Windows.Forms.ErrorProvider(this.components);
             this.ToolTipMain = new System.Windows.Forms.ToolTip(this.components);
+            this.LblAdvanced = new System.Windows.Forms.Label();
             this.cvStartUpload = new S3MultipartUploader.ControlValidator();
             this.TblLayoutMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SplitMain)).BeginInit();
@@ -78,7 +79,7 @@
             this.LblProfile.Enabled = false;
             this.LblProfile.Image = ((System.Drawing.Image)(resources.GetObject("LblProfile.Image")));
             this.LblProfile.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.LblProfile.Location = new System.Drawing.Point(118, 6);
+            this.LblProfile.Location = new System.Drawing.Point(68, 6);
             this.LblProfile.Name = "LblProfile";
             this.LblProfile.Size = new System.Drawing.Size(78, 31);
             this.LblProfile.TabIndex = 0;
@@ -92,7 +93,7 @@
             this.LblBucket.Enabled = false;
             this.LblBucket.Image = global::S3MultipartUploader.Properties.Resources.bucket;
             this.LblBucket.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.LblBucket.Location = new System.Drawing.Point(116, 87);
+            this.LblBucket.Location = new System.Drawing.Point(66, 87);
             this.LblBucket.Name = "LblBucket";
             this.LblBucket.Size = new System.Drawing.Size(80, 33);
             this.LblBucket.TabIndex = 1;
@@ -105,7 +106,7 @@
             this.LblKey.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.LblKey.Image = global::S3MultipartUploader.Properties.Resources.s3_key;
             this.LblKey.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.LblKey.Location = new System.Drawing.Point(121, 128);
+            this.LblKey.Location = new System.Drawing.Point(71, 128);
             this.LblKey.Name = "LblKey";
             this.LblKey.Size = new System.Drawing.Size(75, 32);
             this.LblKey.TabIndex = 2;
@@ -127,7 +128,7 @@
             this.TblLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 205F));
             this.TblLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.TblLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
-            this.TblLayoutMain.Size = new System.Drawing.Size(684, 603);
+            this.TblLayoutMain.Size = new System.Drawing.Size(585, 603);
             this.TblLayoutMain.TabIndex = 4;
             // 
             // SplitMain
@@ -145,7 +146,7 @@
             // SplitMain.Panel2
             // 
             this.SplitMain.Panel2.Controls.Add(this.TblLayoutLogs);
-            this.SplitMain.Size = new System.Drawing.Size(678, 343);
+            this.SplitMain.Size = new System.Drawing.Size(579, 343);
             this.SplitMain.SplitterDistance = 152;
             this.SplitMain.TabIndex = 13;
             // 
@@ -162,7 +163,7 @@
             this.TblLayoutParts.RowCount = 2;
             this.TblLayoutParts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15F));
             this.TblLayoutParts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TblLayoutParts.Size = new System.Drawing.Size(678, 152);
+            this.TblLayoutParts.Size = new System.Drawing.Size(579, 152);
             this.TblLayoutParts.TabIndex = 1;
             // 
             // LblPars
@@ -181,7 +182,7 @@
             this.ListParts.FormattingEnabled = true;
             this.ListParts.Location = new System.Drawing.Point(3, 18);
             this.ListParts.Name = "ListParts";
-            this.ListParts.Size = new System.Drawing.Size(672, 131);
+            this.ListParts.Size = new System.Drawing.Size(573, 131);
             this.ListParts.TabIndex = 1;
             this.ToolTipMain.SetToolTip(this.ListParts, "A list of all the object parts in the selected directory.");
             // 
@@ -197,7 +198,7 @@
             this.TblLayoutLogs.RowCount = 2;
             this.TblLayoutLogs.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15F));
             this.TblLayoutLogs.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TblLayoutLogs.Size = new System.Drawing.Size(678, 187);
+            this.TblLayoutLogs.Size = new System.Drawing.Size(579, 187);
             this.TblLayoutLogs.TabIndex = 1;
             // 
             // LblLogs
@@ -221,12 +222,13 @@
             this.ListLog.Location = new System.Drawing.Point(3, 18);
             this.ListLog.Name = "ListLog";
             this.ListLog.ScrollAlwaysVisible = true;
-            this.ListLog.Size = new System.Drawing.Size(672, 166);
+            this.ListLog.Size = new System.Drawing.Size(573, 166);
             this.ListLog.TabIndex = 0;
             this.ToolTipMain.SetToolTip(this.ListLog, "Log messages.");
             // 
             // PnlTop
             // 
+            this.PnlTop.Controls.Add(this.LblAdvanced);
             this.PnlTop.Controls.Add(this.BtnEditProfile);
             this.PnlTop.Controls.Add(this.BtnDeleteProfile);
             this.PnlTop.Controls.Add(this.LblRegion);
@@ -245,7 +247,7 @@
             this.PnlTop.Location = new System.Drawing.Point(3, 3);
             this.PnlTop.MinimumSize = new System.Drawing.Size(400, 150);
             this.PnlTop.Name = "PnlTop";
-            this.PnlTop.Size = new System.Drawing.Size(678, 199);
+            this.PnlTop.Size = new System.Drawing.Size(579, 199);
             this.PnlTop.TabIndex = 0;
             // 
             // BtnEditProfile
@@ -254,7 +256,7 @@
             this.BtnEditProfile.AutoSize = true;
             this.BtnEditProfile.Enabled = false;
             this.BtnEditProfile.Image = global::S3MultipartUploader.Properties.Resources.edit_profile;
-            this.BtnEditProfile.Location = new System.Drawing.Point(480, 3);
+            this.BtnEditProfile.Location = new System.Drawing.Point(430, 3);
             this.BtnEditProfile.Name = "BtnEditProfile";
             this.BtnEditProfile.Size = new System.Drawing.Size(38, 38);
             this.BtnEditProfile.TabIndex = 9;
@@ -268,7 +270,7 @@
             this.BtnDeleteProfile.AutoSize = true;
             this.BtnDeleteProfile.Enabled = false;
             this.BtnDeleteProfile.Image = global::S3MultipartUploader.Properties.Resources.delete_profile;
-            this.BtnDeleteProfile.Location = new System.Drawing.Point(524, 3);
+            this.BtnDeleteProfile.Location = new System.Drawing.Point(474, 3);
             this.BtnDeleteProfile.Name = "BtnDeleteProfile";
             this.BtnDeleteProfile.Size = new System.Drawing.Size(38, 38);
             this.BtnDeleteProfile.TabIndex = 8;
@@ -281,7 +283,7 @@
             this.LblRegion.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.LblRegion.Image = global::S3MultipartUploader.Properties.Resources.regions;
             this.LblRegion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.LblRegion.Location = new System.Drawing.Point(118, 45);
+            this.LblRegion.Location = new System.Drawing.Point(68, 45);
             this.LblRegion.Name = "LblRegion";
             this.LblRegion.Size = new System.Drawing.Size(78, 34);
             this.LblRegion.TabIndex = 7;
@@ -296,7 +298,7 @@
             this.ComboRegions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboRegions.FormattingEnabled = true;
             this.ErrorMain.SetIconPadding(this.ComboRegions, 3);
-            this.ComboRegions.Location = new System.Drawing.Point(202, 53);
+            this.ComboRegions.Location = new System.Drawing.Point(152, 53);
             this.ComboRegions.Name = "ComboRegions";
             this.ComboRegions.Size = new System.Drawing.Size(210, 21);
             this.ComboRegions.TabIndex = 2;
@@ -308,7 +310,7 @@
             this.BtnAddProfile.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.BtnAddProfile.AutoSize = true;
             this.BtnAddProfile.Image = ((System.Drawing.Image)(resources.GetObject("BtnAddProfile.Image")));
-            this.BtnAddProfile.Location = new System.Drawing.Point(436, 3);
+            this.BtnAddProfile.Location = new System.Drawing.Point(386, 3);
             this.BtnAddProfile.Name = "BtnAddProfile";
             this.BtnAddProfile.Size = new System.Drawing.Size(38, 38);
             this.BtnAddProfile.TabIndex = 1;
@@ -318,10 +320,10 @@
             // 
             // BtnOptions
             // 
-            this.BtnOptions.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.BtnOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnOptions.AutoSize = true;
             this.BtnOptions.Image = global::S3MultipartUploader.Properties.Resources.advanced_options;
-            this.BtnOptions.Location = new System.Drawing.Point(374, 161);
+            this.BtnOptions.Location = new System.Drawing.Point(476, 156);
             this.BtnOptions.Name = "BtnOptions";
             this.BtnOptions.Size = new System.Drawing.Size(38, 38);
             this.BtnOptions.TabIndex = 6;
@@ -333,11 +335,11 @@
             // 
             this.LblChooseDir.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.LblChooseDir.AutoSize = true;
-            this.LblChooseDir.Location = new System.Drawing.Point(253, 174);
+            this.LblChooseDir.Location = new System.Drawing.Point(203, 174);
             this.LblChooseDir.Name = "LblChooseDir";
-            this.LblChooseDir.Size = new System.Drawing.Size(107, 13);
+            this.LblChooseDir.Size = new System.Drawing.Size(110, 13);
             this.LblChooseDir.TabIndex = 0;
-            this.LblChooseDir.Text = "Object parts directory";
+            this.LblChooseDir.Text = "Object Parts Directory";
             this.ToolTipMain.SetToolTip(this.LblChooseDir, "Select the directory containing the parts of the object to upload.");
             // 
             // ComboProfiles
@@ -348,7 +350,7 @@
             this.ComboProfiles.Enabled = false;
             this.ComboProfiles.FormattingEnabled = true;
             this.ErrorMain.SetIconPadding(this.ComboProfiles, 3);
-            this.ComboProfiles.Location = new System.Drawing.Point(202, 13);
+            this.ComboProfiles.Location = new System.Drawing.Point(152, 13);
             this.ComboProfiles.Name = "ComboProfiles";
             this.ComboProfiles.Size = new System.Drawing.Size(210, 21);
             this.ComboProfiles.TabIndex = 0;
@@ -363,7 +365,7 @@
             this.ComboBuckets.Enabled = false;
             this.ComboBuckets.FormattingEnabled = true;
             this.ErrorMain.SetIconPadding(this.ComboBuckets, 3);
-            this.ComboBuckets.Location = new System.Drawing.Point(202, 94);
+            this.ComboBuckets.Location = new System.Drawing.Point(152, 94);
             this.ComboBuckets.Name = "ComboBuckets";
             this.ComboBuckets.Size = new System.Drawing.Size(210, 21);
             this.ComboBuckets.TabIndex = 3;
@@ -374,7 +376,7 @@
             // 
             this.BtnChooseDir.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.BtnChooseDir.AutoSize = true;
-            this.BtnChooseDir.Location = new System.Drawing.Point(202, 169);
+            this.BtnChooseDir.Location = new System.Drawing.Point(152, 169);
             this.BtnChooseDir.Name = "BtnChooseDir";
             this.BtnChooseDir.Size = new System.Drawing.Size(45, 23);
             this.BtnChooseDir.TabIndex = 5;
@@ -387,7 +389,7 @@
             // 
             this.TxtKey.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.ErrorMain.SetIconPadding(this.TxtKey, 3);
-            this.TxtKey.Location = new System.Drawing.Point(202, 135);
+            this.TxtKey.Location = new System.Drawing.Point(152, 135);
             this.TxtKey.Name = "TxtKey";
             this.TxtKey.Size = new System.Drawing.Size(210, 20);
             this.TxtKey.TabIndex = 4;
@@ -403,7 +405,7 @@
             this.PnlBottom.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PnlBottom.Location = new System.Drawing.Point(3, 551);
             this.PnlBottom.Name = "PnlBottom";
-            this.PnlBottom.Size = new System.Drawing.Size(678, 49);
+            this.PnlBottom.Size = new System.Drawing.Size(579, 49);
             this.PnlBottom.TabIndex = 15;
             // 
             // BtnStop
@@ -412,7 +414,7 @@
             this.BtnStop.AutoSize = true;
             this.BtnStop.Enabled = false;
             this.BtnStop.Image = global::S3MultipartUploader.Properties.Resources.stop_upload;
-            this.BtnStop.Location = new System.Drawing.Point(637, 3);
+            this.BtnStop.Location = new System.Drawing.Point(538, 3);
             this.BtnStop.Name = "BtnStop";
             this.BtnStop.Size = new System.Drawing.Size(38, 38);
             this.BtnStop.TabIndex = 1;
@@ -427,7 +429,7 @@
             this.ProgressMain.Enabled = false;
             this.ProgressMain.Location = new System.Drawing.Point(3, 3);
             this.ProgressMain.Name = "ProgressMain";
-            this.ProgressMain.Size = new System.Drawing.Size(583, 38);
+            this.ProgressMain.Size = new System.Drawing.Size(484, 38);
             this.ProgressMain.TabIndex = 0;
             this.ToolTipMain.SetToolTip(this.ProgressMain, "Upload has not started yet.");
             // 
@@ -437,7 +439,7 @@
             this.BtnStartPause.AutoSize = true;
             this.BtnStartPause.Enabled = false;
             this.BtnStartPause.Image = global::S3MultipartUploader.Properties.Resources.start_resume_upload;
-            this.BtnStartPause.Location = new System.Drawing.Point(592, 3);
+            this.BtnStartPause.Location = new System.Drawing.Point(493, 3);
             this.BtnStartPause.Name = "BtnStartPause";
             this.BtnStartPause.Size = new System.Drawing.Size(39, 38);
             this.BtnStartPause.TabIndex = 0;
@@ -475,6 +477,17 @@
             this.ErrorMain.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.ErrorMain.ContainerControl = this;
             // 
+            // LblAdvanced
+            // 
+            this.LblAdvanced.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.LblAdvanced.AutoSize = true;
+            this.LblAdvanced.Location = new System.Drawing.Point(520, 169);
+            this.LblAdvanced.Name = "LblAdvanced";
+            this.LblAdvanced.Size = new System.Drawing.Size(56, 13);
+            this.LblAdvanced.TabIndex = 10;
+            this.LblAdvanced.Text = "Advanced";
+            this.ToolTipMain.SetToolTip(this.LblAdvanced, "Advanced options.");
+            // 
             // cvStartUpload
             // 
             this.cvStartUpload.ValidityChanged += new System.EventHandler(this.VsmStartUpload_ValidityChanged);
@@ -483,11 +496,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(684, 603);
+            this.ClientSize = new System.Drawing.Size(585, 603);
             this.Controls.Add(this.TblLayoutMain);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(425, 620);
+            this.MinimumSize = new System.Drawing.Size(480, 620);
             this.Name = "MainForm";
             this.Text = "S3 Multipart Uploader";
             this.TblLayoutMain.ResumeLayout(false);
@@ -545,6 +558,7 @@
         private System.Windows.Forms.Button BtnDeleteProfile;
         private System.Windows.Forms.Button BtnEditProfile;
         private ControlValidator cvStartUpload;
+        private System.Windows.Forms.Label LblAdvanced;
     }
 }
 
