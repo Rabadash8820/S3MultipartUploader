@@ -227,6 +227,10 @@ namespace S3MultipartUploader {
             logMessage(msg);
             resetRegions(regions);
 
+            // Select the Region given in the config file by default
+            RegionEndpoint region = regions.Single(r => r.SystemName == AWSConfigs.AWSRegion);
+            ComboRegions.SelectedItem = region;
+
             return regions;
         }
         private async Task<List<S3Bucket>> bindBucketsAsync(AWSCredentialsProfile profile, RegionEndpoint region) {
