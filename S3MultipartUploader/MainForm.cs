@@ -23,7 +23,6 @@ namespace S3MultipartUploader {
         // HIDDEN FIELDS
         private CancellationTokenSource _ctsListBuckets = new CancellationTokenSource();
         private object _logLock = new object();
-        private ConcurrentQueue<string> _logQueue = new ConcurrentQueue<string>();
         private bool _uploading = false;
         private bool _paused = false;
 
@@ -31,8 +30,12 @@ namespace S3MultipartUploader {
             InitializeComponent();
 
             // Bind data
-            bindProfilesAsync();
-            bindRegionsAsync();
+            var profileNode = new TreeNode();
+            var regionNode = new TreeNode();
+            bindProfilesAsync(profileNode);
+            bindRegionsAsync(regionNode);
+            addLog(profileNode);
+            addLog(regionNode);
 
             // Set initial validity of the Form
             cvStartUpload.MarkValidity(ComboProfiles, false);
@@ -43,19 +46,25 @@ namespace S3MultipartUploader {
         }
 
         #region Event Handlers
-
+        
+        private void MainForm_Shown(object sender, EventArgs e) {
+            TreeLog.ExpandAll();    // This method seems to have no affect during contructor or Activated event
+        }
         private void BtnOptions_Click(object sender, EventArgs e) {
             AdvancedOptionsForm f = new AdvancedOptionsForm();
             f.ShowDialog();
         }
-        private void BtnChooseDir_Click(object sender, EventArgs e) {
+        private async void BtnChooseDir_Click(object sender, EventArgs e) {
             // Let the user select a Directory of object parts
             // If they cancel then just log a message
             DialogResult result = FolderBrowserParts.ShowDialog();
             if (result == DialogResult.Cancel)
-                logMessage(SelectDirectoryCancel);
-            else if (result == DialogResult.OK)
-                bindObjectPartsAsync();
+                addLog(SelectDirectoryCancelled);
+            else if (result == DialogResult.OK) {
+                var logNode = new TreeNode();
+                await bindObjectPartsAsync(logNode);
+                addLog(logNode);
+            }
         }
         private void BtnAddProfile_Click(object sender, EventArgs e) {
             SaveProfileForm f = new SaveProfileForm();
@@ -78,10 +87,12 @@ namespace S3MultipartUploader {
 
             // Log this information
             string msg = string.Format(ProfileDeleted, profile.Name);
-            logMessage(msg);
+            addLog(msg);
 
             // Reset the data source for the profiles combobox
-            ProfileSettingsBase[] profiles = await bindProfilesAsync();
+            var logNode = new TreeNode();
+            ProfileSettingsBase[] profiles = await bindProfilesAsync(logNode);
+            addLog(logNode);
             if (profiles.Length == 0)
                 resetBuckets();
         }
@@ -93,7 +104,7 @@ namespace S3MultipartUploader {
 
             // Log this information
             string msg = string.Format(ProfileAdded, e.ProfileName);
-            logMessage(msg);
+            addLog(msg);
 
             // Reset the data source for the profiles combobox
             // Select the profile that was just added
@@ -108,7 +119,7 @@ namespace S3MultipartUploader {
             var creds = await profile.Credentials.GetCredentialsAsync();
             if (e.AccessKeyId == creds.AccessKey && e.SecretAccessKey == creds.SecretKey) {
                 msg = string.Format(ProfileUnchanged, name);
-                logMessage(msg);
+                addLog(msg);
                 return;
             }
 
@@ -117,7 +128,7 @@ namespace S3MultipartUploader {
                 AWSCredentialsProfile.Persist(name, e.AccessKeyId, e.SecretAccessKey);
             }
             msg = string.Format(ProfileEdited, name);
-            logMessage(msg);
+            addLog(msg);
 
             // Reset the data source for the profiles combobox
             // Keep selected the profile that was just edited
@@ -133,12 +144,14 @@ namespace S3MultipartUploader {
 
             // Log the new selection
             string msg = string.Format(ProfileSelected, profile.Name);
-            logMessage(msg);
+            var logNode = new TreeNode(msg);
+            addLog(logNode);
 
             // If both a credentials profile and a region have been selected then list buckets
             var region = ComboRegions.SelectedItem as RegionEndpoint;
             if (region != null)
-                await bindBucketsAsync(profile, region);
+                await bindBucketsAsync(profile, region, logNode);
+            logNode.Expand();
         }
         private async void ComboRegions_SelectedIndexChanged(object sender, EventArgs e) {
             // If there is no more selection then just return
@@ -148,14 +161,16 @@ namespace S3MultipartUploader {
 
             // Log the new selection
             string msg = string.Format(RegionSelected, region.DisplayName);
-            logMessage(msg);
+            var logNode = new TreeNode(msg);
+            addLog(logNode);
 
             // If no buckets have been listed yet, and both a credentials profile and a region have been selected,
             // then list buckets
             if (!cvStartUpload.ControlValid(ComboBuckets)) {
                 var profile = ComboProfiles.SelectedItem as AWSCredentialsProfile;
                 if (profile != null)
-                    await bindBucketsAsync(profile, region);
+                    await bindBucketsAsync(profile, region, logNode);
+                logNode.Expand();
             }
         }
         private void ComboBucket_SelectedIndexChanged(object sender, EventArgs e) {
@@ -166,13 +181,16 @@ namespace S3MultipartUploader {
 
             // Log the new selection
             string msg = string.Format(BucketSelected, bucket.BucketName);
-            logMessage(msg);
+            addLog(msg);
         }
         private void TxtKey_TextChanged(object sender, EventArgs e) {
             validateKey();
         }
         private void TxtKey_Validating(object sender, System.ComponentModel.CancelEventArgs e) {
             validateKey();
+        }
+        private void VsmStartUpload_ValidityChanged(object sender, EventArgs e) {
+            BtnStartPause.Enabled = cvStartUpload.AllControlsValid;
         }
         private void BtnStartPause_Click(object sender, EventArgs e) {
             if (!_uploading)
@@ -184,17 +202,16 @@ namespace S3MultipartUploader {
         private void BtnStop_Click(object sender, EventArgs e) {
             resetUploadCtrls(false);
         }
-        private void VsmStartUpload_ValidityChanged(object sender, EventArgs e) {
-            BtnStartPause.Enabled = cvStartUpload.AllControlsValid;
-        }
 
         #endregion
 
         // HELPERS
-        private async Task<ProfileSettingsBase[]> bindProfilesAsync() {
+        private async Task<ProfileSettingsBase[]> bindProfilesAsync(TreeNode logNode = null) {
             // Set up for listing profiles
-            string msg = string.Format(ListingProfiles);
-            logMessage(msg);
+            if (logNode != null) {
+                string msg = string.Format(ListingProfiles);
+                logNode.Text = msg;
+            }
             resetProfiles();
 
             // List profiles
@@ -205,15 +222,18 @@ namespace S3MultipartUploader {
             }
 
             // Adjust controls based on listed profiles
-            msg = string.Format(ProfilesListed, profiles.Length);
-            logMessage(msg);
+            if (logNode != null) {
+                string msg = string.Format(ProfilesListed, profiles.Length);
+                logNode.Nodes.Add(msg);
+            }
             resetProfiles(profiles);
 
             return profiles;
         }
-        private async Task<RegionEndpoint[]> bindRegionsAsync() {
+        private async Task<RegionEndpoint[]> bindRegionsAsync(TreeNode logNode = null) {
             // Set up for listing S3 regions
-            logMessage(ListingS3Regions);
+            if (logNode != null)
+                logNode.Text = ListingS3Regions;
             resetRegions();
 
             // List regions
@@ -223,8 +243,10 @@ namespace S3MultipartUploader {
             }
 
             // Adjust controls based on listed regions
-            string msg = string.Format(S3RegionsListed, regions.Length);
-            logMessage(msg);
+            if (logNode != null) {
+                string msg = string.Format(S3RegionsListed, regions.Length);
+                logNode.Nodes.Add(msg);
+            }
             resetRegions(regions);
 
             // Select the Region given in the config file by default
@@ -233,10 +255,12 @@ namespace S3MultipartUploader {
 
             return regions;
         }
-        private async Task<List<S3Bucket>> bindBucketsAsync(AWSCredentialsProfile profile, RegionEndpoint region) {
+        private async Task<List<S3Bucket>> bindBucketsAsync(AWSCredentialsProfile profile, RegionEndpoint region, TreeNode logNode = null) {
             // Set up for listing buckets
-            string msg = string.Format(ListingBuckets, profile.Name);
-            logMessage(msg);
+            if (logNode != null) {
+                string msg = string.Format(ListingBuckets, profile.Name);
+                logNode.Nodes.Add(msg);
+            }
             resetBuckets();
             _ctsListBuckets.Cancel();
             _ctsListBuckets = new CancellationTokenSource();
@@ -248,25 +272,46 @@ namespace S3MultipartUploader {
                 try {
                     buckets = (await s3.ListBucketsAsync(_ctsListBuckets.Token)).Buckets;
                 }
-                catch (OperationCanceledException) { return buckets; }
+                catch (OperationCanceledException) {
+                    logNode?.Remove();
+                    return buckets;
+                }
+
+                // If an exception occurs then log its details...
                 catch (AmazonServiceException ex) {
-                    logMessages(ListingBucketsFailed, ex.Message, ex.Source, ex.TargetSite.ToString());
-                    logMessages(ex.StackTrace.Split('\n'));
+                    if (logNode != null) {
+                        var errNode = new TreeNode(ListingBucketsFailed);
+                        var stackNode = new TreeNode(ExceptionStackTrace);
+                        TreeNode[] stackTraceNodes = ex.StackTrace.Split('\n').Select(m => new TreeNode(m)).ToArray();
+                        stackNode.Nodes.AddRange(stackTraceNodes);
+                        errNode.Nodes.AddRange(
+                            new string[3] {
+                            string.Format(ExceptionMessage, ex.Message),
+                            string.Format(ExceptionSource, ex.Source),
+                            string.Format(ExceptionTargetSite, ex.TargetSite),
+                            }
+                            .Select(m => new TreeNode(m)).ToArray()
+                        );
+                        errNode.Nodes.Add(stackNode);
+                        logNode.Nodes.Add(errNode);
+                    }
                     return buckets;
                 }
             }
 
             // Adjust controls based on listed buckets
-            msg = string.Format(BucketsListed, buckets.Count);
-            logMessage(msg);
+            if (logNode != null) {
+                string msg = string.Format(BucketsListed, buckets.Count);
+                logNode.Nodes.Add(msg);
+            }
             resetBuckets(buckets);
 
             return buckets;
         }
-        private async void bindObjectPartsAsync() {
+        private async Task<FileInfo[]> bindObjectPartsAsync(TreeNode logNode) {
             // Set up for listing object parts
             string path = FolderBrowserParts.SelectedPath;
-            logMessage(string.Format(SelectDirectorySuccess, path));
+            logNode.Text = string.Format(SelectDirectorySuccess, path);
             resetParts();
 
             // List object parts
@@ -277,8 +322,12 @@ namespace S3MultipartUploader {
             }
 
             // Adjust controls based on listed object parts
-            logMessages(messages);
+            TreeNode[] msgNodes = messages.Select(m => new TreeNode(m)).ToArray();
+            logNode.Nodes.AddRange(msgNodes);
+            addLogs(messages);
             resetParts(parts);
+
+            return parts;
         }
         private FileInfo[] getPartsInDirectory(DirectoryInfo dir, out string[] messages) {
             // Get the number of object parts and total files in this Directory
@@ -353,6 +402,7 @@ namespace S3MultipartUploader {
             bool valid = regions?.Length > 0;
 
             ComboRegions.DisplayMember = nameof(RegionEndpoint.DisplayName);
+            ComboRegions.SelectedIndex = -1;
             ComboRegions.DataSource = regions;
 
             LblRegion.Enabled = valid;
@@ -409,45 +459,47 @@ namespace S3MultipartUploader {
 
         #region Log Helpers
 
-        private void logMessage(string message, uint linesBefore = 0, bool showMsgBox = false) {
-            logBlanks(linesBefore);
-            logMessages(message);
+        private void addLog(string message, bool showMsgBox = false) {
+            addLogs(message);
 
             if (showMsgBox)
                 MessageBox.Show(message);
         }
-        private void logBlank() {
-            logMessages("");
+        private void addLog(TreeNode node) {
+            addLogs(node);
         }
-        private void logBlanks(uint numLines) {
-            for (int line = 0; line < numLines; ++line)
-                logMessages("");
+        private void addLog(string message, TreeNode parent) {
+            addLogs(parent, message);
         }
-        private void logMessages(params string[] messages) {
-            // Enqueue these messages
-            foreach (string msg in messages)
-                _logQueue.Enqueue(msg);
+        private void addLogs(params string[] messages) {
+            TreeNode[] nodes = messages.Select(m => new TreeNode(m)).ToArray();
+            lock (_logLock)
+                TreeLog.Nodes.AddRange(nodes);
 
-            // Log all messages currently in the queue
-            bool msgLogged = false;
-            do {
-                string msg;
-                msgLogged = _logQueue.TryDequeue(out msg);
-                if (msgLogged) {
-                    lock (_logLock) {
-                        ListLog.Items.Add(msg);
-                        autoScrollLogs();
-                    }
-                }
-            } while (msgLogged);
+            autoScrollLogs();
+        }
+        private void addLogs(TreeNode parent, params string[] messages) {
+            // Parent these message-nodes to the given parent
+            TreeNode[] nodes = messages.Select(m => new TreeNode(m)).ToArray();
+            parent.Nodes.AddRange(nodes);
+
+            // Add the parent to the TreeView, if necessary
+            lock (_logLock) {
+                if (parent.TreeView == null)
+                    TreeLog.Nodes.Add(parent);
+            }
+
+            autoScrollLogs();
         }
         private void autoScrollLogs() {
-            ListLog.SelectedIndex = ListLog.Items.Count - 1;
-            ListLog.SelectedIndex = -1;
+            lock (_logLock) {
+                TreeLog.SelectedNode = TreeLog.Nodes[TreeLog.Nodes.Count - 1];
+                TreeLog.SelectedNode = null;
+            }
         }
 
         #endregion
-        
+
     }
 
 }

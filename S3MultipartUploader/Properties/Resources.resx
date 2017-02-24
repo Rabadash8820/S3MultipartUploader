@@ -223,7 +223,7 @@
   <data name="ProfilesListed" xml:space="preserve">
     <value>{0} profiles found.</value>
   </data>
-  <data name="SelectDirectoryCancel" xml:space="preserve">
+  <data name="SelectDirectoryCancelled" xml:space="preserve">
     <value>Directory selection cancelled.</value>
   </data>
   <data name="ProfileNameRegex" xml:space="preserve">
@@ -236,7 +236,7 @@
     <value>..\Resources\aws_s3.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ListingBuckets" xml:space="preserve">
-    <value>Listing S3 buckets available to profile {0}...</value>
+    <value>Listing S3 buckets available to profile "{0}"...</value>
   </data>
   <data name="NPartsFound" xml:space="preserve">
     <value>{0} object parts found.</value>
@@ -272,7 +272,7 @@
     <value>Edit Credentials for Profile"{0}"</value>
   </data>
   <data name="ListingBucketsFailed" xml:space="preserve">
-    <value>Listing buckets failed!  More info below.</value>
+    <value>Listing buckets failed!  Expand for more info...</value>
   </data>
   <data name="PauseUploading" xml:space="preserve">
     <value>Pause all part uploads.</value>
@@ -287,6 +287,18 @@
     <value>Start uploading object parts!</value>
   </data>
   <data name="ProfileUnchanged" xml:space="preserve">
-    <value>No changes made to profile "{0}"</value>
+    <value>No changes made to profile "{0}".</value>
+  </data>
+  <data name="ExceptionMessage" xml:space="preserve">
+    <value>Message: {0}</value>
+  </data>
+  <data name="ExceptionSource" xml:space="preserve">
+    <value>Source: {0}</value>
+  </data>
+  <data name="ExceptionStackTrace" xml:space="preserve">
+    <value>Stack Trace...</value>
+  </data>
+  <data name="ExceptionTargetSite" xml:space="preserve">
+    <value>Target Site: {0}</value>
   </data>
 </root>

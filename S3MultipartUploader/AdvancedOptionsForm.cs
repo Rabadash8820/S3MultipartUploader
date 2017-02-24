@@ -9,6 +9,7 @@ namespace S3MultipartUploader {
             InitializeComponent();
 
             DatePickerExpires.MinDate = DateTime.Now;
+            DatePickerExpires.Value = DatePickerExpires.MaxDate;
             ComboAcl.SelectedIndex = 0;
         }
 

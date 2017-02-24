@@ -25,6 +25,7 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Welcome to the S3 Multipart Uploader!");
             this.LblProfile = new System.Windows.Forms.Label();
             this.LblBucket = new System.Windows.Forms.Label();
             this.LblKey = new System.Windows.Forms.Label();
@@ -35,8 +36,9 @@
             this.ListParts = new System.Windows.Forms.ListBox();
             this.TblLayoutLogs = new System.Windows.Forms.TableLayoutPanel();
             this.LblLogs = new System.Windows.Forms.Label();
-            this.ListLog = new System.Windows.Forms.ListBox();
+            this.TreeLog = new System.Windows.Forms.TreeView();
             this.PnlTop = new System.Windows.Forms.Panel();
+            this.LblAdvanced = new System.Windows.Forms.Label();
             this.BtnEditProfile = new System.Windows.Forms.Button();
             this.BtnDeleteProfile = new System.Windows.Forms.Button();
             this.LblRegion = new System.Windows.Forms.Label();
@@ -58,7 +60,6 @@
             this.FolderBrowserParts = new System.Windows.Forms.FolderBrowserDialog();
             this.ErrorMain = new System.Windows.Forms.ErrorProvider(this.components);
             this.ToolTipMain = new System.Windows.Forms.ToolTip(this.components);
-            this.LblAdvanced = new System.Windows.Forms.Label();
             this.cvStartUpload = new S3MultipartUploader.ControlValidator();
             this.TblLayoutMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SplitMain)).BeginInit();
@@ -191,7 +192,7 @@
             this.TblLayoutLogs.ColumnCount = 1;
             this.TblLayoutLogs.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.TblLayoutLogs.Controls.Add(this.LblLogs, 0, 0);
-            this.TblLayoutLogs.Controls.Add(this.ListLog, 0, 1);
+            this.TblLayoutLogs.Controls.Add(this.TreeLog, 0, 1);
             this.TblLayoutLogs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TblLayoutLogs.Location = new System.Drawing.Point(0, 0);
             this.TblLayoutLogs.Name = "TblLayoutLogs";
@@ -211,20 +212,18 @@
             this.LblLogs.Text = "Messages:";
             this.ToolTipMain.SetToolTip(this.LblLogs, "Log messages.");
             // 
-            // ListLog
+            // TreeLog
             // 
-            this.ListLog.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ListLog.FormattingEnabled = true;
-            this.ListLog.HorizontalScrollbar = true;
-            this.ListLog.Items.AddRange(new object[] {
-            "Welcome to the S3 Multipart Uploader!",
-            ""});
-            this.ListLog.Location = new System.Drawing.Point(3, 18);
-            this.ListLog.Name = "ListLog";
-            this.ListLog.ScrollAlwaysVisible = true;
-            this.ListLog.Size = new System.Drawing.Size(573, 166);
-            this.ListLog.TabIndex = 0;
-            this.ToolTipMain.SetToolTip(this.ListLog, "Log messages.");
+            this.TreeLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TreeLog.Location = new System.Drawing.Point(3, 18);
+            this.TreeLog.Name = "TreeLog";
+            treeNode1.Name = "Node0";
+            treeNode1.Text = "Welcome to the S3 Multipart Uploader!";
+            this.TreeLog.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode1});
+            this.TreeLog.Size = new System.Drawing.Size(573, 166);
+            this.TreeLog.TabIndex = 1;
+            this.ToolTipMain.SetToolTip(this.TreeLog, "Log messages.");
             // 
             // PnlTop
             // 
@@ -249,6 +248,17 @@
             this.PnlTop.Name = "PnlTop";
             this.PnlTop.Size = new System.Drawing.Size(579, 199);
             this.PnlTop.TabIndex = 0;
+            // 
+            // LblAdvanced
+            // 
+            this.LblAdvanced.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.LblAdvanced.AutoSize = true;
+            this.LblAdvanced.Location = new System.Drawing.Point(520, 169);
+            this.LblAdvanced.Name = "LblAdvanced";
+            this.LblAdvanced.Size = new System.Drawing.Size(56, 13);
+            this.LblAdvanced.TabIndex = 10;
+            this.LblAdvanced.Text = "Advanced";
+            this.ToolTipMain.SetToolTip(this.LblAdvanced, "Advanced options.");
             // 
             // BtnEditProfile
             // 
@@ -477,17 +487,6 @@
             this.ErrorMain.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.ErrorMain.ContainerControl = this;
             // 
-            // LblAdvanced
-            // 
-            this.LblAdvanced.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.LblAdvanced.AutoSize = true;
-            this.LblAdvanced.Location = new System.Drawing.Point(520, 169);
-            this.LblAdvanced.Name = "LblAdvanced";
-            this.LblAdvanced.Size = new System.Drawing.Size(56, 13);
-            this.LblAdvanced.TabIndex = 10;
-            this.LblAdvanced.Text = "Advanced";
-            this.ToolTipMain.SetToolTip(this.LblAdvanced, "Advanced options.");
-            // 
             // cvStartUpload
             // 
             this.cvStartUpload.ValidityChanged += new System.EventHandler(this.VsmStartUpload_ValidityChanged);
@@ -503,6 +502,7 @@
             this.MinimumSize = new System.Drawing.Size(480, 620);
             this.Name = "MainForm";
             this.Text = "S3 Multipart Uploader";
+            this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.TblLayoutMain.ResumeLayout(false);
             this.SplitMain.Panel1.ResumeLayout(false);
             this.SplitMain.Panel2.ResumeLayout(false);
@@ -535,7 +535,6 @@
         private System.Windows.Forms.Button BtnChooseDir;
         private System.Windows.Forms.Label LblChooseDir;
         private System.Windows.Forms.SplitContainer SplitMain;
-        private System.Windows.Forms.ListBox ListLog;
         private System.Windows.Forms.Button BtnOptions;
         private System.Windows.Forms.FolderBrowserDialog FolderBrowserParts;
         private System.Windows.Forms.ErrorProvider ErrorMain;
@@ -554,11 +553,12 @@
         private System.Windows.Forms.Label LblPars;
         private System.Windows.Forms.TableLayoutPanel TblLayoutLogs;
         private System.Windows.Forms.Label LblLogs;
-        private System.Windows.Forms.ListBox ListParts;
         private System.Windows.Forms.Button BtnDeleteProfile;
         private System.Windows.Forms.Button BtnEditProfile;
         private ControlValidator cvStartUpload;
         private System.Windows.Forms.Label LblAdvanced;
+        private System.Windows.Forms.ListBox ListParts;
+        private System.Windows.Forms.TreeView TreeLog;
     }
 }
 

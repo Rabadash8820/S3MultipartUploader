@@ -166,6 +166,42 @@ namespace S3MultipartUploader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Message: {0}.
+        /// </summary>
+        internal static string ExceptionMessage {
+            get {
+                return ResourceManager.GetString("ExceptionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Source: {0}.
+        /// </summary>
+        internal static string ExceptionSource {
+            get {
+                return ResourceManager.GetString("ExceptionSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stack Trace....
+        /// </summary>
+        internal static string ExceptionStackTrace {
+            get {
+                return ResourceManager.GetString("ExceptionStackTrace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Target Site: {0}.
+        /// </summary>
+        internal static string ExceptionTargetSite {
+            get {
+                return ResourceManager.GetString("ExceptionTargetSite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Profile Access Key IDs must contain exactly 20 uppercase letters and/or numbers..
         /// </summary>
         internal static string InvalidProfileAccessKeyID {
@@ -202,7 +238,7 @@ namespace S3MultipartUploader.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Listing S3 buckets available to profile {0}....
+        ///   Looks up a localized string similar to Listing S3 buckets available to profile &quot;{0}&quot;....
         /// </summary>
         internal static string ListingBuckets {
             get {
@@ -211,7 +247,7 @@ namespace S3MultipartUploader.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Listing buckets failed!  More info below..
+        ///   Looks up a localized string similar to Listing buckets failed!  Expand for more info....
         /// </summary>
         internal static string ListingBucketsFailed {
             get {
@@ -474,7 +510,7 @@ namespace S3MultipartUploader.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No changes made to profile &quot;{0}&quot;.
+        ///   Looks up a localized string similar to No changes made to profile &quot;{0}&quot;..
         /// </summary>
         internal static string ProfileUnchanged {
             get {
@@ -541,9 +577,9 @@ namespace S3MultipartUploader.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Directory selection cancelled..
         /// </summary>
-        internal static string SelectDirectoryCancel {
+        internal static string SelectDirectoryCancelled {
             get {
-                return ResourceManager.GetString("SelectDirectoryCancel", resourceCulture);
+                return ResourceManager.GetString("SelectDirectoryCancelled", resourceCulture);
             }
         }
         

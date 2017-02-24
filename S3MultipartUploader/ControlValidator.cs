@@ -15,7 +15,8 @@ namespace S3MultipartUploader {
         public void MarkValidity(Control source, bool valid) {
             lock (_lock) {
                 // Check validity state and add/update this validity source
-                bool validBefore = _validitySources.TryGetValue(source, out validBefore);
+                bool validBefore = false;
+                _validitySources.TryGetValue(source, out validBefore);
                 int countBefore = _validitySources.Count;
                 int numInvalidBefore = _validitySources.Values.Count(v => !v);
                 _validitySources.AddOrUpdate(source, valid, (ctrl, oldValid) => valid);
