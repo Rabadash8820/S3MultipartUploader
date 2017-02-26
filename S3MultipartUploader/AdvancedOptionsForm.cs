@@ -8,8 +8,7 @@ namespace S3MultipartUploader {
         public AdvancedOptionsForm() {
             InitializeComponent();
 
-            DatePickerExpires.MinDate = DateTime.Now;
-            DatePickerExpires.Value = DatePickerExpires.MaxDate;
+            initializeDatePicker();
             ComboAcl.SelectedIndex = 0;
         }
 
@@ -17,6 +16,10 @@ namespace S3MultipartUploader {
             resetKmsCtrls(RadioKMS.Checked);
         }
 
+        private void initializeDatePicker() {
+            DatePickerExpires.MinDate = DateTime.Now;
+            DatePickerExpires.Value = DatePickerExpires.MaxDate;
+        }
         private void resetKmsCtrls(bool enabled) {
             LblSseKey.Enabled = enabled;
             LblSseAlgorithm.Enabled = enabled;

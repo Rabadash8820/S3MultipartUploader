@@ -5,7 +5,6 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using System.Collections.Concurrent;
 
 using Amazon;
 using Amazon.Util;
@@ -22,9 +21,10 @@ namespace S3MultipartUploader {
 
         // HIDDEN FIELDS
         private CancellationTokenSource _ctsListBuckets = new CancellationTokenSource();
+        private CancellationTokenSource _ctsUpload = new CancellationTokenSource();
+        private InitiateMultipartUploadRequest _uploadRequest = new InitiateMultipartUploadRequest();
         private object _logLock = new object();
         private bool _uploading = false;
-        private bool _paused = false;
 
         public MainForm() {
             InitializeComponent();
@@ -64,6 +64,7 @@ namespace S3MultipartUploader {
                 var logNode = new TreeNode();
                 await bindObjectPartsAsync(logNode);
                 addLog(logNode);
+                logNode.Expand();
             }
         }
         private void BtnAddProfile_Click(object sender, EventArgs e) {
@@ -190,17 +191,35 @@ namespace S3MultipartUploader {
             validateKey();
         }
         private void VsmStartUpload_ValidityChanged(object sender, EventArgs e) {
-            BtnStartPause.Enabled = cvStartUpload.AllControlsValid;
+            BtnStart.Enabled = cvStartUpload.AllControlsValid;
         }
-        private void BtnStartPause_Click(object sender, EventArgs e) {
+        private async void BtnStart_Click(object sender, EventArgs e) {
+            // Adjust controls
             if (!_uploading)
                 resetUploadCtrls(true);
+            return;
 
-            _paused = !_paused;
-            resetUploadPlayPauseCtrls(_paused);
+            // Create the multipart upload request
+            var profile = ComboProfiles.SelectedItem as AWSCredentialsProfile;
+            _ctsUpload = new CancellationTokenSource();
+            ImmutableCredentials creds = await profile.Credentials.GetCredentialsAsync();
+            if (_ctsUpload.IsCancellationRequested)
+                return;
+            var region = ComboRegions.SelectedItem as RegionEndpoint;
+            var bucket = ComboBuckets.SelectedItem as S3Bucket;
+            string key = TxtKey.Text;
+            _uploadRequest.BucketName = bucket.BucketName;
+            _uploadRequest.Key = key;
+
+            // Initate multipart upload
+            var credsTask = profile.Credentials.GetCredentialsAsync();
+            var s3 = new AmazonS3Client(creds.AccessKey, creds.SecretKey, region);
+            InitiateMultipartUploadResponse response = await s3.InitiateMultipartUploadAsync(_uploadRequest, _ctsUpload.Token);
         }
         private void BtnStop_Click(object sender, EventArgs e) {
             resetUploadCtrls(false);
+
+            _ctsUpload.Cancel();
         }
 
         #endregion
@@ -324,7 +343,6 @@ namespace S3MultipartUploader {
             // Adjust controls based on listed object parts
             TreeNode[] msgNodes = messages.Select(m => new TreeNode(m)).ToArray();
             logNode.Nodes.AddRange(msgNodes);
-            addLogs(messages);
             resetParts(parts);
 
             return parts;
@@ -438,15 +456,10 @@ namespace S3MultipartUploader {
         }
         private void resetUploadCtrls(bool uploading) {
             PnlTop.Enabled = !uploading;
-            SplitMain.Panel1.Enabled = !uploading;
             ProgressMain.Enabled = uploading;
             BtnStop.Enabled = uploading;
-            BtnStartPause.Image = start_resume_upload;
-            ToolTipMain.SetToolTip(BtnStartPause, StartUploading);
-        }
-        private void resetUploadPlayPauseCtrls(bool resuming) {
-            BtnStartPause.Image = (resuming ? pause_upload : start_resume_upload);
-            ToolTipMain.SetToolTip(BtnStartPause, (resuming ? PauseUploading : ResumeUploading));
+            BtnStart.Enabled = !uploading;
+            addLog(uploading ? UploadStarted : UploadCancelled);
         }
 
         private void validateKey() {

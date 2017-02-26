@@ -25,7 +25,7 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Welcome to the S3 Multipart Uploader!");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Welcome to the S3 Multipart Uploader!");
             this.LblProfile = new System.Windows.Forms.Label();
             this.LblBucket = new System.Windows.Forms.Label();
             this.LblKey = new System.Windows.Forms.Label();
@@ -53,7 +53,7 @@
             this.PnlBottom = new System.Windows.Forms.Panel();
             this.BtnStop = new System.Windows.Forms.Button();
             this.ProgressMain = new System.Windows.Forms.ProgressBar();
-            this.BtnStartPause = new System.Windows.Forms.Button();
+            this.BtnStart = new System.Windows.Forms.Button();
             this.CntxtMenuParts = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.MenuItemRestartUpload = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemPauseUpload = new System.Windows.Forms.ToolStripMenuItem();
@@ -217,10 +217,10 @@
             this.TreeLog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TreeLog.Location = new System.Drawing.Point(3, 18);
             this.TreeLog.Name = "TreeLog";
-            treeNode1.Name = "Node0";
-            treeNode1.Text = "Welcome to the S3 Multipart Uploader!";
+            treeNode2.Name = "Node0";
+            treeNode2.Text = "Welcome to the S3 Multipart Uploader!";
             this.TreeLog.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode2});
             this.TreeLog.Size = new System.Drawing.Size(573, 166);
             this.TreeLog.TabIndex = 1;
             this.ToolTipMain.SetToolTip(this.TreeLog, "Log messages.");
@@ -411,7 +411,7 @@
             // 
             this.PnlBottom.Controls.Add(this.BtnStop);
             this.PnlBottom.Controls.Add(this.ProgressMain);
-            this.PnlBottom.Controls.Add(this.BtnStartPause);
+            this.PnlBottom.Controls.Add(this.BtnStart);
             this.PnlBottom.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PnlBottom.Location = new System.Drawing.Point(3, 551);
             this.PnlBottom.Name = "PnlBottom";
@@ -443,19 +443,19 @@
             this.ProgressMain.TabIndex = 0;
             this.ToolTipMain.SetToolTip(this.ProgressMain, "Upload has not started yet.");
             // 
-            // BtnStartPause
+            // BtnStart
             // 
-            this.BtnStartPause.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnStartPause.AutoSize = true;
-            this.BtnStartPause.Enabled = false;
-            this.BtnStartPause.Image = global::S3MultipartUploader.Properties.Resources.start_resume_upload;
-            this.BtnStartPause.Location = new System.Drawing.Point(493, 3);
-            this.BtnStartPause.Name = "BtnStartPause";
-            this.BtnStartPause.Size = new System.Drawing.Size(39, 38);
-            this.BtnStartPause.TabIndex = 0;
-            this.ToolTipMain.SetToolTip(this.BtnStartPause, "Start uploading object parts!");
-            this.BtnStartPause.UseVisualStyleBackColor = true;
-            this.BtnStartPause.Click += new System.EventHandler(this.BtnStartPause_Click);
+            this.BtnStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnStart.AutoSize = true;
+            this.BtnStart.Enabled = false;
+            this.BtnStart.Image = global::S3MultipartUploader.Properties.Resources.start_resume_upload;
+            this.BtnStart.Location = new System.Drawing.Point(493, 3);
+            this.BtnStart.Name = "BtnStart";
+            this.BtnStart.Size = new System.Drawing.Size(39, 38);
+            this.BtnStart.TabIndex = 0;
+            this.ToolTipMain.SetToolTip(this.BtnStart, "Start uploading object parts!");
+            this.BtnStart.UseVisualStyleBackColor = true;
+            this.BtnStart.Click += new System.EventHandler(this.BtnStart_Click);
             // 
             // CntxtMenuParts
             // 
@@ -541,7 +541,7 @@
         private System.Windows.Forms.ToolTip ToolTipMain;
         private System.Windows.Forms.Panel PnlBottom;
         private System.Windows.Forms.ProgressBar ProgressMain;
-        private System.Windows.Forms.Button BtnStartPause;
+        private System.Windows.Forms.Button BtnStart;
         private System.Windows.Forms.ContextMenuStrip CntxtMenuParts;
         private System.Windows.Forms.ToolStripMenuItem MenuItemRestartUpload;
         private System.Windows.Forms.ToolStripMenuItem MenuItemPauseUpload;

@@ -160,9 +160,6 @@
   <data name="MissingProfileName" xml:space="preserve">
     <value>You must provide a name for the new AWS credentials profile.</value>
   </data>
-  <data name="pause_upload" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pause_upload.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="ProfileSecretKeyRegex" xml:space="preserve">
     <value>^[0-9a-zA-Z/+]{40}$</value>
   </data>
@@ -274,14 +271,8 @@
   <data name="ListingBucketsFailed" xml:space="preserve">
     <value>Listing buckets failed!  Expand for more info...</value>
   </data>
-  <data name="PauseUploading" xml:space="preserve">
-    <value>Pause all part uploads.</value>
-  </data>
   <data name="ProfileEdited" xml:space="preserve">
     <value>Changes to profile "{0}" have been saved!</value>
-  </data>
-  <data name="ResumeUploading" xml:space="preserve">
-    <value>Resume all part uploads.</value>
   </data>
   <data name="StartUploading" xml:space="preserve">
     <value>Start uploading object parts!</value>
@@ -300,5 +291,11 @@
   </data>
   <data name="ExceptionTargetSite" xml:space="preserve">
     <value>Target Site: {0}</value>
+  </data>
+  <data name="UploadCancelled" xml:space="preserve">
+    <value>All part uploads aborted.</value>
+  </data>
+  <data name="UploadStarted" xml:space="preserve">
+    <value>Multipart upload started!</value>
   </data>
 </root>

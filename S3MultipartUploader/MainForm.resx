@@ -145,6 +145,28 @@ Key must only contain upper and lowercase alphanumeric characters with no spaces
   <metadata name="ErrorMain.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>145, 17</value>
   </metadata>
+  <data name="BtnAddProfile.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAAINJREFUWEftl9EJgDAMRLuQBuR0BNdygs7kaGra+GURBdsg3IODECR9UIg0kN8i
+        wzQLEFOO2trt6IFFMG4ara3dDgpQgAIUqCKgK1WHPUkHrKeA1qVvSrld23m356H1gmjHXfEX8L6CN6Rh
+        JqC1tdtBAQpQgALuArpS87/D6WFCviGEHSux/i3ChhvPAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="TxtKey.ToolTip" xml:space="preserve">
+    <value>The unique key where this object will be stored in the S3 bucket.
+Key name prefixes with the delimiter ("/") will be used by S3 to present a folder structure.
+Key must only contain upper and lowercase alphanumeric characters with no spaces, and any of the following characters:  !-_.*'()/</value>
+  </data>
+  <metadata name="CntxtMenuParts.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>526, 17</value>
+  </metadata>
+  <metadata name="FolderBrowserParts.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>250, 17</value>
+  </metadata>
+  <metadata name="ErrorMain.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>145, 17</value>
+  </metadata>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAAAAAAAEAIADtGQAAFgAAAIlQTkcNChoKAAAADUlIRFIAAAEAAAABAAgGAAAAXHKoZgAAGbRJ
@@ -260,25 +282,6 @@ Key must only contain upper and lowercase alphanumeric characters with no spaces
         ERERERERERERERERERERERERERERERERERERERERERERERHZ5P4/+XtXBu3uiusAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="BtnAddProfile.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAAINJREFUWEftl9EJgDAMRLuQBuR0BNdygs7kaGra+GURBdsg3IODECR9UIg0kN8i
-        wzQLEFOO2trt6IFFMG4ara3dDgpQgAIUqCKgK1WHPUkHrKeA1qVvSrld23m356H1gmjHXfEX8L6CN6Rh
-        JqC1tdtBAQpQgALuArpS87/D6WFCviGEHSux/i3ChhvPAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="TxtKey.ToolTip" xml:space="preserve">
-    <value>The unique key where this object will be stored in the S3 bucket.
-Key name prefixes with the delimiter ("/") will be used by S3 to present a folder structure.
-Key must only contain upper and lowercase alphanumeric characters with no spaces, and any of the following characters:  !-_.*'()/</value>
-  </data>
-  <metadata name="CntxtMenuParts.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>526, 17</value>
-  </metadata>
-  <metadata name="FolderBrowserParts.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>250, 17</value>
-  </metadata>
   <metadata name="cvStartUpload.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>

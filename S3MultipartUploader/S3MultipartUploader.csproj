@@ -119,9 +119,6 @@
     <None Include="Resources\advanced_options.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\pause_upload.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\start_resume_upload.ico" />
   </ItemGroup>
   <ItemGroup>

@@ -411,25 +411,6 @@ namespace S3MultipartUploader.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap pause_upload {
-            get {
-                object obj = ResourceManager.GetObject("pause_upload", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Pause all part uploads..
-        /// </summary>
-        internal static string PauseUploading {
-            get {
-                return ResourceManager.GetString("PauseUploading", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap profile {
             get {
                 object obj = ResourceManager.GetObject("profile", resourceCulture);
@@ -538,15 +519,6 @@ namespace S3MultipartUploader.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Resume all part uploads..
-        /// </summary>
-        internal static string ResumeUploading {
-            get {
-                return ResourceManager.GetString("ResumeUploading", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap s3_key {
@@ -618,6 +590,24 @@ namespace S3MultipartUploader.Properties {
             get {
                 object obj = ResourceManager.GetObject("stop_upload", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All part uploads aborted..
+        /// </summary>
+        internal static string UploadCancelled {
+            get {
+                return ResourceManager.GetString("UploadCancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Multipart upload started!.
+        /// </summary>
+        internal static string UploadStarted {
+            get {
+                return ResourceManager.GetString("UploadStarted", resourceCulture);
             }
         }
     }
