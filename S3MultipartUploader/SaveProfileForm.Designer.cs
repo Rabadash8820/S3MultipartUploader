@@ -54,7 +54,7 @@
             this.BtnSave.Text = "Save";
             this.ToolTipMain.SetToolTip(this.BtnSave, "Save this credentials profile.");
             this.BtnSave.UseVisualStyleBackColor = true;
-            this.BtnSave.Click += new System.EventHandler(this.BtnAdd_Click);
+            this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // BtnCancel
             // 

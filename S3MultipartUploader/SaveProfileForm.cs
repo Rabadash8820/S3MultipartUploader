@@ -53,7 +53,7 @@ namespace S3MultipartUploader {
         private void VsmSave_ValidityChanged(object sender, EventArgs e) {
             BtnSave.Enabled = cvSave.AllControlsValid;
         }
-        private void BtnAdd_Click(object sender, EventArgs e) {
+        private void BtnSave_Click(object sender, EventArgs e) {
             // Get values from the UI
             string name = TxtProfileName.Text;
             string accessKeyId = TxtAccessKeyID.Text;

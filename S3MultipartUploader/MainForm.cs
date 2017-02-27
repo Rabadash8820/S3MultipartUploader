@@ -22,9 +22,11 @@ namespace S3MultipartUploader {
         // HIDDEN FIELDS
         private CancellationTokenSource _ctsListBuckets = new CancellationTokenSource();
         private CancellationTokenSource _ctsUpload = new CancellationTokenSource();
-        private InitiateMultipartUploadRequest _uploadRequest = new InitiateMultipartUploadRequest();
         private object _logLock = new object();
         private bool _uploading = false;
+
+        private bool _uploadAsync = true;
+        private InitiateMultipartUploadRequest _uploadRequest;
 
         public MainForm() {
             InitializeComponent();
@@ -36,6 +38,19 @@ namespace S3MultipartUploader {
             bindRegionsAsync(regionNode);
             addLog(profileNode);
             addLog(regionNode);
+
+            // Initialize the upload request
+            _uploadRequest = new InitiateMultipartUploadRequest() {
+                WebsiteRedirectLocation = "",
+                StorageClass = S3StorageClass.Standard,
+                CannedACL = S3CannedACL.Private,
+                ServerSideEncryptionMethod = ServerSideEncryptionMethod.None,
+                ServerSideEncryptionCustomerProvidedKey = "",
+                ServerSideEncryptionCustomerMethod = "",
+                ServerSideEncryptionCustomerProvidedKeyMD5 = "",
+                ServerSideEncryptionKeyManagementServiceKeyId = "",
+            };
+            _uploadRequest.Headers.Expires = DateTime.MaxValue;
 
             // Set initial validity of the Form
             cvStartUpload.MarkValidity(ComboProfiles, false);
@@ -51,8 +66,21 @@ namespace S3MultipartUploader {
             TreeLog.ExpandAll();    // This method seems to have no affect during contructor or Activated event
         }
         private void BtnOptions_Click(object sender, EventArgs e) {
-            AdvancedOptionsForm f = new AdvancedOptionsForm();
+            AdvancedOptionsForm f = new AdvancedOptionsForm(_uploadAsync, _uploadRequest);
+            f.OptionsSaved += AdvancedOptionsForm_OptionsSaved;
             f.ShowDialog();
+        }
+        private void AdvancedOptionsForm_OptionsSaved(object sender, OptionsEventArgs e) {
+            // If no changes were made then just log a message and return
+            if (e.UploadAsync == _uploadAsync && e.InitiateMultipartUploadRequest.EqualsRequest(_uploadRequest)) {
+                addLog(OptionsUnchanged);
+                return;
+            }
+
+            // Save changes to options
+            _uploading = e.UploadAsync;
+            _uploadRequest = e.InitiateMultipartUploadRequest;
+            addLog(OptionsEdited);
         }
         private async void BtnChooseDir_Click(object sender, EventArgs e) {
             // Let the user select a Directory of object parts
@@ -513,6 +541,66 @@ namespace S3MultipartUploader {
 
         #endregion
 
+    }
+
+    public static class ExtensionMethods {
+        public static bool EqualsRequest(this InitiateMultipartUploadRequest request, InitiateMultipartUploadRequest other) {
+            bool propsEq =
+                other.BucketName == request.BucketName &&
+                other.Key == request.Key &&
+
+                other.StorageClass == request.StorageClass &&
+                other.WebsiteRedirectLocation == request.WebsiteRedirectLocation &&
+                other.RequestPayer?.Value == request.RequestPayer?.Value &&
+
+                other.CannedACL == request.CannedACL &&
+
+                other.ServerSideEncryptionMethod.Value == request.ServerSideEncryptionMethod.Value &&
+                other.ServerSideEncryptionCustomerProvidedKey == request.ServerSideEncryptionCustomerProvidedKey &&
+                other.ServerSideEncryptionCustomerMethod == request.ServerSideEncryptionCustomerMethod &&
+                other.ServerSideEncryptionCustomerProvidedKeyMD5 == request.ServerSideEncryptionCustomerProvidedKeyMD5 &&
+                other.ServerSideEncryptionKeyManagementServiceKeyId == request.ServerSideEncryptionKeyManagementServiceKeyId;
+            if (!propsEq)
+                return false;
+
+            // Check if metadata include the same keys with the same values
+            MetadataCollection otherMeta = other.Metadata;
+            MetadataCollection thisMeta = request.Metadata;
+            bool metadataCountEq = (otherMeta.Count == thisMeta.Count);
+            if (!metadataCountEq)
+                return false;
+            string[] commonKeys = otherMeta.Keys.Intersect(thisMeta.Keys).ToArray();
+            if (commonKeys.Length != otherMeta.Count)
+                return false;
+            bool metadataEq = commonKeys.All(k => otherMeta[k] == thisMeta[k]);
+            if (!metadataEq)
+                return false;
+
+            // Check if content headers include the same headers with the same values
+            HeadersCollection otherHeaders = other.Headers;
+            HeadersCollection thisHeaders = request.Headers;
+            bool headerCountEq = (otherHeaders.Count == thisHeaders.Count);
+            if (!headerCountEq)
+                return false;
+            string[] commonHeaders = otherHeaders.Keys.Intersect(thisHeaders.Keys).ToArray();
+            if (commonHeaders.Length != otherHeaders.Count)
+                return false;
+            bool headersEq = commonHeaders.All(k => otherHeaders[k] == thisHeaders[k]);
+            if (!headersEq)
+                return false;
+
+            // Check if grants include the same grantees with the same permissions
+            List<S3Grant> otherGrants = other.Grants;
+            List<S3Grant> thisGrants = request.Grants;
+            bool grantCountEq = (otherGrants.Count == thisGrants.Count);
+            if (!grantCountEq)
+                return false;
+            S3Grant[] commonGrants = otherGrants.Intersect(thisGrants).ToArray();
+            if (commonGrants.Length != otherGrants.Count)
+                return false;
+
+            return true;
+        }
     }
 
 }

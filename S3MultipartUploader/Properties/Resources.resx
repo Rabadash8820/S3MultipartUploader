@@ -298,4 +298,10 @@
   <data name="UploadStarted" xml:space="preserve">
     <value>Multipart upload started!</value>
   </data>
+  <data name="OptionsEdited" xml:space="preserve">
+    <value>Changes to advanced options have been saved!</value>
+  </data>
+  <data name="OptionsUnchanged" xml:space="preserve">
+    <value>No changes made to advanced options.</value>
+  </data>
 </root>

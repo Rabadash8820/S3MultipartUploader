@@ -409,6 +409,24 @@ namespace S3MultipartUploader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Changes to advanced options have been saved!.
+        /// </summary>
+        internal static string OptionsEdited {
+            get {
+                return ResourceManager.GetString("OptionsEdited", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No changes made to advanced options..
+        /// </summary>
+        internal static string OptionsUnchanged {
+            get {
+                return ResourceManager.GetString("OptionsUnchanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap profile {
