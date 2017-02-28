@@ -67,6 +67,7 @@
     <Compile Include="ErrorForm.Designer.cs">
       <DependentUpon>ErrorForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="OptionsEventArgs.cs" />
     <Compile Include="ProfileEventArgs.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
