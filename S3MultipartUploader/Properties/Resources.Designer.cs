@@ -612,6 +612,35 @@ namespace S3MultipartUploader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to support@danwarecreations.com.
+        /// </summary>
+        internal static string SupportContact {
+            get {
+                return ResourceManager.GetString("SupportContact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to What the--?.
+        /// </summary>
+        internal static string UnexpectedErrorCaption {
+            get {
+                return ResourceManager.GetString("UnexpectedErrorCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An unexpected error occurred!  Try restarting S3 Multipart Uploader, or contact {0} for support.  More details below:
+        ///
+        ///{1}.
+        /// </summary>
+        internal static string UnexpectedErrorText {
+            get {
+                return ResourceManager.GetString("UnexpectedErrorText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All part uploads aborted..
         /// </summary>
         internal static string UploadCancelled {

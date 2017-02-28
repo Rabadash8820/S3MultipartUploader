@@ -304,4 +304,15 @@
   <data name="OptionsUnchanged" xml:space="preserve">
     <value>No changes made to advanced options.</value>
   </data>
+  <data name="SupportContact" xml:space="preserve">
+    <value>support@danwarecreations.com</value>
+  </data>
+  <data name="UnexpectedErrorCaption" xml:space="preserve">
+    <value>What the--?</value>
+  </data>
+  <data name="UnexpectedErrorText" xml:space="preserve">
+    <value>An unexpected error occurred!  Try restarting S3 Multipart Uploader, or contact {0} for support.  More details below:
+
+{1}</value>
+  </data>
 </root>
