@@ -22,7 +22,7 @@ namespace S3MultipartUploader {
 
             // Exit (somewhat) gracefully from any uncaught exceptions
             catch (Exception e) {
-                new ErrorForm(e).ShowDialog();
+                new FatalErrorForm(e).ShowDialog();
             }
         }
 

@@ -1,5 +1,5 @@
 ﻿namespace S3MultipartUploader {
-    partial class ErrorForm {
+    partial class FatalErrorForm {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -51,6 +51,7 @@
             this.BtnClose.Size = new System.Drawing.Size(75, 23);
             this.BtnClose.TabIndex = 1;
             this.BtnClose.Text = "Close";
+            this.ToolTipMain.SetToolTip(this.BtnClose, "Close and exit the application.");
             this.BtnClose.UseVisualStyleBackColor = true;
             // 
             // TxtBody
@@ -65,6 +66,8 @@
             this.TxtBody.Size = new System.Drawing.Size(336, 91);
             this.TxtBody.TabIndex = 6;
             this.TxtBody.Text = "Come on S3 Multipart Uploader team, get it together!";
+            this.ToolTipMain.SetToolTip(this.TxtBody, "Optional.  Any additional details that you would like to provide.  For example, s" +
+        "teps that you took to reach this error.");
             // 
             // BtnSendReport
             // 
@@ -76,6 +79,7 @@
             this.BtnSendReport.Size = new System.Drawing.Size(102, 23);
             this.BtnSendReport.TabIndex = 7;
             this.BtnSendReport.Text = "Send Error Report";
+            this.ToolTipMain.SetToolTip(this.BtnSendReport, "Send the provided error details and custom message to support.");
             this.BtnSendReport.UseVisualStyleBackColor = true;
             this.BtnSendReport.Click += new System.EventHandler(this.BtnSendReport_Click);
             // 
@@ -88,7 +92,7 @@
             this.LblTop.Size = new System.Drawing.Size(383, 32);
             this.LblTop.TabIndex = 0;
             this.LblTop.Text = "Well this is embarassing...  See the full details below.  Please send us an error" +
-    " report so we can prevent future issues like this from occurring!  ";
+    " report so we can prevent future issues like this from occurring!";
             // 
             // LblFrom
             // 
@@ -98,6 +102,8 @@
             this.LblFrom.Size = new System.Drawing.Size(33, 13);
             this.LblFrom.TabIndex = 3;
             this.LblFrom.Text = "From:";
+            this.ToolTipMain.SetToolTip(this.LblFrom, "Optional.  The Email address at which you would like us to get back to you about " +
+        "this error.");
             // 
             // TxtFrom
             // 
@@ -107,6 +113,8 @@
             this.TxtFrom.Name = "TxtFrom";
             this.TxtFrom.Size = new System.Drawing.Size(336, 20);
             this.TxtFrom.TabIndex = 4;
+            this.ToolTipMain.SetToolTip(this.TxtFrom, "Optional.  The Email address at which you would like us to get back to you about " +
+        "this error.\r\n");
             // 
             // LblBody
             // 
@@ -116,6 +124,8 @@
             this.LblBody.Size = new System.Drawing.Size(34, 13);
             this.LblBody.TabIndex = 5;
             this.LblBody.Text = "Body:";
+            this.ToolTipMain.SetToolTip(this.LblBody, "Optional.  Any additional details that you would like to provide.  For example, s" +
+        "teps that you took to reach this error.");
             // 
             // SplitMain
             // 
@@ -155,6 +165,7 @@
             this.TxtError.Size = new System.Drawing.Size(383, 166);
             this.TxtError.TabIndex = 0;
             this.TxtError.TabStop = false;
+            this.ToolTipMain.SetToolTip(this.TxtError, "Details of the Exception that crashed S3 Multipart Uploader.");
             this.TxtError.WordWrap = false;
             // 
             // LblSendReport
@@ -177,6 +188,8 @@
             this.ChkSendReport.Size = new System.Drawing.Size(132, 17);
             this.ChkSendReport.TabIndex = 0;
             this.ChkSendReport.Text = "Send an Error Report?";
+            this.ToolTipMain.SetToolTip(this.ChkSendReport, "Send us an error report so we can prevent future issues like this from occurring!" +
+        "");
             this.ChkSendReport.UseVisualStyleBackColor = true;
             this.ChkSendReport.CheckedChanged += new System.EventHandler(this.ChkSendReport_CheckedChanged);
             // 

@@ -11,14 +11,14 @@ using Amazon.SimpleNotificationService.Model;
 
 namespace S3MultipartUploader {
 
-    public partial class ErrorForm : Form {
+    public partial class FatalErrorForm : Form {
 
         private CancellationTokenSource _cts = new CancellationTokenSource();
 
-        public ErrorForm() {
+        public FatalErrorForm() {
             InitializeComponent();
         }
-        public ErrorForm(Exception e) {
+        public FatalErrorForm(Exception e) {
             InitializeComponent();
 
             TxtError.Text = e.ToString();

@@ -61,11 +61,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ErrorForm.cs">
+    <Compile Include="FatalErrorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ErrorForm.Designer.cs">
-      <DependentUpon>ErrorForm.cs</DependentUpon>
+    <Compile Include="FatalErrorForm.Designer.cs">
+      <DependentUpon>FatalErrorForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="OptionsEventArgs.cs" />
@@ -96,8 +96,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="WaitCursor.cs" />
-    <EmbeddedResource Include="ErrorForm.resx">
-      <DependentUpon>ErrorForm.cs</DependentUpon>
+    <EmbeddedResource Include="FatalErrorForm.resx">
+      <DependentUpon>FatalErrorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SaveProfileForm.resx">
       <DependentUpon>SaveProfileForm.cs</DependentUpon>
