@@ -202,6 +202,56 @@ namespace S3MultipartUploader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to From: {0}
+        ///
+        ///Message:
+        ///{1}
+        ///
+        ///{2}.
+        /// </summary>
+        internal static string FatalErrorEmailBody {
+            get {
+                return ResourceManager.GetString("FatalErrorEmailBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S3 Multipart Uploader Error at {0}.
+        /// </summary>
+        internal static string FatalErrorEmailSubject {
+            get {
+                return ResourceManager.GetString("FatalErrorEmailSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to s3-multipart-uploader-errors.
+        /// </summary>
+        internal static string FatalErrorSnsTopic {
+            get {
+                return ResourceManager.GetString("FatalErrorSnsTopic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AKIAJNOKDZHMUHD22S3A.
+        /// </summary>
+        internal static string FatalErrorUserAccessKeyId {
+            get {
+                return ResourceManager.GetString("FatalErrorUserAccessKeyId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to pNSOEr1GTFLoOcBzpBWCTtrDpS+Jujip3YtBsijO.
+        /// </summary>
+        internal static string FatalErrorUserSecretAccessKey {
+            get {
+                return ResourceManager.GetString("FatalErrorUserSecretAccessKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Profile Access Key IDs must contain exactly 20 uppercase letters and/or numbers..
         /// </summary>
         internal static string InvalidProfileAccessKeyID {
@@ -617,26 +667,6 @@ namespace S3MultipartUploader.Properties {
         internal static string SupportContact {
             get {
                 return ResourceManager.GetString("SupportContact", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to What the--?.
-        /// </summary>
-        internal static string UnexpectedErrorCaption {
-            get {
-                return ResourceManager.GetString("UnexpectedErrorCaption", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An unexpected error occurred!  Try restarting S3 Multipart Uploader, or contact {0} for support.  More details below:
-        ///
-        ///{1}.
-        /// </summary>
-        internal static string UnexpectedErrorText {
-            get {
-                return ResourceManager.GetString("UnexpectedErrorText", resourceCulture);
             }
         }
         

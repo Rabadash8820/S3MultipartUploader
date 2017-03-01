@@ -2,19 +2,6 @@ AWSTemplateFormatVersion: 2010-09-09
 
 Description: An IAM user that can publish to the S3 Multipart Uploader error SNS topic.
 
-Metadata:
-  AWS::CloudFormation::Interface:
-    ParameterGroups:
-    - Parameters:
-      - UserPassword
-
-Parameters:
-  UserPassword:
-    Type: String
-    NoEcho: true
-    Description: The password for the administrator IAM user.
-    ConstraintDescription: must conform to this AWS account's password policy, if any.
-
 Resources:
   ErrorTopic:
     Type: AWS::SNS::Topic
@@ -29,19 +16,20 @@ Resources:
     Properties:
       UserName: s3-multipart-uploader
       Path: /s3-multipart-uploader/
-      LoginProfile:
-        Password: !Ref UserPassword
-        PasswordResetRequired: false
       Policies:
-      - # SNS publish permissions
+      - # SNS permissions
         PolicyName: S3MultipartUploader
         PolicyDocument:
           Version: 2012-10-17
           Statement:
-            Sid: 1
+          - Sid: 1
             Effect: Allow
             Action: sns:Publish
             Resource: !Ref ErrorTopic
+          - Sid: 2
+            Effect: Allow
+            Action: sns:ListTopics
+            Resource: "*"
 
 Outputs:
   ErrorTopic:

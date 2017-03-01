@@ -70,11 +70,6 @@
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="OptionsEventArgs.cs" />
     <Compile Include="ProfileEventArgs.cs" />
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
     <Compile Include="SaveProfileForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -131,10 +126,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <None Include="Resources\add_profile.ico" />
   </ItemGroup>
   <ItemGroup>

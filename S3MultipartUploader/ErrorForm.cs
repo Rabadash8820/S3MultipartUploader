@@ -3,8 +3,9 @@ using System.Net.Mail;
 using System.Threading;
 using System.Windows.Forms;
 
-using S3MultipartUploader.Properties;
+using static S3MultipartUploader.Properties.Resources;
 
+using Amazon;
 using Amazon.SimpleNotificationService;
 using Amazon.SimpleNotificationService.Model;
 
@@ -17,33 +18,40 @@ namespace S3MultipartUploader {
         public ErrorForm() {
             InitializeComponent();
         }
+        public ErrorForm(Exception e) {
+            InitializeComponent();
+
+            TxtError.Text = e.ToString();
+        }
 
         private void BtnSendReport_Click(object sender, EventArgs e) {
-            // Get message subject/body/from-address
-            string subject = TxtSubject.Text;
+            // Get error message text
+            string subject = string.Format(FatalErrorEmailSubject, DateTime.Now);
             string from = TxtFrom.Text;
-            string msg = TxtBody.Text;
-
-            // If a From address was provided then append it to the message body
-            if (from != "")
-                msg += from;
+            string body = TxtBody.Text;
+            string errTxt = TxtError.Text;
+            string msg = string.Format(FatalErrorEmailBody, from, body, errTxt);
 
             publishToSns(subject, msg);
         }
         private void ChkSendReport_CheckedChanged(object sender, EventArgs e) {
-            SplitMain.Panel2.Enabled = ChkSendReport.Checked;
+            bool sendingErr = ChkSendReport.Checked;
+
+            SplitMain.Panel2.Enabled = sendingErr;
+            this.AcceptButton = (sendingErr ? BtnSendReport : BtnClose);
         }
-        private async void publishToSns(string subject, string message) {
+        private void publishToSns(string subject, string message) {
             try {
                 // Get the error SNS Topic
-                Settings settings = Settings.Default;
-                var sns = new AmazonSimpleNotificationServiceClient();
-                Topic topic = await sns.FindTopicAsync(settings.ErrorSnsTopic);
+                var sns = new AmazonSimpleNotificationServiceClient(FatalErrorUserAccessKeyId, FatalErrorUserSecretAccessKey, RegionEndpoint.USEast2);
+                Topic topic = sns.FindTopic(FatalErrorSnsTopic);
 
                 // Publish to that Topic
                 var request = new PublishRequest(topic.TopicArn, message, subject);
-                PublishResponse response = await sns.PublishAsync(request, _cts.Token);
+                PublishResponse response = sns.Publish(request);
             }
+
+            // At this point, we just gotta squash any Exceptions...
             catch (Exception) { }
         }
     }

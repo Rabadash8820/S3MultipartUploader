@@ -307,12 +307,24 @@
   <data name="SupportContact" xml:space="preserve">
     <value>support@danwarecreations.com</value>
   </data>
-  <data name="UnexpectedErrorCaption" xml:space="preserve">
-    <value>What the--?</value>
+  <data name="FatalErrorSnsTopic" xml:space="preserve">
+    <value>s3-multipart-uploader-errors</value>
   </data>
-  <data name="UnexpectedErrorText" xml:space="preserve">
-    <value>An unexpected error occurred!  Try restarting S3 Multipart Uploader, or contact {0} for support.  More details below:
+  <data name="FatalErrorUserAccessKeyId" xml:space="preserve">
+    <value>AKIAJNOKDZHMUHD22S3A</value>
+  </data>
+  <data name="FatalErrorUserSecretAccessKey" xml:space="preserve">
+    <value>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</value>
+  </data>
+  <data name="FatalErrorEmailBody" xml:space="preserve">
+    <value>From: {0}
 
-{1}</value>
+Message:
+{1}
+
+{2}</value>
+  </data>
+  <data name="FatalErrorEmailSubject" xml:space="preserve">
+    <value>S3 Multipart Uploader Error at {0}</value>
   </data>
 </root>

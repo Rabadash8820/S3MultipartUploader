@@ -22,8 +22,7 @@ namespace S3MultipartUploader {
 
             // Exit (somewhat) gracefully from any uncaught exceptions
             catch (Exception e) {
-                string text = string.Format(UnexpectedErrorText, SupportContact, e.ToString());
-                new ErrorForm().ShowDialog();
+                new ErrorForm(e).ShowDialog();
             }
         }
 
