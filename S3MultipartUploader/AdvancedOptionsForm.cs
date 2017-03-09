@@ -32,9 +32,14 @@ namespace S3MultipartUploader {
             initOtherCtrls(_origAsync);
             initRequestCtrls(_origRequest);
         }
-
+        private void RadioNone_CheckedChanged(object sender, EventArgs e) {
+            resetSseCtrls(RadioSseKms.Checked, RadioSseNewKey.Checked);
+        }
         private void RadioKMS_CheckedChanged(object sender, EventArgs e) {
-            resetKmsCtrls(RadioKMS.Checked);
+            resetSseCtrls(RadioSseKms.Checked, RadioSseNewKey.Checked);
+        }
+        private void RadioNewKey_CheckedChanged(object sender, EventArgs e) {
+            resetSseCtrls(RadioSseKms.Checked, RadioSseNewKey.Checked);
         }
         private void BtnSave_Click(object sender, EventArgs e) {
             _origAsync = otherOptsFromCtrls();
@@ -75,20 +80,23 @@ namespace S3MultipartUploader {
             foreach (S3Grant grant in request.Grants)
                 DgvGrants.Rows.Add(grant.Permission.Value, grant.Grantee.DisplayName);
 
-            // Initialize server side encryption method
-            if (request.ServerSideEncryptionMethod == ServerSideEncryptionMethod.AES256)
-                RadioAES256.Checked = true;
-            else if (request.ServerSideEncryptionMethod == ServerSideEncryptionMethod.AWSKMS)
-                RadioKMS.Checked = true;
+            // Initialize SSE method
+            bool kms = (request.ServerSideEncryptionMethod == ServerSideEncryptionMethod.AWSKMS);
+            bool newKey = (request.ServerSideEncryptionMethod == ServerSideEncryptionMethod.AES256);
+            if (kms)
+                RadioSseKms.Checked = true;
+            else if (newKey)
+                RadioSseNewKey.Checked = true;
             else
-                RadioNone.Checked = true;
+                RadioSseNone.Checked = true;
 
-            // Initialize server side encryption
-            TxtSseKey.Text = request.ServerSideEncryptionCustomerProvidedKey;
-            TxtSseAlgorithm.Text = request.ServerSideEncryptionCustomerMethod?.Value;
-            TxtSseKeyMd5.Text = request.ServerSideEncryptionCustomerProvidedKeyMD5;
-            TxtSseKeyId.Text = request.ServerSideEncryptionKeyManagementServiceKeyId;
+            // Initialize other SSE controls
+            TxtSseKeyId.Text = (kms ? request.ServerSideEncryptionKeyManagementServiceKeyId : null);
+            TxtSseCustomerKey.Text = (newKey ? request.ServerSideEncryptionCustomerProvidedKey : null);
+            TxtSseCustomerKey.Text = request.ServerSideEncryptionCustomerProvidedKey;
+            TxtSseCustomerKeyMd5.Text = request.ServerSideEncryptionCustomerProvidedKeyMD5;
         }
+
         private void initializeDatePicker(DateTime value) {
             DatePickerExpires.MinDate = DateTime.Now;
 
@@ -100,16 +108,15 @@ namespace S3MultipartUploader {
             else
                 DatePickerExpires.Value = value;
         }
-        private void resetKmsCtrls(bool enabled) {
-            LblSseKey.Enabled = enabled;
-            LblSseAlgorithm.Enabled = enabled;
-            LblSseKeyMd5.Enabled = enabled;
-            LblSseKeyId.Enabled = enabled;
+        private void resetSseCtrls(bool kms, bool newKey) {
+            LblSseKeyId.Enabled = kms;
+            TxtSseKeyId.Enabled = kms;
 
-            TxtSseKey.Enabled = enabled;
-            TxtSseAlgorithm.Enabled = enabled;
-            TxtSseKeyMd5.Enabled = enabled;
-            TxtSseKeyId.Enabled = enabled;
+            LblSseCustomerKey.Enabled = newKey;
+            TxtSseCustomerKey.Enabled = newKey;
+
+            LblSseCustomerKeyMd5.Enabled = newKey;
+            TxtSseCustomerKeyMd5.Enabled = newKey;
         }
         private bool otherOptsFromCtrls() {
             bool uploadAsync = ChkAsynchronous.Checked;
@@ -158,18 +165,20 @@ namespace S3MultipartUploader {
             }
 
             // Initialize server side encryption method
-            if (RadioAES256.Checked)
-                request.ServerSideEncryptionMethod = ServerSideEncryptionMethod.AES256;
-            else if (RadioKMS.Checked)
+            bool kms = RadioSseKms.Checked;
+            bool newKey = RadioSseNewKey.Checked;
+            if (kms)
                 request.ServerSideEncryptionMethod = ServerSideEncryptionMethod.AWSKMS;
+            else if (newKey)
+                request.ServerSideEncryptionMethod = ServerSideEncryptionMethod.AES256;
             else
                 request.ServerSideEncryptionMethod = ServerSideEncryptionMethod.None;
 
             // Set server side encryption from control values
-            request.ServerSideEncryptionCustomerProvidedKey = TxtSseKey.Text;
-            request.ServerSideEncryptionCustomerMethod = TxtSseAlgorithm.Text;
-            request.ServerSideEncryptionCustomerProvidedKeyMD5 = TxtSseKeyMd5.Text;
-            request.ServerSideEncryptionKeyManagementServiceKeyId = TxtSseKeyId.Text;
+            request.ServerSideEncryptionKeyManagementServiceKeyId = (kms ? TxtSseKeyId.Text : null);
+            request.ServerSideEncryptionCustomerMethod = (newKey ? ServerSideEncryptionCustomerMethod.AES256 : ServerSideEncryptionCustomerMethod.None);
+            request.ServerSideEncryptionCustomerProvidedKey = (newKey ? TxtSseCustomerKey.Text : null);
+            request.ServerSideEncryptionCustomerProvidedKeyMD5 = (newKey ? TxtSseCustomerKeyMd5.Text : null);
 
             return request;
         }

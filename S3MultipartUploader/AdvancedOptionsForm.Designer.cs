@@ -31,10 +31,8 @@
             this.ChkRequestPayer = new System.Windows.Forms.CheckBox();
             this.GrpMetadata = new System.Windows.Forms.GroupBox();
             this.DgvMetadata = new System.Windows.Forms.DataGridView();
-            this.PnlBottom = new System.Windows.Forms.Panel();
-            this.BtnCancel = new System.Windows.Forms.Button();
-            this.BtnSave = new System.Windows.Forms.Button();
-            this.TblLayoutMain = new System.Windows.Forms.TableLayoutPanel();
+            this.DgvColMetadataKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DgvColMetadataValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GrpContent = new System.Windows.Forms.GroupBox();
             this.LblType = new System.Windows.Forms.Label();
             this.TxtEncoding = new System.Windows.Forms.TextBox();
@@ -50,18 +48,15 @@
             this.DgvColGrantee = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GrpSse = new System.Windows.Forms.GroupBox();
             this.TxtSseKeyId = new System.Windows.Forms.TextBox();
-            this.TxtSseKeyMd5 = new System.Windows.Forms.TextBox();
-            this.TxtSseAlgorithm = new System.Windows.Forms.TextBox();
-            this.TxtSseKey = new System.Windows.Forms.TextBox();
-            this.RadioKMS = new System.Windows.Forms.RadioButton();
-            this.RadioAES256 = new System.Windows.Forms.RadioButton();
-            this.RadioNone = new System.Windows.Forms.RadioButton();
+            this.TxtSseCustomerKeyMd5 = new System.Windows.Forms.TextBox();
+            this.TxtSseCustomerKey = new System.Windows.Forms.TextBox();
+            this.RadioSseKms = new System.Windows.Forms.RadioButton();
+            this.RadioSseNewKey = new System.Windows.Forms.RadioButton();
+            this.RadioSseNone = new System.Windows.Forms.RadioButton();
             this.LblSseKeyId = new System.Windows.Forms.Label();
-            this.LblSseKeyMd5 = new System.Windows.Forms.Label();
-            this.LblSseKey = new System.Windows.Forms.Label();
-            this.LblSseAlgorithm = new System.Windows.Forms.Label();
+            this.LblSseCustomerKeyMd5 = new System.Windows.Forms.Label();
+            this.LblSseCustomerKey = new System.Windows.Forms.Label();
             this.LblEncryption = new System.Windows.Forms.Label();
-            this.PnlTop = new System.Windows.Forms.Panel();
             this.ComboAcl = new System.Windows.Forms.ComboBox();
             this.RadioStandardIA = new System.Windows.Forms.RadioButton();
             this.LblAcl = new System.Windows.Forms.Label();
@@ -71,17 +66,20 @@
             this.TxtWebsite = new System.Windows.Forms.TextBox();
             this.LblWebsite = new System.Windows.Forms.Label();
             this.LblStorageClass = new System.Windows.Forms.Label();
+            this.PnlBottom = new System.Windows.Forms.Panel();
+            this.BtnCancel = new System.Windows.Forms.Button();
+            this.BtnSave = new System.Windows.Forms.Button();
+            this.TblLayoutMain = new System.Windows.Forms.TableLayoutPanel();
+            this.PnlTop = new System.Windows.Forms.Panel();
             this.ErrorMain = new System.Windows.Forms.ErrorProvider(this.components);
-            this.DgvColMetadataKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DgvColMetadataValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GrpMetadata.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvMetadata)).BeginInit();
-            this.PnlBottom.SuspendLayout();
-            this.TblLayoutMain.SuspendLayout();
             this.GrpContent.SuspendLayout();
             this.GrpAccessCtrl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvGrants)).BeginInit();
             this.GrpSse.SuspendLayout();
+            this.PnlBottom.SuspendLayout();
+            this.TblLayoutMain.SuspendLayout();
             this.PnlTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorMain)).BeginInit();
             this.SuspendLayout();
@@ -127,7 +125,7 @@
             this.GrpMetadata.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GrpMetadata.Location = new System.Drawing.Point(3, 141);
             this.GrpMetadata.Name = "GrpMetadata";
-            this.GrpMetadata.Size = new System.Drawing.Size(538, 76);
+            this.GrpMetadata.Size = new System.Drawing.Size(538, 80);
             this.GrpMetadata.TabIndex = 1;
             this.GrpMetadata.TabStop = false;
             this.GrpMetadata.Text = "Metadata";
@@ -142,66 +140,22 @@
             this.DgvMetadata.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DgvMetadata.Location = new System.Drawing.Point(3, 16);
             this.DgvMetadata.Name = "DgvMetadata";
-            this.DgvMetadata.Size = new System.Drawing.Size(532, 57);
+            this.DgvMetadata.Size = new System.Drawing.Size(532, 61);
             this.DgvMetadata.TabIndex = 0;
             // 
-            // PnlBottom
+            // DgvColMetadataKey
             // 
-            this.PnlBottom.Controls.Add(this.BtnCancel);
-            this.PnlBottom.Controls.Add(this.BtnSave);
-            this.PnlBottom.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PnlBottom.Location = new System.Drawing.Point(3, 600);
-            this.PnlBottom.Name = "PnlBottom";
-            this.PnlBottom.Size = new System.Drawing.Size(538, 33);
-            this.PnlBottom.TabIndex = 5;
+            this.DgvColMetadataKey.HeaderText = "Key";
+            this.DgvColMetadataKey.Name = "DgvColMetadataKey";
+            this.DgvColMetadataKey.ToolTipText = "The metadata key, for example \"UploaderName\" or \"Project\"";
+            this.DgvColMetadataKey.Width = 150;
             // 
-            // BtnCancel
+            // DgvColMetadataValue
             // 
-            this.BtnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnCancel.AutoSize = true;
-            this.BtnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.BtnCancel.Location = new System.Drawing.Point(460, 7);
-            this.BtnCancel.Name = "BtnCancel";
-            this.BtnCancel.Size = new System.Drawing.Size(75, 23);
-            this.BtnCancel.TabIndex = 1;
-            this.BtnCancel.Text = "Cancel";
-            this.BtnCancel.UseVisualStyleBackColor = true;
-            // 
-            // BtnSave
-            // 
-            this.BtnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnSave.AutoSize = true;
-            this.BtnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.BtnSave.Location = new System.Drawing.Point(379, 7);
-            this.BtnSave.Name = "BtnSave";
-            this.BtnSave.Size = new System.Drawing.Size(75, 23);
-            this.BtnSave.TabIndex = 0;
-            this.BtnSave.Text = "Save";
-            this.BtnSave.UseVisualStyleBackColor = true;
-            this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
-            // 
-            // TblLayoutMain
-            // 
-            this.TblLayoutMain.ColumnCount = 1;
-            this.TblLayoutMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TblLayoutMain.Controls.Add(this.PnlBottom, 0, 5);
-            this.TblLayoutMain.Controls.Add(this.GrpMetadata, 0, 1);
-            this.TblLayoutMain.Controls.Add(this.GrpContent, 0, 2);
-            this.TblLayoutMain.Controls.Add(this.GrpAccessCtrl, 0, 3);
-            this.TblLayoutMain.Controls.Add(this.GrpSse, 0, 4);
-            this.TblLayoutMain.Controls.Add(this.PnlTop, 0, 0);
-            this.TblLayoutMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TblLayoutMain.Location = new System.Drawing.Point(0, 0);
-            this.TblLayoutMain.Name = "TblLayoutMain";
-            this.TblLayoutMain.RowCount = 6;
-            this.TblLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 138F));
-            this.TblLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.TblLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 137F));
-            this.TblLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.TblLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 158F));
-            this.TblLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
-            this.TblLayoutMain.Size = new System.Drawing.Size(544, 636);
-            this.TblLayoutMain.TabIndex = 0;
+            this.DgvColMetadataValue.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.DgvColMetadataValue.HeaderText = "Value";
+            this.DgvColMetadataValue.Name = "DgvColMetadataValue";
+            this.DgvColMetadataValue.ToolTipText = "The metadata value.  For example, \"John Doe\" or \"MEA Project\"";
             // 
             // GrpContent
             // 
@@ -214,7 +168,7 @@
             this.GrpContent.Controls.Add(this.LblExpires);
             this.GrpContent.Controls.Add(this.LblDisposition);
             this.GrpContent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.GrpContent.Location = new System.Drawing.Point(3, 223);
+            this.GrpContent.Location = new System.Drawing.Point(3, 227);
             this.GrpContent.Name = "GrpContent";
             this.GrpContent.Size = new System.Drawing.Size(538, 131);
             this.GrpContent.TabIndex = 2;
@@ -311,9 +265,9 @@
             // 
             this.GrpAccessCtrl.Controls.Add(this.DgvGrants);
             this.GrpAccessCtrl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.GrpAccessCtrl.Location = new System.Drawing.Point(3, 360);
+            this.GrpAccessCtrl.Location = new System.Drawing.Point(3, 364);
             this.GrpAccessCtrl.Name = "GrpAccessCtrl";
-            this.GrpAccessCtrl.Size = new System.Drawing.Size(538, 76);
+            this.GrpAccessCtrl.Size = new System.Drawing.Size(538, 80);
             this.GrpAccessCtrl.TabIndex = 3;
             this.GrpAccessCtrl.TabStop = false;
             this.GrpAccessCtrl.Text = "Grants";
@@ -328,7 +282,7 @@
             this.DgvGrants.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DgvGrants.Location = new System.Drawing.Point(3, 16);
             this.DgvGrants.Name = "DgvGrants";
-            this.DgvGrants.Size = new System.Drawing.Size(532, 57);
+            this.DgvGrants.Size = new System.Drawing.Size(532, 61);
             this.DgvGrants.TabIndex = 1;
             // 
             // DgvColPermission
@@ -353,21 +307,19 @@
             // GrpSse
             // 
             this.GrpSse.Controls.Add(this.TxtSseKeyId);
-            this.GrpSse.Controls.Add(this.TxtSseKeyMd5);
-            this.GrpSse.Controls.Add(this.TxtSseAlgorithm);
-            this.GrpSse.Controls.Add(this.TxtSseKey);
-            this.GrpSse.Controls.Add(this.RadioKMS);
-            this.GrpSse.Controls.Add(this.RadioAES256);
-            this.GrpSse.Controls.Add(this.RadioNone);
+            this.GrpSse.Controls.Add(this.TxtSseCustomerKeyMd5);
+            this.GrpSse.Controls.Add(this.TxtSseCustomerKey);
+            this.GrpSse.Controls.Add(this.RadioSseKms);
+            this.GrpSse.Controls.Add(this.RadioSseNewKey);
+            this.GrpSse.Controls.Add(this.RadioSseNone);
             this.GrpSse.Controls.Add(this.LblSseKeyId);
-            this.GrpSse.Controls.Add(this.LblSseKeyMd5);
-            this.GrpSse.Controls.Add(this.LblSseKey);
-            this.GrpSse.Controls.Add(this.LblSseAlgorithm);
+            this.GrpSse.Controls.Add(this.LblSseCustomerKeyMd5);
+            this.GrpSse.Controls.Add(this.LblSseCustomerKey);
             this.GrpSse.Controls.Add(this.LblEncryption);
             this.GrpSse.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.GrpSse.Location = new System.Drawing.Point(3, 442);
+            this.GrpSse.Location = new System.Drawing.Point(3, 450);
             this.GrpSse.Name = "GrpSse";
-            this.GrpSse.Size = new System.Drawing.Size(538, 152);
+            this.GrpSse.Size = new System.Drawing.Size(538, 125);
             this.GrpSse.TabIndex = 4;
             this.GrpSse.TabStop = false;
             this.GrpSse.Text = "Server-Side Encryption";
@@ -381,157 +333,123 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TxtSseKeyId.Enabled = false;
             this.ErrorMain.SetIconPadding(this.TxtSseKeyId, 3);
-            this.TxtSseKeyId.Location = new System.Drawing.Point(87, 119);
+            this.TxtSseKeyId.Location = new System.Drawing.Point(91, 44);
+            this.TxtSseKeyId.Multiline = true;
             this.TxtSseKeyId.Name = "TxtSseKeyId";
-            this.TxtSseKeyId.Size = new System.Drawing.Size(429, 20);
+            this.TxtSseKeyId.Size = new System.Drawing.Size(425, 20);
             this.TxtSseKeyId.TabIndex = 6;
-            this.ToolTipMain.SetToolTip(this.TxtSseKeyId, "Specifies the ID of a custom AWS Key Management Service (KMS) master encryption k" +
-        "ey to be used on the object\'s data.");
+            this.ToolTipMain.SetToolTip(this.TxtSseKeyId, "The ID of the AWS Key Management Service (KMS) master encryption key for this obj" +
+        "ect.\r\nIf you leave this field blank then S3 will use a default encryption key.");
             // 
-            // TxtSseKeyMd5
+            // TxtSseCustomerKeyMd5
             // 
-            this.TxtSseKeyMd5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.TxtSseCustomerKeyMd5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TxtSseKeyMd5.Enabled = false;
-            this.ErrorMain.SetIconPadding(this.TxtSseKeyMd5, 3);
-            this.TxtSseKeyMd5.Location = new System.Drawing.Point(87, 93);
-            this.TxtSseKeyMd5.Name = "TxtSseKeyMd5";
-            this.TxtSseKeyMd5.Size = new System.Drawing.Size(429, 20);
-            this.TxtSseKeyMd5.TabIndex = 5;
-            this.ToolTipMain.SetToolTip(this.TxtSseKeyMd5, "Specifies the base64-encoded 128-bit MD5 digest of the encryption key according t" +
-        "o RFC 1321.");
+            this.TxtSseCustomerKeyMd5.Enabled = false;
+            this.ErrorMain.SetIconPadding(this.TxtSseCustomerKeyMd5, 3);
+            this.TxtSseCustomerKeyMd5.Location = new System.Drawing.Point(91, 97);
+            this.TxtSseCustomerKeyMd5.Multiline = true;
+            this.TxtSseCustomerKeyMd5.Name = "TxtSseCustomerKeyMd5";
+            this.TxtSseCustomerKeyMd5.Size = new System.Drawing.Size(425, 20);
+            this.TxtSseCustomerKeyMd5.TabIndex = 5;
+            this.ToolTipMain.SetToolTip(this.TxtSseCustomerKeyMd5, resources.GetString("TxtSseCustomerKeyMd5.ToolTip"));
             // 
-            // TxtSseAlgorithm
+            // TxtSseCustomerKey
             // 
-            this.TxtSseAlgorithm.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.TxtSseCustomerKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TxtSseAlgorithm.Enabled = false;
-            this.ErrorMain.SetIconPadding(this.TxtSseAlgorithm, 3);
-            this.TxtSseAlgorithm.Location = new System.Drawing.Point(87, 67);
-            this.TxtSseAlgorithm.Name = "TxtSseAlgorithm";
-            this.TxtSseAlgorithm.Size = new System.Drawing.Size(429, 20);
-            this.TxtSseAlgorithm.TabIndex = 4;
+            this.TxtSseCustomerKey.Enabled = false;
+            this.ErrorMain.SetIconPadding(this.TxtSseCustomerKey, 3);
+            this.TxtSseCustomerKey.Location = new System.Drawing.Point(91, 71);
+            this.TxtSseCustomerKey.Multiline = true;
+            this.TxtSseCustomerKey.Name = "TxtSseCustomerKey";
+            this.TxtSseCustomerKey.Size = new System.Drawing.Size(425, 20);
+            this.TxtSseCustomerKey.TabIndex = 3;
+            this.ToolTipMain.SetToolTip(this.TxtSseCustomerKey, "The new base64-encoded encryption key for Amazon S3 to use in encrypting data.\r\nT" +
+        "his value is used to store the object and then is discarded; Amazon does not sto" +
+        "re the encryption key.\r\n");
             // 
-            // TxtSseKey
+            // RadioSseKms
             // 
-            this.TxtSseKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TxtSseKey.Enabled = false;
-            this.ErrorMain.SetIconPadding(this.TxtSseKey, 3);
-            this.TxtSseKey.Location = new System.Drawing.Point(87, 41);
-            this.TxtSseKey.Name = "TxtSseKey";
-            this.TxtSseKey.Size = new System.Drawing.Size(429, 20);
-            this.TxtSseKey.TabIndex = 3;
-            this.ToolTipMain.SetToolTip(this.TxtSseKey, resources.GetString("TxtSseKey.ToolTip"));
+            this.RadioSseKms.AutoSize = true;
+            this.RadioSseKms.Location = new System.Drawing.Point(148, 21);
+            this.RadioSseKms.Name = "RadioSseKms";
+            this.RadioSseKms.Size = new System.Drawing.Size(76, 17);
+            this.RadioSseKms.TabIndex = 2;
+            this.RadioSseKms.Text = "AWS KMS";
+            this.ToolTipMain.SetToolTip(this.RadioSseKms, "Object data will be encrypted using a Key Management Service (KMS) key.");
+            this.RadioSseKms.UseVisualStyleBackColor = true;
+            this.RadioSseKms.CheckedChanged += new System.EventHandler(this.RadioKMS_CheckedChanged);
             // 
-            // RadioKMS
+            // RadioSseNewKey
             // 
-            this.RadioKMS.AutoSize = true;
-            this.RadioKMS.Location = new System.Drawing.Point(214, 18);
-            this.RadioKMS.Name = "RadioKMS";
-            this.RadioKMS.Size = new System.Drawing.Size(76, 17);
-            this.RadioKMS.TabIndex = 2;
-            this.RadioKMS.Text = "AWS KMS";
-            this.ToolTipMain.SetToolTip(this.RadioKMS, "Object data is encrypted using a custom Key Management Service (KMS) key provided" +
-        " by the user.");
-            this.RadioKMS.UseVisualStyleBackColor = true;
-            this.RadioKMS.CheckedChanged += new System.EventHandler(this.RadioKMS_CheckedChanged);
+            this.RadioSseNewKey.AutoSize = true;
+            this.RadioSseNewKey.Location = new System.Drawing.Point(230, 21);
+            this.RadioSseNewKey.Name = "RadioSseNewKey";
+            this.RadioSseNewKey.Size = new System.Drawing.Size(68, 17);
+            this.RadioSseNewKey.TabIndex = 1;
+            this.RadioSseNewKey.Text = "New Key";
+            this.ToolTipMain.SetToolTip(this.RadioSseNewKey, "Object data will be encrypted using a new key that you provide.");
+            this.RadioSseNewKey.UseVisualStyleBackColor = true;
+            this.RadioSseNewKey.CheckedChanged += new System.EventHandler(this.RadioNewKey_CheckedChanged);
             // 
-            // RadioAES256
+            // RadioSseNone
             // 
-            this.RadioAES256.AutoSize = true;
-            this.RadioAES256.Location = new System.Drawing.Point(144, 18);
-            this.RadioAES256.Name = "RadioAES256";
-            this.RadioAES256.Size = new System.Drawing.Size(64, 17);
-            this.RadioAES256.TabIndex = 1;
-            this.RadioAES256.Text = "AES256";
-            this.ToolTipMain.SetToolTip(this.RadioAES256, "Data is encrypted with an AWS-generated secret key, using the AES256 algorithm.");
-            this.RadioAES256.UseVisualStyleBackColor = true;
-            // 
-            // RadioNone
-            // 
-            this.RadioNone.AutoSize = true;
-            this.RadioNone.Checked = true;
-            this.RadioNone.Location = new System.Drawing.Point(87, 18);
-            this.RadioNone.Name = "RadioNone";
-            this.RadioNone.Size = new System.Drawing.Size(51, 17);
-            this.RadioNone.TabIndex = 0;
-            this.RadioNone.TabStop = true;
-            this.RadioNone.Text = "None";
-            this.ToolTipMain.SetToolTip(this.RadioNone, "Object data will not be encrypted on S3 servers.");
-            this.RadioNone.UseVisualStyleBackColor = true;
+            this.RadioSseNone.AutoSize = true;
+            this.RadioSseNone.Location = new System.Drawing.Point(91, 21);
+            this.RadioSseNone.Name = "RadioSseNone";
+            this.RadioSseNone.Size = new System.Drawing.Size(51, 17);
+            this.RadioSseNone.TabIndex = 0;
+            this.RadioSseNone.Text = "None";
+            this.ToolTipMain.SetToolTip(this.RadioSseNone, "Object data will not be encrypted on S3 servers.");
+            this.RadioSseNone.UseVisualStyleBackColor = true;
+            this.RadioSseNone.CheckedChanged += new System.EventHandler(this.RadioNone_CheckedChanged);
             // 
             // LblSseKeyId
             // 
             this.LblSseKeyId.AutoSize = true;
             this.LblSseKeyId.Enabled = false;
-            this.LblSseKeyId.Location = new System.Drawing.Point(41, 122);
+            this.LblSseKeyId.Location = new System.Drawing.Point(45, 47);
             this.LblSseKeyId.Name = "LblSseKeyId";
             this.LblSseKeyId.Size = new System.Drawing.Size(40, 13);
             this.LblSseKeyId.TabIndex = 4;
             this.LblSseKeyId.Text = "Key Id:";
+            this.ToolTipMain.SetToolTip(this.LblSseKeyId, "The ID of the AWS Key Management Service (KMS) master encryption key for this obj" +
+        "ect.\r\nIf you leave this field blank then S3 will use a default encryption key.");
             // 
-            // LblSseKeyMd5
+            // LblSseCustomerKeyMd5
             // 
-            this.LblSseKeyMd5.AutoSize = true;
-            this.LblSseKeyMd5.Enabled = false;
-            this.LblSseKeyMd5.Location = new System.Drawing.Point(27, 96);
-            this.LblSseKeyMd5.Name = "LblSseKeyMd5";
-            this.LblSseKeyMd5.Size = new System.Drawing.Size(54, 13);
-            this.LblSseKeyMd5.TabIndex = 3;
-            this.LblSseKeyMd5.Text = "Key MD5:";
-            this.ToolTipMain.SetToolTip(this.LblSseKeyMd5, resources.GetString("LblSseKeyMd5.ToolTip"));
+            this.LblSseCustomerKeyMd5.AutoSize = true;
+            this.LblSseCustomerKeyMd5.Enabled = false;
+            this.LblSseCustomerKeyMd5.Location = new System.Drawing.Point(6, 100);
+            this.LblSseCustomerKeyMd5.Name = "LblSseCustomerKeyMd5";
+            this.LblSseCustomerKeyMd5.Size = new System.Drawing.Size(79, 13);
+            this.LblSseCustomerKeyMd5.TabIndex = 3;
+            this.LblSseCustomerKeyMd5.Text = "New Key MD5:";
+            this.ToolTipMain.SetToolTip(this.LblSseCustomerKeyMd5, resources.GetString("LblSseCustomerKeyMd5.ToolTip"));
             // 
-            // LblSseKey
+            // LblSseCustomerKey
             // 
-            this.LblSseKey.AutoSize = true;
-            this.LblSseKey.Enabled = false;
-            this.LblSseKey.Location = new System.Drawing.Point(6, 44);
-            this.LblSseKey.Name = "LblSseKey";
-            this.LblSseKey.Size = new System.Drawing.Size(75, 13);
-            this.LblSseKey.TabIndex = 2;
-            this.LblSseKey.Text = "Customer Key:";
-            this.ToolTipMain.SetToolTip(this.LblSseKey, resources.GetString("LblSseKey.ToolTip"));
-            // 
-            // LblSseAlgorithm
-            // 
-            this.LblSseAlgorithm.AutoSize = true;
-            this.LblSseAlgorithm.Enabled = false;
-            this.LblSseAlgorithm.Location = new System.Drawing.Point(28, 70);
-            this.LblSseAlgorithm.Name = "LblSseAlgorithm";
-            this.LblSseAlgorithm.Size = new System.Drawing.Size(53, 13);
-            this.LblSseAlgorithm.TabIndex = 1;
-            this.LblSseAlgorithm.Text = "Algorithm:";
+            this.LblSseCustomerKey.AutoSize = true;
+            this.LblSseCustomerKey.Enabled = false;
+            this.LblSseCustomerKey.Location = new System.Drawing.Point(32, 74);
+            this.LblSseCustomerKey.Name = "LblSseCustomerKey";
+            this.LblSseCustomerKey.Size = new System.Drawing.Size(53, 13);
+            this.LblSseCustomerKey.TabIndex = 2;
+            this.LblSseCustomerKey.Text = "New Key:";
+            this.ToolTipMain.SetToolTip(this.LblSseCustomerKey, "The new base64-encoded encryption key for Amazon S3 to use in encrypting data.\r\nT" +
+        "his value is used to store the object and then is discarded; Amazon does not sto" +
+        "re the encryption key.");
             // 
             // LblEncryption
             // 
             this.LblEncryption.AutoSize = true;
-            this.LblEncryption.Location = new System.Drawing.Point(21, 20);
+            this.LblEncryption.Location = new System.Drawing.Point(25, 23);
             this.LblEncryption.Name = "LblEncryption";
             this.LblEncryption.Size = new System.Drawing.Size(60, 13);
             this.LblEncryption.TabIndex = 0;
             this.LblEncryption.Text = "Encryption:";
-            this.ToolTipMain.SetToolTip(this.LblEncryption, "The Server-side encryption algorithm used when storing this object in S3.");
-            // 
-            // PnlTop
-            // 
-            this.PnlTop.Controls.Add(this.ChkRequestPayer);
-            this.PnlTop.Controls.Add(this.ComboAcl);
-            this.PnlTop.Controls.Add(this.RadioStandardIA);
-            this.PnlTop.Controls.Add(this.LblAcl);
-            this.PnlTop.Controls.Add(this.RadioReducedRedund);
-            this.PnlTop.Controls.Add(this.RadioStandard);
-            this.PnlTop.Controls.Add(this.LblRequestPayer);
-            this.PnlTop.Controls.Add(this.TxtWebsite);
-            this.PnlTop.Controls.Add(this.LblWebsite);
-            this.PnlTop.Controls.Add(this.LblAsynchronous);
-            this.PnlTop.Controls.Add(this.ChkAsynchronous);
-            this.PnlTop.Controls.Add(this.LblStorageClass);
-            this.PnlTop.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PnlTop.Location = new System.Drawing.Point(3, 3);
-            this.PnlTop.Name = "PnlTop";
-            this.PnlTop.Size = new System.Drawing.Size(538, 132);
-            this.PnlTop.TabIndex = 0;
+            this.ToolTipMain.SetToolTip(this.LblEncryption, "The method of encryption used when storing this object in S3.");
             // 
             // ComboAcl
             // 
@@ -643,23 +561,87 @@
             this.LblStorageClass.Text = "Storage Class:";
             this.ToolTipMain.SetToolTip(this.LblStorageClass, "The type of storage to use for the object.");
             // 
+            // PnlBottom
+            // 
+            this.PnlBottom.Controls.Add(this.BtnCancel);
+            this.PnlBottom.Controls.Add(this.BtnSave);
+            this.PnlBottom.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PnlBottom.Location = new System.Drawing.Point(3, 581);
+            this.PnlBottom.Name = "PnlBottom";
+            this.PnlBottom.Size = new System.Drawing.Size(538, 33);
+            this.PnlBottom.TabIndex = 5;
+            // 
+            // BtnCancel
+            // 
+            this.BtnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnCancel.AutoSize = true;
+            this.BtnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.BtnCancel.Location = new System.Drawing.Point(460, 7);
+            this.BtnCancel.Name = "BtnCancel";
+            this.BtnCancel.Size = new System.Drawing.Size(75, 23);
+            this.BtnCancel.TabIndex = 1;
+            this.BtnCancel.Text = "Cancel";
+            this.BtnCancel.UseVisualStyleBackColor = true;
+            // 
+            // BtnSave
+            // 
+            this.BtnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnSave.AutoSize = true;
+            this.BtnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.BtnSave.Location = new System.Drawing.Point(379, 7);
+            this.BtnSave.Name = "BtnSave";
+            this.BtnSave.Size = new System.Drawing.Size(75, 23);
+            this.BtnSave.TabIndex = 0;
+            this.BtnSave.Text = "Save";
+            this.BtnSave.UseVisualStyleBackColor = true;
+            this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
+            // 
+            // TblLayoutMain
+            // 
+            this.TblLayoutMain.ColumnCount = 1;
+            this.TblLayoutMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.TblLayoutMain.Controls.Add(this.PnlBottom, 0, 5);
+            this.TblLayoutMain.Controls.Add(this.GrpMetadata, 0, 1);
+            this.TblLayoutMain.Controls.Add(this.GrpContent, 0, 2);
+            this.TblLayoutMain.Controls.Add(this.GrpAccessCtrl, 0, 3);
+            this.TblLayoutMain.Controls.Add(this.GrpSse, 0, 4);
+            this.TblLayoutMain.Controls.Add(this.PnlTop, 0, 0);
+            this.TblLayoutMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TblLayoutMain.Location = new System.Drawing.Point(0, 0);
+            this.TblLayoutMain.Name = "TblLayoutMain";
+            this.TblLayoutMain.RowCount = 6;
+            this.TblLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 138F));
+            this.TblLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.TblLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 137F));
+            this.TblLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.TblLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 131F));
+            this.TblLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
+            this.TblLayoutMain.Size = new System.Drawing.Size(544, 617);
+            this.TblLayoutMain.TabIndex = 0;
+            // 
+            // PnlTop
+            // 
+            this.PnlTop.Controls.Add(this.ChkRequestPayer);
+            this.PnlTop.Controls.Add(this.ComboAcl);
+            this.PnlTop.Controls.Add(this.RadioStandardIA);
+            this.PnlTop.Controls.Add(this.LblAcl);
+            this.PnlTop.Controls.Add(this.RadioReducedRedund);
+            this.PnlTop.Controls.Add(this.RadioStandard);
+            this.PnlTop.Controls.Add(this.LblRequestPayer);
+            this.PnlTop.Controls.Add(this.TxtWebsite);
+            this.PnlTop.Controls.Add(this.LblWebsite);
+            this.PnlTop.Controls.Add(this.LblAsynchronous);
+            this.PnlTop.Controls.Add(this.ChkAsynchronous);
+            this.PnlTop.Controls.Add(this.LblStorageClass);
+            this.PnlTop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PnlTop.Location = new System.Drawing.Point(3, 3);
+            this.PnlTop.Name = "PnlTop";
+            this.PnlTop.Size = new System.Drawing.Size(538, 132);
+            this.PnlTop.TabIndex = 0;
+            // 
             // ErrorMain
             // 
             this.ErrorMain.ContainerControl = this;
-            // 
-            // DgvColMetadataKey
-            // 
-            this.DgvColMetadataKey.HeaderText = "Key";
-            this.DgvColMetadataKey.Name = "DgvColMetadataKey";
-            this.DgvColMetadataKey.ToolTipText = "The metadata key, for example \"UploaderName\" or \"Project\"";
-            this.DgvColMetadataKey.Width = 150;
-            // 
-            // DgvColMetadataValue
-            // 
-            this.DgvColMetadataValue.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.DgvColMetadataValue.HeaderText = "Value";
-            this.DgvColMetadataValue.Name = "DgvColMetadataValue";
-            this.DgvColMetadataValue.ToolTipText = "The metadata value.  For example, \"John Doe\" or \"MEA Project\"";
             // 
             // AdvancedOptionsForm
             // 
@@ -667,26 +649,26 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.BtnCancel;
-            this.ClientSize = new System.Drawing.Size(544, 636);
+            this.ClientSize = new System.Drawing.Size(544, 617);
             this.Controls.Add(this.TblLayoutMain);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(560, 675);
+            this.MinimumSize = new System.Drawing.Size(560, 625);
             this.Name = "AdvancedOptionsForm";
             this.ShowInTaskbar = false;
             this.Text = "Advanced S3 Upload Options";
             this.GrpMetadata.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DgvMetadata)).EndInit();
-            this.PnlBottom.ResumeLayout(false);
-            this.PnlBottom.PerformLayout();
-            this.TblLayoutMain.ResumeLayout(false);
             this.GrpContent.ResumeLayout(false);
             this.GrpContent.PerformLayout();
             this.GrpAccessCtrl.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DgvGrants)).EndInit();
             this.GrpSse.ResumeLayout(false);
             this.GrpSse.PerformLayout();
+            this.PnlBottom.ResumeLayout(false);
+            this.PnlBottom.PerformLayout();
+            this.TblLayoutMain.ResumeLayout(false);
             this.PnlTop.ResumeLayout(false);
             this.PnlTop.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorMain)).EndInit();
@@ -727,16 +709,13 @@
         private System.Windows.Forms.RadioButton RadioReducedRedund;
         private System.Windows.Forms.RadioButton RadioStandard;
         private System.Windows.Forms.Label LblSseKeyId;
-        private System.Windows.Forms.Label LblSseKeyMd5;
-        private System.Windows.Forms.Label LblSseKey;
-        private System.Windows.Forms.Label LblSseAlgorithm;
-        private System.Windows.Forms.RadioButton RadioKMS;
-        private System.Windows.Forms.RadioButton RadioAES256;
-        private System.Windows.Forms.RadioButton RadioNone;
-        private System.Windows.Forms.TextBox TxtSseKeyId;
-        private System.Windows.Forms.TextBox TxtSseKeyMd5;
-        private System.Windows.Forms.TextBox TxtSseAlgorithm;
-        private System.Windows.Forms.TextBox TxtSseKey;
+        private System.Windows.Forms.Label LblSseCustomerKeyMd5;
+        private System.Windows.Forms.Label LblSseCustomerKey;
+        private System.Windows.Forms.RadioButton RadioSseKms;
+        private System.Windows.Forms.RadioButton RadioSseNewKey;
+        private System.Windows.Forms.RadioButton RadioSseNone;
+        private System.Windows.Forms.TextBox TxtSseCustomerKeyMd5;
+        private System.Windows.Forms.TextBox TxtSseCustomerKey;
         private System.Windows.Forms.ErrorProvider ErrorMain;
         private System.Windows.Forms.CheckBox ChkRequestPayer;
         private System.Windows.Forms.DataGridView DgvGrants;
@@ -744,5 +723,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn DgvColGrantee;
         private System.Windows.Forms.DataGridViewTextBoxColumn DgvColMetadataKey;
         private System.Windows.Forms.DataGridViewTextBoxColumn DgvColMetadataValue;
+        private System.Windows.Forms.TextBox TxtSseKeyId;
     }
 }

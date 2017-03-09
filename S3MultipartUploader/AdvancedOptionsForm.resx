@@ -129,6 +129,25 @@
   <metadata name="ErrorMain.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>137, 17</value>
   </metadata>
+  <metadata name="DgvColPermission.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="DgvColGrantee.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="TxtSseCustomerKeyMd5.ToolTip" xml:space="preserve">
+    <value>The base64-encoded 128-bit MD5 digest of the new encryption key, according to RFC 1321.
+Amazon S3 uses this header for a message integrity check to ensure the encryption key was transmitted without error.</value>
+  </data>
+  <data name="LblSseCustomerKeyMd5.ToolTip" xml:space="preserve">
+    <value>The base64-encoded 128-bit MD5 digest of the new encryption key, according to RFC 1321.
+Amazon S3 uses this header for a message integrity check to ensure the encryption key was transmitted without error.</value>
+  </data>
+  <data name="RadioStandardIA.ToolTip" xml:space="preserve">
+    <value>This storage class is optimized for long-lived and less frequently accessed data (for example, backups and older data to which access has diminished) where the use case still demands high performance.
+
+Note: There is a retrieval fee associated with STANDARD_IA objects which makes it most suitable for infrequently accessed data.</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -244,28 +263,5 @@
         6VO/d/wwR8e2MttsMVwo8OXTp3nguWcxZpveHBERERERERERERERERERERERERERERERERERERERERER
         ERERERERERERERERERERERERERERERERERERERERERERERHZ5P4/+XtXBu3uiusAAAAASUVORK5CYII=
 </value>
-  </data>
-  <metadata name="DgvColPermission.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="DgvColGrantee.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="TxtSseKey.ToolTip" xml:space="preserve">
-    <value>Specifies the customer-provided Key Management Service (KMS) key for Amazon S3 to use in encrypting this object's data.
-This key is used to store the object and then it is forgotten; Amazon does not store the key with the data.</value>
-  </data>
-  <data name="LblSseKeyMd5.ToolTip" xml:space="preserve">
-    <value>Specifies the base64-encoded 128-bit MD5 digest of the encryption key according to RFC 1321.
-Amazon S3 uses this header for a message integrity check to ensure the encryption key was transmitted without error.</value>
-  </data>
-  <data name="LblSseKey.ToolTip" xml:space="preserve">
-    <value>Specifies the customer-provided Key Management Service (KMS) key for Amazon S3 to use in encrypting this object's data.
-This key is used to store the object and then it is forgotten; Amazon does not store the key with the data.</value>
-  </data>
-  <data name="RadioStandardIA.ToolTip" xml:space="preserve">
-    <value>This storage class is optimized for long-lived and less frequently accessed data (for example, backups and older data to which access has diminished) where the use case still demands high performance.
-
-Note: There is a retrieval fee associated with STANDARD_IA objects which makes it most suitable for infrequently accessed data.</value>
   </data>
 </root>
