@@ -41,6 +41,14 @@ namespace S3MultipartUploader {
         private void RadioNewKey_CheckedChanged(object sender, EventArgs e) {
             resetSseCtrls(RadioSseKms.Checked, RadioSseNewKey.Checked);
         }
+        private void ChkCannedACLs_CheckedChanged(object sender, EventArgs e) {
+            resetGrantCtrls(ChkUseCannedACLs.Checked);
+        }
+        private void DgvGrants_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e) {
+            // Make Email address the default grantee type for new rows
+            DataGridViewCell granteeTypeCell = e.Row.Cells[DgvColGranteeType.Index];
+            granteeTypeCell.Value = DgvColGranteeType.Items[1];
+        }
         private void BtnSave_Click(object sender, EventArgs e) {
             _origAsync = otherOptsFromCtrls();
             _origRequest = requestFromCtrls();
@@ -77,8 +85,17 @@ namespace S3MultipartUploader {
             TxtEncoding.Text = request.Headers.ContentEncoding;
 
             // Initialize access control
-            foreach (S3Grant grant in request.Grants)
+            foreach (S3Grant grant in request.Grants) {
+                //string grantee = string.Empty;
+                //if (grant.Grantee.Type == GranteeType.CanonicalUser)
+                //    grantee = grant.Grantee.CanonicalUser;
+                //else if (grant.Grantee.Type == GranteeType.Email)
+                //    grantee = grant.Grantee.EmailAddress;
+                //else if (grant.Grantee.Type == GranteeType.Group)
+                //    grantee = grant.Grantee.URI;
+
                 DgvGrants.Rows.Add(grant.Permission.Value, grant.Grantee.DisplayName);
+            }
 
             // Initialize SSE method
             bool kms = (request.ServerSideEncryptionMethod == ServerSideEncryptionMethod.AWSKMS);
@@ -96,7 +113,6 @@ namespace S3MultipartUploader {
             TxtSseCustomerKey.Text = request.ServerSideEncryptionCustomerProvidedKey;
             TxtSseCustomerKeyMd5.Text = request.ServerSideEncryptionCustomerProvidedKeyMD5;
         }
-
         private void initializeDatePicker(DateTime value) {
             DatePickerExpires.MinDate = DateTime.Now;
 
@@ -155,11 +171,30 @@ namespace S3MultipartUploader {
             // Initialize access control
             IEnumerable<DataGridViewRow> grantRows = DgvGrants.Rows.Cast<DataGridViewRow>().Where(r => !r.IsNewRow);
             foreach (DataGridViewRow row in grantRows) {
-                string permission = row.Cells[0].Value.ToString();
-                string grantee = row.Cells[1].Value.ToString();
+                S3Grantee grantee = null;
+                string typeStr = row.Cells[DgvColGranteeType.Index].Value.ToString();
+                string granteeStr = row.Cells[DgvColGrantee.Index].Value.ToString();
+                if (typeStr == "Canonical User")
+                    grantee = new S3Grantee() { CanonicalUser = granteeStr };
+                else if (typeStr == "Email")
+                    grantee = new S3Grantee() { EmailAddress = granteeStr };
+                else if (typeStr == "Group")
+                    grantee = new S3Grantee() { URI = granteeStr };
+
+
+                S3Permission permission = null;
+                var canRead = (bool)row.Cells[DgvColCanRead.Index].Value;
+                var canReadAcl = (bool)row.Cells[DgvColCanReadAcl.Index].Value;
+                var canWriteAcl = (bool)row.Cells[DgvColCanWriteAcl.Index].Value;
+                if (canRead)
+                    permission = S3Permission.READ;
+                if (canReadAcl)
+                    permission = S3Permission.READ_ACP;
+                if (canWriteAcl)
+                    permission = S3Permission.WRITE_ACP;
                 S3Grant grant = new S3Grant() {
-                    Permission = S3Permission.FindValue(permission),
-                    Grantee = new S3Grantee() { DisplayName = grantee },
+                    Grantee = grantee,
+                    Permission = permission,
                 };
                 request.Grants.Add(grant);
             }
@@ -181,6 +216,12 @@ namespace S3MultipartUploader {
             request.ServerSideEncryptionCustomerProvidedKeyMD5 = (newKey ? TxtSseCustomerKeyMd5.Text : null);
 
             return request;
+        }
+        private void resetGrantCtrls(bool useCannedACLs) {
+            LblAcl.Enabled = useCannedACLs;
+            ComboAcl.Enabled = useCannedACLs;
+
+            DgvGrants.Enabled = !useCannedACLs;
         }
 
     }
