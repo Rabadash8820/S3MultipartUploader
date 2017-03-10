@@ -336,4 +336,16 @@ Check that your AWS credentials are valid and that you are connected to the Inte
 
 {0}</value>
   </data>
+  <data name="GranteeColumnToolTip" xml:space="preserve">
+    <value>The grantee.  Note that you cannot use an email address to specify a grantee for any AWS region that was created after 12/8/2014.
+The following regions were created after 12/8/2014:
+        US East(Ohio)
+        Canada(Central)
+        Asia Pacific(Mumbai)
+        Asia Pacific(Seoul)
+        EU(Frankfurt)
+        EU(London)
+        China(Beijing)
+        AWS GovCloud(US)</value>
+  </data>
 </root>

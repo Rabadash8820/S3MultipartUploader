@@ -668,7 +668,7 @@
             this.DgvColGranteeType.Items.AddRange(new object[] {
             "Canonical User ID",
             "Email Address",
-            "URI"});
+            "Group"});
             this.DgvColGranteeType.Name = "DgvColGranteeType";
             this.DgvColGranteeType.ToolTipText = "The type of grantee.  You may specify grantees by the Email address of an AWS acc" +
     "ount, the canonical user ID of an AWS account, or the URI of a predefined group." +
@@ -680,8 +680,6 @@
             this.DgvColGrantee.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.DgvColGrantee.HeaderText = "Grantee";
             this.DgvColGrantee.Name = "DgvColGrantee";
-            this.DgvColGrantee.ToolTipText = "The grantee.  Note that you cannot use an email address to specify a grantee for " +
-    "any AWS region that was created after 12/8/2014.";
             // 
             // DgvColCanRead
             // 
@@ -690,17 +688,17 @@
             this.DgvColCanRead.ToolTipText = "Allow grantee to read the object data and its metadata.";
             this.DgvColCanRead.Width = 65;
             // 
-            // DgvColCanReadACL
+            // DgvColCanReadAcl
             // 
             this.DgvColCanReadAcl.HeaderText = "Can Read ACL";
-            this.DgvColCanReadAcl.Name = "DgvColCanReadACL";
+            this.DgvColCanReadAcl.Name = "DgvColCanReadAcl";
             this.DgvColCanReadAcl.ToolTipText = "Allow grantee to read the object ACL.";
             this.DgvColCanReadAcl.Width = 85;
             // 
-            // DgvColCanWriteACL
+            // DgvColCanWriteAcl
             // 
             this.DgvColCanWriteAcl.HeaderText = "Can Write ACL";
-            this.DgvColCanWriteAcl.Name = "DgvColCanWriteACL";
+            this.DgvColCanWriteAcl.Name = "DgvColCanWriteAcl";
             this.DgvColCanWriteAcl.ToolTipText = "Allow grantee to write the ACL for the applicable object.";
             this.DgvColCanWriteAcl.Width = 85;
             // 
@@ -718,7 +716,6 @@
             this.MinimumSize = new System.Drawing.Size(555, 705);
             this.Name = "AdvancedOptionsForm";
             this.ShowInTaskbar = false;
-            this.Text = "Advanced S3 Upload Options";
             this.GrpMetadata.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DgvMetadata)).EndInit();
             this.GrpContent.ResumeLayout(false);

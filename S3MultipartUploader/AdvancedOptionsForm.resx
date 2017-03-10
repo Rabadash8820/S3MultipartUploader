@@ -138,12 +138,6 @@
   <metadata name="DgvColCanRead.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="DgvColCanReadACL.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="DgvColCanWriteACL.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <data name="TxtSseCustomerKeyMd5.ToolTip" xml:space="preserve">
     <value>The base64-encoded 128-bit MD5 digest of the new encryption key, according to RFC 1321.
 Amazon S3 uses this header for a message integrity check to ensure the encryption key was transmitted without error.</value>

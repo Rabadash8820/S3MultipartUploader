@@ -273,6 +273,24 @@ namespace S3MultipartUploader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The grantee.  Note that you cannot use an email address to specify a grantee for any AWS region that was created after 12/8/2014.
+        ///The following regions were created after 12/8/2014:
+        ///        US East(Ohio)
+        ///        Canada(Central)
+        ///        Asia Pacific(Mumbai)
+        ///        Asia Pacific(Seoul)
+        ///        EU(Frankfurt)
+        ///        EU(London)
+        ///        China(Beijing)
+        ///        AWS GovCloud(US).
+        /// </summary>
+        internal static string GranteeColumnToolTip {
+            get {
+                return ResourceManager.GetString("GranteeColumnToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Profile Access Key IDs must contain exactly 20 uppercase letters and/or numbers..
         /// </summary>
         internal static string InvalidProfileAccessKeyID {

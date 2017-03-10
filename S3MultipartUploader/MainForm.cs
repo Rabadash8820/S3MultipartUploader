@@ -66,7 +66,7 @@ namespace S3MultipartUploader {
             TreeLog.ExpandAll();    // This method seems to have no affect during contructor or Activated event
         }
         private void BtnOptions_Click(object sender, EventArgs e) {
-            throw new Exception();
+            //throw new Exception();
             AdvancedOptionsForm f = new AdvancedOptionsForm(_uploadAsync, _uploadRequest);
             f.OptionsSaved += AdvancedOptionsForm_OptionsSaved;
             f.ShowDialog();

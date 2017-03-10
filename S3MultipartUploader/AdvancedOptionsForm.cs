@@ -3,6 +3,8 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Collections.Generic;
 
+using static S3MultipartUploader.Properties.Resources;
+
 using Amazon.S3;
 using Amazon.S3.Model;
 
@@ -15,19 +17,14 @@ namespace S3MultipartUploader {
 
         public event EventHandler<OptionsEventArgs> OptionsSaved;
 
-        public AdvancedOptionsForm() {
-            InitializeComponent();
-
-            initializeDatePicker(_origRequest.Headers.Expires.GetValueOrDefault());
-            initOtherCtrls(_origAsync);
-            initRequestCtrls(_origRequest);
-        }
         public AdvancedOptionsForm(bool uploadAsync, InitiateMultipartUploadRequest request) {
             InitializeComponent();
 
             _origAsync = uploadAsync;
             _origRequest = request;
-            
+
+            DgvColGrantee.ToolTipText = GranteeColumnToolTip;   // Can't put multiline tool tips on DGV columns in the designer apparently >:(
+
             initializeDatePicker(_origRequest.Headers.Expires.GetValueOrDefault());
             initOtherCtrls(_origAsync);
             initRequestCtrls(_origRequest);
@@ -85,17 +82,11 @@ namespace S3MultipartUploader {
             TxtEncoding.Text = request.Headers.ContentEncoding;
 
             // Initialize access control
-            foreach (S3Grant grant in request.Grants) {
-                //string grantee = string.Empty;
-                //if (grant.Grantee.Type == GranteeType.CanonicalUser)
-                //    grantee = grant.Grantee.CanonicalUser;
-                //else if (grant.Grantee.Type == GranteeType.Email)
-                //    grantee = grant.Grantee.EmailAddress;
-                //else if (grant.Grantee.Type == GranteeType.Group)
-                //    grantee = grant.Grantee.URI;
-
-                DgvGrants.Rows.Add(grant.Permission.Value, grant.Grantee.DisplayName);
-            }
+            DataGridViewRow[] rows = request.Grants
+                                            .GroupBy(g => g.Grantee, g => g.Permission)
+                                            .Select(g => rowFromGrants(g.Key, g.AsEnumerable()))
+                                            .ToArray();
+            DgvGrants.Rows.AddRange(rows);
 
             // Initialize SSE method
             bool kms = (request.ServerSideEncryptionMethod == ServerSideEncryptionMethod.AWSKMS);
@@ -113,6 +104,7 @@ namespace S3MultipartUploader {
             TxtSseCustomerKey.Text = request.ServerSideEncryptionCustomerProvidedKey;
             TxtSseCustomerKeyMd5.Text = request.ServerSideEncryptionCustomerProvidedKeyMD5;
         }
+
         private void initializeDatePicker(DateTime value) {
             DatePickerExpires.MinDate = DateTime.Now;
 
@@ -134,6 +126,12 @@ namespace S3MultipartUploader {
             LblSseCustomerKeyMd5.Enabled = newKey;
             TxtSseCustomerKeyMd5.Enabled = newKey;
         }
+        private void resetGrantCtrls(bool useCannedACLs) {
+            LblAcl.Enabled = useCannedACLs;
+            ComboAcl.Enabled = useCannedACLs;
+
+            DgvGrants.Enabled = !useCannedACLs;
+        }
         private bool otherOptsFromCtrls() {
             bool uploadAsync = ChkAsynchronous.Checked;
             return uploadAsync;
@@ -150,15 +148,14 @@ namespace S3MultipartUploader {
                 request.StorageClass = S3StorageClass.Standard;
 
             // Set other fields from control values
-            request.CannedACL = S3CannedACL.FindValue(ComboAcl.Text);
             request.WebsiteRedirectLocation = TxtWebsite.Text;
             request.RequestPayer = (ChkRequestPayer.Checked ? RequestPayer.Requester : null);
 
             // Set metadata from control values
             IEnumerable<DataGridViewRow> metaRows = DgvMetadata.Rows.Cast<DataGridViewRow>().Where(r => !r.IsNewRow);
             foreach (DataGridViewRow row in metaRows) {
-                string key = row.Cells[0].Value.ToString();
-                string val = row.Cells[1].Value.ToString();
+                string key = row.Cells[DgvColMetadataKey.Index].Value.ToString();
+                string val = row.Cells[DgvColMetadataValue.Index].Value.ToString();
                 request.Metadata.Add(key, val);
             }
 
@@ -169,34 +166,15 @@ namespace S3MultipartUploader {
             request.Headers.Expires = DatePickerExpires.Value.ToUniversalTime();
 
             // Initialize access control
-            IEnumerable<DataGridViewRow> grantRows = DgvGrants.Rows.Cast<DataGridViewRow>().Where(r => !r.IsNewRow);
-            foreach (DataGridViewRow row in grantRows) {
-                S3Grantee grantee = null;
-                string typeStr = row.Cells[DgvColGranteeType.Index].Value.ToString();
-                string granteeStr = row.Cells[DgvColGrantee.Index].Value.ToString();
-                if (typeStr == "Canonical User")
-                    grantee = new S3Grantee() { CanonicalUser = granteeStr };
-                else if (typeStr == "Email")
-                    grantee = new S3Grantee() { EmailAddress = granteeStr };
-                else if (typeStr == "Group")
-                    grantee = new S3Grantee() { URI = granteeStr };
-
-
-                S3Permission permission = null;
-                var canRead = (bool)row.Cells[DgvColCanRead.Index].Value;
-                var canReadAcl = (bool)row.Cells[DgvColCanReadAcl.Index].Value;
-                var canWriteAcl = (bool)row.Cells[DgvColCanWriteAcl.Index].Value;
-                if (canRead)
-                    permission = S3Permission.READ;
-                if (canReadAcl)
-                    permission = S3Permission.READ_ACP;
-                if (canWriteAcl)
-                    permission = S3Permission.WRITE_ACP;
-                S3Grant grant = new S3Grant() {
-                    Grantee = grantee,
-                    Permission = permission,
-                };
-                request.Grants.Add(grant);
+            bool useCannedAcl = ChkUseCannedACLs.Checked;
+            request.CannedACL = (useCannedAcl ? S3CannedACL.FindValue(ComboAcl.Text) : null);
+            if (useCannedAcl)
+                request.Grants = null;
+            else {
+                IEnumerable<S3Grant> grants = DgvGrants.Rows.Cast<DataGridViewRow>()
+                                                       .Where(r => !r.IsNewRow)
+                                                       .SelectMany(r => grantsFromRow(r));
+                request.Grants.AddRange(grants);
             }
 
             // Initialize server side encryption method
@@ -217,11 +195,79 @@ namespace S3MultipartUploader {
 
             return request;
         }
-        private void resetGrantCtrls(bool useCannedACLs) {
-            LblAcl.Enabled = useCannedACLs;
-            ComboAcl.Enabled = useCannedACLs;
 
-            DgvGrants.Enabled = !useCannedACLs;
+        private DataGridViewRow rowFromGrants(S3Grantee grantee, IEnumerable<S3Permission> permissions) {
+            // Create the S3Grantee from the Canonical User ID, Email Address, or Group (whichever was provided)
+            int grTypeIndex = 0;
+            string grName = null;
+            GranteeType type = grantee.Type;
+            if (type == GranteeType.CanonicalUser) {
+                grTypeIndex = 0;
+                grName = grantee.CanonicalUser;
+            }
+            else if (type == GranteeType.Email) {
+                grTypeIndex = 1;
+                grName = grantee.EmailAddress;
+            }
+            else if (type == GranteeType.Group) {
+                grTypeIndex = 2;
+                grName = grantee.URI;
+            }
+
+            // Add a grant with READ permissions, if required
+            bool canRead = permissions.Contains(S3Permission.READ);
+            bool canReadAcl = permissions.Contains(S3Permission.READ_ACP);
+            bool canWriteAcl = permissions.Contains(S3Permission.WRITE_ACP);
+
+            // Add a grant with WRITE_ACP permissions, if required
+            var row = DgvGrants.RowTemplate.Clone() as DataGridViewRow;
+            string grType = DgvColGranteeType.Items[grTypeIndex].ToString();
+            row.CreateCells(DgvGrants, grType, grName, canRead, canReadAcl, canWriteAcl);
+
+            return row;
+        }
+        private IEnumerable<S3Grant> grantsFromRow(DataGridViewRow row) {
+            // Create the S3Grantee from the Canonical User ID, Email Address, or Group (whichever was provided)
+            S3Grantee grantee = null;
+            string typeStr = row.Cells[DgvColGranteeType.Index].Value.ToString();
+            string granteeStr = row.Cells[DgvColGrantee.Index].Value.ToString();
+            if (typeStr == "Canonical User ID")
+                grantee = new S3Grantee() { CanonicalUser = granteeStr };
+            else if (typeStr == "Email Address")
+                grantee = new S3Grantee() { EmailAddress = granteeStr };
+            else if (typeStr == "Group")
+                grantee = new S3Grantee() { URI = granteeStr };
+
+            IList<S3Grant> grants = new List<S3Grant>(3);
+
+            // Add a grant with READ permissions, if required
+            object canRead = row.Cells[DgvColCanRead.Index].Value;
+            if (canRead != null && (bool)canRead) {
+                grants.Add(new S3Grant() {
+                    Grantee = grantee,
+                    Permission = S3Permission.READ,
+                });
+            }
+
+            // Add a grant with READ_ACP permissions, if required
+            object canReadAcl = row.Cells[DgvColCanReadAcl.Index].Value;
+            if (canReadAcl != null && (bool)canReadAcl) {
+                grants.Add(new S3Grant() {
+                    Grantee = grantee,
+                    Permission = S3Permission.READ_ACP,
+                });
+            }
+
+            // Add a grant with WRITE_ACP permissions, if required
+            object canWriteAcl = row.Cells[DgvColCanWriteAcl.Index].Value;
+            if (canWriteAcl != null && (bool)canWriteAcl) {
+                grants.Add(new S3Grant() {
+                    Grantee = grantee,
+                    Permission = S3Permission.WRITE_ACP,
+                });
+            }
+
+            return grants;
         }
 
     }
