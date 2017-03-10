@@ -51,8 +51,11 @@ namespace S3MultipartUploader {
                 PublishResponse response = sns.Publish(request);
             }
 
-            // At this point, we just gotta squash any Exceptions...
-            catch (Exception) { }
+            // At this point, just tell the user about any publish errors...and exit
+            catch (Exception e) {
+                string msg = string.Format(FatalErrorReportFailedText, e.ToString());
+                MessageBox.Show(msg, FatalErrorReportFailedCaption, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+            }
         }
     }
 }

@@ -46,7 +46,7 @@
             // 
             this.BtnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnClose.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.BtnClose.Location = new System.Drawing.Point(320, 44);
+            this.BtnClose.Location = new System.Drawing.Point(320, 57);
             this.BtnClose.Name = "BtnClose";
             this.BtnClose.Size = new System.Drawing.Size(75, 23);
             this.BtnClose.TabIndex = 1;
@@ -63,7 +63,7 @@
             this.TxtBody.Multiline = true;
             this.TxtBody.Name = "TxtBody";
             this.TxtBody.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.TxtBody.Size = new System.Drawing.Size(336, 91);
+            this.TxtBody.Size = new System.Drawing.Size(336, 84);
             this.TxtBody.TabIndex = 6;
             this.TxtBody.Text = "Come on S3 Multipart Uploader team, get it together!";
             this.ToolTipMain.SetToolTip(this.TxtBody, "Optional.  Any additional details that you would like to provide.  For example, s" +
@@ -74,7 +74,7 @@
             this.BtnSendReport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnSendReport.AutoSize = true;
             this.BtnSendReport.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.BtnSendReport.Location = new System.Drawing.Point(278, 165);
+            this.BtnSendReport.Location = new System.Drawing.Point(278, 158);
             this.BtnSendReport.Name = "BtnSendReport";
             this.BtnSendReport.Size = new System.Drawing.Size(102, 23);
             this.BtnSendReport.TabIndex = 7;
@@ -89,10 +89,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.LblTop.Location = new System.Drawing.Point(12, 9);
             this.LblTop.Name = "LblTop";
-            this.LblTop.Size = new System.Drawing.Size(383, 32);
+            this.LblTop.Size = new System.Drawing.Size(383, 45);
             this.LblTop.TabIndex = 0;
-            this.LblTop.Text = "Well this is embarassing...  See the full details below.  Please send us an error" +
-    " report so we can prevent future issues like this from occurring!";
+            this.LblTop.Text = "Well this is embarassing...  Try restarting S3 Multipart Uploader, and please sen" +
+    "d us an error report so that we can prevent future issues like this from occurri" +
+    "ng.  Full error details are below.";
             // 
             // LblFrom
             // 
@@ -132,7 +133,7 @@
             this.SplitMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.SplitMain.Location = new System.Drawing.Point(12, 73);
+            this.SplitMain.Location = new System.Drawing.Point(12, 86);
             this.SplitMain.Name = "SplitMain";
             this.SplitMain.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -149,8 +150,8 @@
             this.SplitMain.Panel2.Controls.Add(this.LblFrom);
             this.SplitMain.Panel2.Controls.Add(this.TxtFrom);
             this.SplitMain.Panel2.Enabled = false;
-            this.SplitMain.Size = new System.Drawing.Size(383, 361);
-            this.SplitMain.SplitterDistance = 166;
+            this.SplitMain.Size = new System.Drawing.Size(383, 348);
+            this.SplitMain.SplitterDistance = 160;
             this.SplitMain.TabIndex = 0;
             this.SplitMain.TabStop = false;
             // 
@@ -162,7 +163,7 @@
             this.TxtError.Name = "TxtError";
             this.TxtError.ReadOnly = true;
             this.TxtError.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.TxtError.Size = new System.Drawing.Size(383, 166);
+            this.TxtError.Size = new System.Drawing.Size(383, 160);
             this.TxtError.TabIndex = 0;
             this.TxtError.TabStop = false;
             this.ToolTipMain.SetToolTip(this.TxtError, "Details of the Exception that crashed S3 Multipart Uploader.");
@@ -183,7 +184,7 @@
             // 
             this.ChkSendReport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ChkSendReport.AutoSize = true;
-            this.ChkSendReport.Location = new System.Drawing.Point(182, 48);
+            this.ChkSendReport.Location = new System.Drawing.Point(182, 61);
             this.ChkSendReport.Name = "ChkSendReport";
             this.ChkSendReport.Size = new System.Drawing.Size(132, 17);
             this.ChkSendReport.TabIndex = 0;
@@ -193,7 +194,7 @@
             this.ChkSendReport.UseVisualStyleBackColor = true;
             this.ChkSendReport.CheckedChanged += new System.EventHandler(this.ChkSendReport_CheckedChanged);
             // 
-            // ErrorForm
+            // FatalErrorForm
             // 
             this.AcceptButton = this.BtnClose;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -207,7 +208,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(260, 450);
-            this.Name = "ErrorForm";
+            this.Name = "FatalErrorForm";
             this.Text = "A Fatal Error Occurred";
             this.SplitMain.Panel1.ResumeLayout(false);
             this.SplitMain.Panel1.PerformLayout();

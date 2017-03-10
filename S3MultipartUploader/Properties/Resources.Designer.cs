@@ -225,6 +225,27 @@ namespace S3MultipartUploader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sending Report Failed.
+        /// </summary>
+        internal static string FatalErrorReportFailedCaption {
+            get {
+                return ResourceManager.GetString("FatalErrorReportFailedCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to And...we failed to send the error report too.
+        ///Check that your AWS credentials are valid and that you are connected to the Internet.  Here are some more details:
+        ///
+        ///{0}.
+        /// </summary>
+        internal static string FatalErrorReportFailedText {
+            get {
+                return ResourceManager.GetString("FatalErrorReportFailedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to s3-multipart-uploader-errors.
         /// </summary>
         internal static string FatalErrorSnsTopic {

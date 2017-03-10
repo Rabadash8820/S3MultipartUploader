@@ -327,4 +327,13 @@ Message:
   <data name="FatalErrorEmailSubject" xml:space="preserve">
     <value>S3 Multipart Uploader Error at {0}</value>
   </data>
+  <data name="FatalErrorReportFailedCaption" xml:space="preserve">
+    <value>Sending Report Failed</value>
+  </data>
+  <data name="FatalErrorReportFailedText" xml:space="preserve">
+    <value>And...we failed to send the error report too.
+Check that your AWS credentials are valid and that you are connected to the Internet.  Here are some more details:
+
+{0}</value>
+  </data>
 </root>
