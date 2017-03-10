@@ -273,16 +273,13 @@ namespace S3MultipartUploader.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The grantee.  Note that you cannot use an email address to specify a grantee for any AWS region that was created after 12/8/2014.
-        ///The following regions were created after 12/8/2014:
+        ///   Looks up a localized string similar to The grantee.  Note the following restrictions:
+        ///
+        ///1.  The grantee may NOT be an Identity and Access Management (IAM) user.
+        ///2.  When you grant other AWS accounts access to your resources, those AWS accounts can delegate their permissions to users under their accounts. This is known as cross-account access.
+        ///3.  You cannot use an email address to specify a grantee for any AWS region that was created after 12/8/2014.  The following regions were created after 12/8/2014:
         ///        US East(Ohio)
-        ///        Canada(Central)
-        ///        Asia Pacific(Mumbai)
-        ///        Asia Pacific(Seoul)
-        ///        EU(Frankfurt)
-        ///        EU(London)
-        ///        China(Beijing)
-        ///        AWS GovCloud(US).
+        ///        Canada(C [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GranteeColumnToolTip {
             get {

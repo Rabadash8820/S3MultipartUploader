@@ -25,7 +25,7 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Welcome to the S3 Multipart Uploader!");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Welcome to the S3 Multipart Uploader!");
             this.LblProfile = new System.Windows.Forms.Label();
             this.LblBucket = new System.Windows.Forms.Label();
             this.LblKey = new System.Windows.Forms.Label();
@@ -217,10 +217,10 @@
             this.TreeLog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TreeLog.Location = new System.Drawing.Point(3, 18);
             this.TreeLog.Name = "TreeLog";
-            treeNode2.Name = "Node0";
-            treeNode2.Text = "Welcome to the S3 Multipart Uploader!";
+            treeNode1.Name = "Node0";
+            treeNode1.Text = "Welcome to the S3 Multipart Uploader!";
             this.TreeLog.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2});
+            treeNode1});
             this.TreeLog.Size = new System.Drawing.Size(573, 166);
             this.TreeLog.TabIndex = 1;
             this.ToolTipMain.SetToolTip(this.TreeLog, "Log messages.");
