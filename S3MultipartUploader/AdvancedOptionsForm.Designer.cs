@@ -48,6 +48,11 @@
             this.ComboAcl = new System.Windows.Forms.ComboBox();
             this.LblAcl = new System.Windows.Forms.Label();
             this.DgvGrants = new System.Windows.Forms.DataGridView();
+            this.DgvColGranteeType = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.DgvColGrantee = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DgvColCanRead = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.DgvColCanReadAcl = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.DgvColCanWriteAcl = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.GrpSse = new System.Windows.Forms.GroupBox();
             this.TxtSseKeyId = new System.Windows.Forms.TextBox();
             this.TxtSseCustomerKeyMd5 = new System.Windows.Forms.TextBox();
@@ -72,11 +77,6 @@
             this.TblLayoutMain = new System.Windows.Forms.TableLayoutPanel();
             this.PnlTop = new System.Windows.Forms.Panel();
             this.ErrorMain = new System.Windows.Forms.ErrorProvider(this.components);
-            this.DgvColGranteeType = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.DgvColGrantee = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DgvColCanRead = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.DgvColCanReadAcl = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.DgvColCanWriteAcl = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.GrpMetadata.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvMetadata)).BeginInit();
             this.GrpContent.SuspendLayout();
@@ -119,7 +119,7 @@
             this.ChkRequestPayer.Location = new System.Drawing.Point(151, 78);
             this.ChkRequestPayer.Name = "ChkRequestPayer";
             this.ChkRequestPayer.Size = new System.Drawing.Size(15, 14);
-            this.ChkRequestPayer.TabIndex = 6;
+            this.ChkRequestPayer.TabIndex = 5;
             this.ToolTipMain.SetToolTip(this.ChkRequestPayer, "Confirms that the requester knows that she or he will be charged for the request." +
         " Bucket owners need not specify this parameter in their requests.");
             this.ChkRequestPayer.UseVisualStyleBackColor = true;
@@ -130,7 +130,7 @@
             this.GrpMetadata.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GrpMetadata.Location = new System.Drawing.Point(3, 109);
             this.GrpMetadata.Name = "GrpMetadata";
-            this.GrpMetadata.Size = new System.Drawing.Size(534, 131);
+            this.GrpMetadata.Size = new System.Drawing.Size(640, 131);
             this.GrpMetadata.TabIndex = 1;
             this.GrpMetadata.TabStop = false;
             this.GrpMetadata.Text = "Metadata";
@@ -145,7 +145,7 @@
             this.DgvMetadata.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DgvMetadata.Location = new System.Drawing.Point(3, 16);
             this.DgvMetadata.Name = "DgvMetadata";
-            this.DgvMetadata.Size = new System.Drawing.Size(528, 112);
+            this.DgvMetadata.Size = new System.Drawing.Size(634, 112);
             this.DgvMetadata.TabIndex = 0;
             // 
             // DgvColMetadataKey
@@ -175,7 +175,7 @@
             this.GrpContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GrpContent.Location = new System.Drawing.Point(3, 246);
             this.GrpContent.Name = "GrpContent";
-            this.GrpContent.Size = new System.Drawing.Size(534, 131);
+            this.GrpContent.Size = new System.Drawing.Size(640, 131);
             this.GrpContent.TabIndex = 2;
             this.GrpContent.TabStop = false;
             this.GrpContent.Text = "Content Headers";
@@ -198,7 +198,7 @@
             this.ErrorMain.SetIconPadding(this.TxtEncoding, 3);
             this.TxtEncoding.Location = new System.Drawing.Point(73, 71);
             this.TxtEncoding.Name = "TxtEncoding";
-            this.TxtEncoding.Size = new System.Drawing.Size(439, 20);
+            this.TxtEncoding.Size = new System.Drawing.Size(545, 20);
             this.TxtEncoding.TabIndex = 2;
             this.ToolTipMain.SetToolTip(this.TxtEncoding, "Specifies what content encodings have been applied to the object and thus what de" +
         "coding mechanisms must be applied to obtain the media-type referenced by the Con" +
@@ -211,7 +211,7 @@
             this.ErrorMain.SetIconPadding(this.TxtDisposition, 3);
             this.TxtDisposition.Location = new System.Drawing.Point(73, 45);
             this.TxtDisposition.Name = "TxtDisposition";
-            this.TxtDisposition.Size = new System.Drawing.Size(439, 20);
+            this.TxtDisposition.Size = new System.Drawing.Size(545, 20);
             this.TxtDisposition.TabIndex = 1;
             this.ToolTipMain.SetToolTip(this.TxtDisposition, "Specifies presentational information for the object.");
             // 
@@ -242,7 +242,7 @@
             this.ErrorMain.SetIconPadding(this.TxtType, 3);
             this.TxtType.Location = new System.Drawing.Point(73, 19);
             this.TxtType.Name = "TxtType";
-            this.TxtType.Size = new System.Drawing.Size(439, 20);
+            this.TxtType.Size = new System.Drawing.Size(545, 20);
             this.TxtType.TabIndex = 0;
             this.ToolTipMain.SetToolTip(this.TxtType, "A standard MIME type describing the format of the object data.");
             // 
@@ -276,7 +276,7 @@
             this.GrpAccessCtrl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GrpAccessCtrl.Location = new System.Drawing.Point(3, 383);
             this.GrpAccessCtrl.Name = "GrpAccessCtrl";
-            this.GrpAccessCtrl.Size = new System.Drawing.Size(534, 131);
+            this.GrpAccessCtrl.Size = new System.Drawing.Size(640, 131);
             this.GrpAccessCtrl.TabIndex = 3;
             this.GrpAccessCtrl.TabStop = false;
             this.GrpAccessCtrl.Text = "Grants";
@@ -299,7 +299,7 @@
             this.ChkUseCannedACLs.Location = new System.Drawing.Point(107, 25);
             this.ChkUseCannedACLs.Name = "ChkUseCannedACLs";
             this.ChkUseCannedACLs.Size = new System.Drawing.Size(15, 14);
-            this.ChkUseCannedACLs.TabIndex = 7;
+            this.ChkUseCannedACLs.TabIndex = 0;
             this.ToolTipMain.SetToolTip(this.ChkUseCannedACLs, "Should access permissions be granted using Canned Access Control Lists (Canned AC" +
         "Ls), or by specifying grantees explicitly?");
             this.ChkUseCannedACLs.UseVisualStyleBackColor = true;
@@ -321,7 +321,7 @@
             this.ComboAcl.Location = new System.Drawing.Point(107, 45);
             this.ComboAcl.Name = "ComboAcl";
             this.ComboAcl.Size = new System.Drawing.Size(177, 21);
-            this.ComboAcl.TabIndex = 6;
+            this.ComboAcl.TabIndex = 1;
             this.ToolTipMain.SetToolTip(this.ComboAcl, "The canned Access Control List (ACL) to apply to the object.");
             // 
             // LblAcl
@@ -349,9 +349,49 @@
             this.DgvColCanWriteAcl});
             this.DgvGrants.Location = new System.Drawing.Point(3, 72);
             this.DgvGrants.Name = "DgvGrants";
-            this.DgvGrants.Size = new System.Drawing.Size(528, 59);
-            this.DgvGrants.TabIndex = 1;
+            this.DgvGrants.Size = new System.Drawing.Size(634, 59);
+            this.DgvGrants.TabIndex = 2;
             this.DgvGrants.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.DgvGrants_DefaultValuesNeeded);
+            // 
+            // DgvColGranteeType
+            // 
+            this.DgvColGranteeType.HeaderText = "Grantee Type";
+            this.DgvColGranteeType.Items.AddRange(new object[] {
+            "Canonical User ID",
+            "Email Address",
+            "Group"});
+            this.DgvColGranteeType.Name = "DgvColGranteeType";
+            this.DgvColGranteeType.ToolTipText = "The type of grantee.  You may specify grantees by the Email address of an AWS acc" +
+    "ount, the canonical user ID of an AWS account, or the URI of a predefined group." +
+    "";
+            this.DgvColGranteeType.Width = 125;
+            // 
+            // DgvColGrantee
+            // 
+            this.DgvColGrantee.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.DgvColGrantee.HeaderText = "Grantee";
+            this.DgvColGrantee.Name = "DgvColGrantee";
+            // 
+            // DgvColCanRead
+            // 
+            this.DgvColCanRead.HeaderText = "Can Read";
+            this.DgvColCanRead.Name = "DgvColCanRead";
+            this.DgvColCanRead.ToolTipText = "Allow grantee to read the object data and its metadata.";
+            this.DgvColCanRead.Width = 65;
+            // 
+            // DgvColCanReadAcl
+            // 
+            this.DgvColCanReadAcl.HeaderText = "Can Read ACL";
+            this.DgvColCanReadAcl.Name = "DgvColCanReadAcl";
+            this.DgvColCanReadAcl.ToolTipText = "Allow grantee to read the object ACL.";
+            this.DgvColCanReadAcl.Width = 85;
+            // 
+            // DgvColCanWriteAcl
+            // 
+            this.DgvColCanWriteAcl.HeaderText = "Can Write ACL";
+            this.DgvColCanWriteAcl.Name = "DgvColCanWriteAcl";
+            this.DgvColCanWriteAcl.ToolTipText = "Allow grantee to write the ACL for the applicable object.";
+            this.DgvColCanWriteAcl.Width = 85;
             // 
             // GrpSse
             // 
@@ -368,7 +408,7 @@
             this.GrpSse.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GrpSse.Location = new System.Drawing.Point(3, 520);
             this.GrpSse.Name = "GrpSse";
-            this.GrpSse.Size = new System.Drawing.Size(534, 129);
+            this.GrpSse.Size = new System.Drawing.Size(640, 129);
             this.GrpSse.TabIndex = 4;
             this.GrpSse.TabStop = false;
             this.GrpSse.Text = "Server-Side Encryption";
@@ -385,8 +425,8 @@
             this.TxtSseKeyId.Location = new System.Drawing.Point(91, 44);
             this.TxtSseKeyId.Multiline = true;
             this.TxtSseKeyId.Name = "TxtSseKeyId";
-            this.TxtSseKeyId.Size = new System.Drawing.Size(421, 20);
-            this.TxtSseKeyId.TabIndex = 6;
+            this.TxtSseKeyId.Size = new System.Drawing.Size(527, 20);
+            this.TxtSseKeyId.TabIndex = 3;
             this.ToolTipMain.SetToolTip(this.TxtSseKeyId, "The ID of the AWS Key Management Service (KMS) master encryption key for this obj" +
         "ect.\r\nIf you leave this field blank then S3 will use a default encryption key.");
             // 
@@ -399,7 +439,7 @@
             this.TxtSseCustomerKeyMd5.Location = new System.Drawing.Point(91, 97);
             this.TxtSseCustomerKeyMd5.Multiline = true;
             this.TxtSseCustomerKeyMd5.Name = "TxtSseCustomerKeyMd5";
-            this.TxtSseCustomerKeyMd5.Size = new System.Drawing.Size(421, 20);
+            this.TxtSseCustomerKeyMd5.Size = new System.Drawing.Size(527, 20);
             this.TxtSseCustomerKeyMd5.TabIndex = 5;
             this.ToolTipMain.SetToolTip(this.TxtSseCustomerKeyMd5, resources.GetString("TxtSseCustomerKeyMd5.ToolTip"));
             // 
@@ -412,8 +452,8 @@
             this.TxtSseCustomerKey.Location = new System.Drawing.Point(91, 71);
             this.TxtSseCustomerKey.Multiline = true;
             this.TxtSseCustomerKey.Name = "TxtSseCustomerKey";
-            this.TxtSseCustomerKey.Size = new System.Drawing.Size(421, 20);
-            this.TxtSseCustomerKey.TabIndex = 3;
+            this.TxtSseCustomerKey.Size = new System.Drawing.Size(527, 20);
+            this.TxtSseCustomerKey.TabIndex = 4;
             this.ToolTipMain.SetToolTip(this.TxtSseCustomerKey, "The new base64-encoded encryption key for Amazon S3 to use in encrypting data.\r\nT" +
         "his value is used to store the object and then is discarded; Amazon does not sto" +
         "re the encryption key.\r\n");
@@ -421,10 +461,12 @@
             // RadioSseKms
             // 
             this.RadioSseKms.AutoSize = true;
+            this.RadioSseKms.Checked = true;
             this.RadioSseKms.Location = new System.Drawing.Point(148, 21);
             this.RadioSseKms.Name = "RadioSseKms";
             this.RadioSseKms.Size = new System.Drawing.Size(76, 17);
-            this.RadioSseKms.TabIndex = 2;
+            this.RadioSseKms.TabIndex = 1;
+            this.RadioSseKms.TabStop = true;
             this.RadioSseKms.Text = "AWS KMS";
             this.ToolTipMain.SetToolTip(this.RadioSseKms, "Object data will be encrypted using a Key Management Service (KMS) key.");
             this.RadioSseKms.UseVisualStyleBackColor = true;
@@ -436,7 +478,7 @@
             this.RadioSseNewKey.Location = new System.Drawing.Point(230, 21);
             this.RadioSseNewKey.Name = "RadioSseNewKey";
             this.RadioSseNewKey.Size = new System.Drawing.Size(68, 17);
-            this.RadioSseNewKey.TabIndex = 1;
+            this.RadioSseNewKey.TabIndex = 2;
             this.RadioSseNewKey.Text = "New Key";
             this.ToolTipMain.SetToolTip(this.RadioSseNewKey, "Object data will be encrypted using a new key that you provide.");
             this.RadioSseNewKey.UseVisualStyleBackColor = true;
@@ -556,8 +598,8 @@
             this.ErrorMain.SetIconPadding(this.TxtWebsite, 3);
             this.TxtWebsite.Location = new System.Drawing.Point(151, 52);
             this.TxtWebsite.Name = "TxtWebsite";
-            this.TxtWebsite.Size = new System.Drawing.Size(361, 20);
-            this.TxtWebsite.TabIndex = 5;
+            this.TxtWebsite.Size = new System.Drawing.Size(467, 20);
+            this.TxtWebsite.TabIndex = 4;
             this.ToolTipMain.SetToolTip(this.TxtWebsite, "If the bucket is configured as a website, then requests for this object are redir" +
         "ected to this URL (possibly another object in the same bucket).");
             // 
@@ -589,7 +631,7 @@
             this.PnlBottom.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PnlBottom.Location = new System.Drawing.Point(3, 655);
             this.PnlBottom.Name = "PnlBottom";
-            this.PnlBottom.Size = new System.Drawing.Size(534, 34);
+            this.PnlBottom.Size = new System.Drawing.Size(640, 34);
             this.PnlBottom.TabIndex = 5;
             // 
             // BtnCancel
@@ -597,7 +639,7 @@
             this.BtnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnCancel.AutoSize = true;
             this.BtnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.BtnCancel.Location = new System.Drawing.Point(456, 8);
+            this.BtnCancel.Location = new System.Drawing.Point(562, 8);
             this.BtnCancel.Name = "BtnCancel";
             this.BtnCancel.Size = new System.Drawing.Size(75, 23);
             this.BtnCancel.TabIndex = 1;
@@ -609,7 +651,7 @@
             this.BtnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnSave.AutoSize = true;
             this.BtnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.BtnSave.Location = new System.Drawing.Point(375, 8);
+            this.BtnSave.Location = new System.Drawing.Point(481, 8);
             this.BtnSave.Name = "BtnSave";
             this.BtnSave.Size = new System.Drawing.Size(75, 23);
             this.BtnSave.TabIndex = 0;
@@ -637,7 +679,7 @@
             this.TblLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.TblLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 135F));
             this.TblLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.TblLayoutMain.Size = new System.Drawing.Size(540, 692);
+            this.TblLayoutMain.Size = new System.Drawing.Size(646, 692);
             this.TblLayoutMain.TabIndex = 0;
             // 
             // PnlTop
@@ -655,52 +697,12 @@
             this.PnlTop.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PnlTop.Location = new System.Drawing.Point(3, 3);
             this.PnlTop.Name = "PnlTop";
-            this.PnlTop.Size = new System.Drawing.Size(534, 100);
+            this.PnlTop.Size = new System.Drawing.Size(640, 100);
             this.PnlTop.TabIndex = 0;
             // 
             // ErrorMain
             // 
             this.ErrorMain.ContainerControl = this;
-            // 
-            // DgvColGranteeType
-            // 
-            this.DgvColGranteeType.HeaderText = "Grantee Type";
-            this.DgvColGranteeType.Items.AddRange(new object[] {
-            "Canonical User ID",
-            "Email Address",
-            "Group"});
-            this.DgvColGranteeType.Name = "DgvColGranteeType";
-            this.DgvColGranteeType.ToolTipText = "The type of grantee.  You may specify grantees by the Email address of an AWS acc" +
-    "ount, the canonical user ID of an AWS account, or the URI of a predefined group." +
-    "";
-            this.DgvColGranteeType.Width = 125;
-            // 
-            // DgvColGrantee
-            // 
-            this.DgvColGrantee.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.DgvColGrantee.HeaderText = "Grantee";
-            this.DgvColGrantee.Name = "DgvColGrantee";
-            // 
-            // DgvColCanRead
-            // 
-            this.DgvColCanRead.HeaderText = "Can Read";
-            this.DgvColCanRead.Name = "DgvColCanRead";
-            this.DgvColCanRead.ToolTipText = "Allow grantee to read the object data and its metadata.";
-            this.DgvColCanRead.Width = 65;
-            // 
-            // DgvColCanReadAcl
-            // 
-            this.DgvColCanReadAcl.HeaderText = "Can Read ACL";
-            this.DgvColCanReadAcl.Name = "DgvColCanReadAcl";
-            this.DgvColCanReadAcl.ToolTipText = "Allow grantee to read the object ACL.";
-            this.DgvColCanReadAcl.Width = 85;
-            // 
-            // DgvColCanWriteAcl
-            // 
-            this.DgvColCanWriteAcl.HeaderText = "Can Write ACL";
-            this.DgvColCanWriteAcl.Name = "DgvColCanWriteAcl";
-            this.DgvColCanWriteAcl.ToolTipText = "Allow grantee to write the ACL for the applicable object.";
-            this.DgvColCanWriteAcl.Width = 85;
             // 
             // AdvancedOptionsForm
             // 
@@ -708,7 +710,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.BtnCancel;
-            this.ClientSize = new System.Drawing.Size(540, 692);
+            this.ClientSize = new System.Drawing.Size(646, 692);
             this.Controls.Add(this.TblLayoutMain);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;

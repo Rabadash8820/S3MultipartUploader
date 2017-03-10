@@ -484,6 +484,7 @@ namespace S3MultipartUploader {
         }
         private void resetUploadCtrls(bool uploading) {
             PnlTop.Enabled = !uploading;
+            BtnChooseDir.Enabled = !uploading;
             ProgressMain.Enabled = uploading;
             BtnStop.Enabled = uploading;
             BtnStart.Enabled = !uploading;

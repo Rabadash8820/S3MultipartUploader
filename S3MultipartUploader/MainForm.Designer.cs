@@ -126,7 +126,7 @@
             this.TblLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.TblLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.TblLayoutMain.Size = new System.Drawing.Size(717, 626);
-            this.TblLayoutMain.TabIndex = 4;
+            this.TblLayoutMain.TabIndex = 0;
             // 
             // SplitMain
             // 
@@ -147,7 +147,8 @@
             this.SplitMain.Panel2.Controls.Add(this.TblLayoutLogs);
             this.SplitMain.Size = new System.Drawing.Size(711, 392);
             this.SplitMain.SplitterDistance = 173;
-            this.SplitMain.TabIndex = 13;
+            this.SplitMain.TabIndex = 1;
+            this.SplitMain.TabStop = false;
             // 
             // TblLayoutLogs
             // 
@@ -162,7 +163,7 @@
             this.TblLayoutLogs.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15F));
             this.TblLayoutLogs.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.TblLayoutLogs.Size = new System.Drawing.Size(711, 215);
-            this.TblLayoutLogs.TabIndex = 1;
+            this.TblLayoutLogs.TabIndex = 0;
             // 
             // LblLogs
             // 
@@ -184,7 +185,7 @@
             this.TreeLog.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1});
             this.TreeLog.Size = new System.Drawing.Size(705, 194);
-            this.TreeLog.TabIndex = 1;
+            this.TreeLog.TabIndex = 0;
             this.ToolTipMain.SetToolTip(this.TreeLog, "Log messages.");
             // 
             // PnlTop
@@ -217,7 +218,7 @@
             this.BtnEditProfile.Location = new System.Drawing.Point(496, 3);
             this.BtnEditProfile.Name = "BtnEditProfile";
             this.BtnEditProfile.Size = new System.Drawing.Size(38, 38);
-            this.BtnEditProfile.TabIndex = 9;
+            this.BtnEditProfile.TabIndex = 2;
             this.ToolTipMain.SetToolTip(this.BtnEditProfile, "Edit the currently selected AWS credentials profile.");
             this.BtnEditProfile.UseVisualStyleBackColor = false;
             this.BtnEditProfile.Click += new System.EventHandler(this.BtnEditProfile_Click);
@@ -231,7 +232,7 @@
             this.BtnDeleteProfile.Location = new System.Drawing.Point(540, 3);
             this.BtnDeleteProfile.Name = "BtnDeleteProfile";
             this.BtnDeleteProfile.Size = new System.Drawing.Size(38, 38);
-            this.BtnDeleteProfile.TabIndex = 8;
+            this.BtnDeleteProfile.TabIndex = 3;
             this.ToolTipMain.SetToolTip(this.BtnDeleteProfile, "Delete the currently selected AWS credentials profile.");
             this.BtnDeleteProfile.UseVisualStyleBackColor = false;
             this.BtnDeleteProfile.Click += new System.EventHandler(this.BtnDeleteProfile_Click);
@@ -259,7 +260,7 @@
             this.ComboRegions.Location = new System.Drawing.Point(218, 53);
             this.ComboRegions.Name = "ComboRegions";
             this.ComboRegions.Size = new System.Drawing.Size(210, 21);
-            this.ComboRegions.TabIndex = 2;
+            this.ComboRegions.TabIndex = 4;
             this.ToolTipMain.SetToolTip(this.ComboRegions, "Choose the AWS region containing the bucket where you want to upload.");
             this.ComboRegions.SelectedIndexChanged += new System.EventHandler(this.ComboRegions_SelectedIndexChanged);
             // 
@@ -283,7 +284,7 @@
             this.BtnOptions.Location = new System.Drawing.Point(3, 3);
             this.BtnOptions.Name = "BtnOptions";
             this.BtnOptions.Size = new System.Drawing.Size(38, 38);
-            this.BtnOptions.TabIndex = 6;
+            this.BtnOptions.TabIndex = 8;
             this.ToolTipMain.SetToolTip(this.BtnOptions, "Advanced options.");
             this.BtnOptions.UseVisualStyleBackColor = true;
             this.BtnOptions.Click += new System.EventHandler(this.BtnOptions_Click);
@@ -314,7 +315,7 @@
             this.ComboBuckets.Location = new System.Drawing.Point(218, 94);
             this.ComboBuckets.Name = "ComboBuckets";
             this.ComboBuckets.Size = new System.Drawing.Size(210, 21);
-            this.ComboBuckets.TabIndex = 3;
+            this.ComboBuckets.TabIndex = 5;
             this.ToolTipMain.SetToolTip(this.ComboBuckets, "Choose one of the buckets available to the chosen AWS profile.");
             this.ComboBuckets.SelectedIndexChanged += new System.EventHandler(this.ComboBucket_SelectedIndexChanged);
             // 
@@ -324,7 +325,7 @@
             this.BtnChooseDir.Location = new System.Drawing.Point(77, 3);
             this.BtnChooseDir.Name = "BtnChooseDir";
             this.BtnChooseDir.Size = new System.Drawing.Size(45, 23);
-            this.BtnChooseDir.TabIndex = 5;
+            this.BtnChooseDir.TabIndex = 0;
             this.BtnChooseDir.Text = "...";
             this.ToolTipMain.SetToolTip(this.BtnChooseDir, "Select the directory containing the parts of the object to upload.");
             this.BtnChooseDir.UseVisualStyleBackColor = true;
@@ -337,7 +338,7 @@
             this.TxtKey.Location = new System.Drawing.Point(218, 135);
             this.TxtKey.Name = "TxtKey";
             this.TxtKey.Size = new System.Drawing.Size(210, 20);
-            this.TxtKey.TabIndex = 4;
+            this.TxtKey.TabIndex = 6;
             this.ToolTipMain.SetToolTip(this.TxtKey, resources.GetString("TxtKey.ToolTip"));
             this.TxtKey.TextChanged += new System.EventHandler(this.TxtKey_TextChanged);
             this.TxtKey.Validating += new System.ComponentModel.CancelEventHandler(this.TxtKey_Validating);
@@ -441,7 +442,7 @@
             this.ListParts.Location = new System.Drawing.Point(3, 28);
             this.ListParts.Name = "ListParts";
             this.ListParts.Size = new System.Drawing.Size(705, 147);
-            this.ListParts.TabIndex = 3;
+            this.ListParts.TabIndex = 1;
             this.ToolTipMain.SetToolTip(this.ListParts, "A list of all the object parts in the selected directory.");
             // 
             // cvStartUpload
