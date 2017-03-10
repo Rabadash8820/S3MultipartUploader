@@ -136,65 +136,6 @@ namespace S3MultipartUploader {
             bool uploadAsync = ChkAsynchronous.Checked;
             return uploadAsync;
         }
-        private InitiateMultipartUploadRequest requestFromCtrls() {
-            InitiateMultipartUploadRequest request = new InitiateMultipartUploadRequest();
-
-            // Set storage class from control values
-            if (RadioReducedRedund.Checked)
-                request.StorageClass = S3StorageClass.ReducedRedundancy;
-            else if (RadioStandardIA.Checked)
-                request.StorageClass = S3StorageClass.StandardInfrequentAccess;
-            else
-                request.StorageClass = S3StorageClass.Standard;
-
-            // Set other fields from control values
-            request.WebsiteRedirectLocation = TxtWebsite.Text;
-            request.RequestPayer = (ChkRequestPayer.Checked ? RequestPayer.Requester : null);
-
-            // Set metadata from control values
-            IEnumerable<DataGridViewRow> metaRows = DgvMetadata.Rows.Cast<DataGridViewRow>().Where(r => !r.IsNewRow);
-            foreach (DataGridViewRow row in metaRows) {
-                string key = row.Cells[DgvColMetadataKey.Index].Value.ToString();
-                string val = row.Cells[DgvColMetadataValue.Index].Value.ToString();
-                request.Metadata.Add(key, val);
-            }
-
-            // Set headers from control values
-            request.Headers.ContentType = TxtType.Text;
-            request.Headers.ContentDisposition = TxtDisposition.Text;
-            request.Headers.ContentEncoding = TxtEncoding.Text;
-            request.Headers.Expires = DatePickerExpires.Value.ToUniversalTime();
-
-            // Initialize access control
-            bool useCannedAcl = ChkUseCannedACLs.Checked;
-            request.CannedACL = (useCannedAcl ? S3CannedACL.FindValue(ComboAcl.Text) : null);
-            if (useCannedAcl)
-                request.Grants = null;
-            else {
-                IEnumerable<S3Grant> grants = DgvGrants.Rows.Cast<DataGridViewRow>()
-                                                       .Where(r => !r.IsNewRow)
-                                                       .SelectMany(r => grantsFromRow(r));
-                request.Grants.AddRange(grants);
-            }
-
-            // Initialize server side encryption method
-            bool kms = RadioSseKms.Checked;
-            bool newKey = RadioSseNewKey.Checked;
-            if (kms)
-                request.ServerSideEncryptionMethod = ServerSideEncryptionMethod.AWSKMS;
-            else if (newKey)
-                request.ServerSideEncryptionMethod = ServerSideEncryptionMethod.AES256;
-            else
-                request.ServerSideEncryptionMethod = ServerSideEncryptionMethod.None;
-
-            // Set server side encryption from control values
-            request.ServerSideEncryptionKeyManagementServiceKeyId = (kms ? TxtSseKeyId.Text : null);
-            request.ServerSideEncryptionCustomerMethod = (newKey ? ServerSideEncryptionCustomerMethod.AES256 : ServerSideEncryptionCustomerMethod.None);
-            request.ServerSideEncryptionCustomerProvidedKey = (newKey ? TxtSseCustomerKey.Text : null);
-            request.ServerSideEncryptionCustomerProvidedKeyMD5 = (newKey ? TxtSseCustomerKeyMd5.Text : null);
-
-            return request;
-        }
 
         private DataGridViewRow rowFromGrants(S3Grantee grantee, IEnumerable<S3Permission> permissions) {
             // Create the S3Grantee from the Canonical User ID, Email Address, or Group (whichever was provided)
@@ -268,6 +209,66 @@ namespace S3MultipartUploader {
             }
 
             return grants;
+        }
+
+        private InitiateMultipartUploadRequest requestFromCtrls() {
+            InitiateMultipartUploadRequest request = new InitiateMultipartUploadRequest();
+
+            // Set storage class from control values
+            if (RadioReducedRedund.Checked)
+                request.StorageClass = S3StorageClass.ReducedRedundancy;
+            else if (RadioStandardIA.Checked)
+                request.StorageClass = S3StorageClass.StandardInfrequentAccess;
+            else
+                request.StorageClass = S3StorageClass.Standard;
+
+            // Set other fields from control values
+            request.WebsiteRedirectLocation = TxtWebsite.Text;
+            request.RequestPayer = (ChkRequestPayer.Checked ? RequestPayer.Requester : null);
+
+            // Set metadata from control values
+            IEnumerable<DataGridViewRow> metaRows = DgvMetadata.Rows.Cast<DataGridViewRow>().Where(r => !r.IsNewRow);
+            foreach (DataGridViewRow row in metaRows) {
+                string key = row.Cells[DgvColMetadataKey.Index].Value.ToString();
+                string val = row.Cells[DgvColMetadataValue.Index].Value.ToString();
+                request.Metadata.Add(key, val);
+            }
+
+            // Set headers from control values
+            request.Headers.ContentType = TxtType.Text;
+            request.Headers.ContentDisposition = TxtDisposition.Text;
+            request.Headers.ContentEncoding = TxtEncoding.Text;
+            request.Headers.Expires = DatePickerExpires.Value.ToUniversalTime();
+
+            // Initialize access control
+            bool useCannedAcl = ChkUseCannedACLs.Checked;
+            request.CannedACL = (useCannedAcl ? S3CannedACL.FindValue(ComboAcl.Text) : null);
+            if (useCannedAcl)
+                request.Grants = null;
+            else {
+                IEnumerable<S3Grant> grants = DgvGrants.Rows.Cast<DataGridViewRow>()
+                                                       .Where(r => !r.IsNewRow)
+                                                       .SelectMany(r => grantsFromRow(r));
+                request.Grants.AddRange(grants);
+            }
+
+            // Initialize server side encryption method
+            bool kms = RadioSseKms.Checked;
+            bool newKey = RadioSseNewKey.Checked;
+            if (kms)
+                request.ServerSideEncryptionMethod = ServerSideEncryptionMethod.AWSKMS;
+            else if (newKey)
+                request.ServerSideEncryptionMethod = ServerSideEncryptionMethod.AES256;
+            else
+                request.ServerSideEncryptionMethod = ServerSideEncryptionMethod.None;
+
+            // Set server side encryption from control values
+            request.ServerSideEncryptionKeyManagementServiceKeyId = (kms ? TxtSseKeyId.Text : null);
+            request.ServerSideEncryptionCustomerMethod = (newKey ? ServerSideEncryptionCustomerMethod.AES256 : ServerSideEncryptionCustomerMethod.None);
+            request.ServerSideEncryptionCustomerProvidedKey = (newKey ? TxtSseCustomerKey.Text : null);
+            request.ServerSideEncryptionCustomerProvidedKeyMD5 = (newKey ? TxtSseCustomerKeyMd5.Text : null);
+
+            return request;
         }
 
     }

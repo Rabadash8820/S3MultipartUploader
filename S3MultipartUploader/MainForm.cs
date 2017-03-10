@@ -479,8 +479,7 @@ namespace S3MultipartUploader {
             ListParts.Items.Clear();
             if (valid)
                 ListParts.Items.AddRange(parts);
-
-            TblLayoutParts.Enabled = valid;
+            
             cvStartUpload.MarkValidity(ListParts, valid);
         }
         private void resetUploadCtrls(bool uploading) {
